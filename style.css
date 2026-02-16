@@ -65,12 +65,12 @@ body {
 }
 
 .nav-logo {
-  height: 1.4em; /* 🔥 Matches text height automatically */
+  height: 1em; /* 🔥 Matches text height automatically */
   width: auto;
   display: block;
   object-fit: contain;
-  transform: translateY(0.1em);
-  margin-right: -0.3em;
+  /* transform: translateY(0.1em); */
+  margin-right: 0.2em;
   filter: drop-shadow(0 0 12px rgba(0, 242, 255, 0.6));
 }
 
@@ -676,5 +676,203 @@ body {
 @keyframes fadeInPage {
   to {
     opacity: 1;
+  }
+}
+/* ============================= */
+/* 📱 MOBILE RESPONSIVE FIX */
+/* ============================= */
+
+@media (max-width: 768px) {
+  /* ================= NAVBAR ================= */
+
+  .navbar {
+    padding: 1rem 1.5rem;
+  }
+
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    display: flex;
+    align-items: center; /* 🔥 Perfect vertical alignment */
+    gap: 8px;
+    font-family: "Etna";
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 1; /* 🔥 Prevent baseline shift */
+  }
+
+  .nav-logo {
+    height: 28px; /* 🔥 Fixed height instead of em */
+    width: auto;
+    object-fit: contain;
+    transform: none; /* ❌ REMOVE translateY */
+    margin: 0; /* Clean reset */
+  }
+
+  .hamburger {
+    display: block;
+    font-size: 1.8rem;
+  }
+  /* Full-width dropdown */
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #020617;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 0;
+    gap: 1.2rem;
+    display: none;
+    border-top: 1px solid rgba(0, 242, 255, 0.2);
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-links a {
+    font-size: 1rem;
+  }
+
+  /* ================= HERO ================= */
+
+  .hero {
+    padding: 120px 1.5rem 3rem;
+    text-align: center;
+  }
+
+  .main-title {
+    font-size: clamp(2.2rem, 9vw, 3.5rem);
+    letter-spacing: 0.25rem;
+  }
+
+  .gradient-text {
+    padding-left: 0;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+  }
+
+  /* ================= BUTTONS ================= */
+
+  .cta-group {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  /* ================= COUNTDOWN ================= */
+
+  .countdown {
+    position: relative;
+    transform: none;
+    left: auto;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .countdown span {
+    font-size: 1.6rem;
+  }
+
+  .countdown p {
+    font-size: 0.65rem;
+  }
+
+  /* ================= TRACKS ================= */
+
+  .tracks {
+    padding: 4rem 1.2rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .track-card {
+    padding: 1.8rem;
+  }
+
+  /* ================= ABOUT ================= */
+
+  .about {
+    padding: 4rem 1.2rem;
+  }
+
+  .about p {
+    font-size: 0.95rem;
+  }
+
+  /* ================= TIMELINE ================= */
+
+  .timeline::before {
+    left: 12px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding-left: 2.5rem;
+    padding-right: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even) {
+    left: 0;
+    text-align: left;
+  }
+
+  .timeline-dot {
+    left: 12px;
+    transform: none;
+  }
+
+  /* ================= SPONSORS ================= */
+
+  .sponsor-track {
+    gap: 1.2rem;
+    animation-duration: 30s;
+  }
+
+  .sponsor {
+    min-width: 140px;
+    padding: 1.2rem;
+  }
+
+  /* ================= FOOTER ================= */
+
+  .footer {
+    padding: 2rem 1rem;
+  }
+
+  .footer h3 {
+    font-size: 1.4rem;
+  }
+
+  /* ================= LOADER ================= */
+
+  #loader h1 {
+    font-size: 2.2rem;
+    letter-spacing: 3px;
+    text-align: center;
+  }
+  .register-btn {
+    display: none;
   }
 }
