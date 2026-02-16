@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INNOU 1.0 | 2026</title>
+    <link rel="icon" type="image/png" href="favIcon.png" />
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- 🔥 LOADER -->
+    <div id="loader">
+      <h1>INNOU <span>1.0</span></h1>
+    </div>
+    <div id="progress-bar"></div>
+
+    <!-- 3D CANVAS -->
+    <div id="canvas-container"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <img src="logoIcon.png" alt="INNOU Logo" class="nav-logo" />
+          <p class="para">INNOU</p>
+          <span class="gradient-text">1.0</span>
+        </div>
+
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#home-events">Events</a></li>
+          <li><a href="#competitions">Competitions</a></li>
+          <li><a href="#schedule">Schedule</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="hamburger">☰</div>
+
+        <a href="#" class="btn-primary register-btn">Register Now</a>
+      </div>
+    </nav>
+
+    <!-- HOME -->
+    <section id="home" class="hero">
+      <div class="hero-overlay">
+        <div class="title-wrapper">
+          <h1 class="main-title">
+            INNOU <span class="gradient-text">1.0</span>
+          </h1>
+          <div class="title-line"></div>
+        </div>
+
+        <p class="subtitle">The intersection of Technology & Business</p>
+
+        <div class="cta-group">
+          <a href="#home-events" class="btn-primary">View Track</a>
+          <a href="#about" class="btn-outline">About Fest</a>
+        </div>
+
+        <!-- COUNTDOWN -->
+        <div class="countdown">
+          <div>
+            <span id="days">00</span>
+            <p>Days</p>
+          </div>
+          <div>
+            <span id="hours">00</span>
+            <p>Hours</p>
+          </div>
+          <div>
+            <span id="minutes">00</span>
+            <p>Minutes</p>
+          </div>
+          <div>
+            <span id="seconds">00</span>
+            <p>Seconds</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="section-divider"></div>
+
+    <!-- EVENTS -->
+    <section id="home-events" class="tracks reveal">
+      <h2 class="section-title">Select Your Domain</h2>
+      <div class="track-grid">
+        <div class="track-card bca">
+          <div class="icon">⌨️</div>
+          <h3>The Silicon Hub</h3>
+          <p>For the BCA innovators. Coding, AI, and Gaming.</p>
+        </div>
+        <div class="track-card bba">
+          <div class="icon">📊</div>
+          <h3>The Wall Street</h3>
+          <p>For the BBA strategists. Stocks, Sharks, and Management.</p>
+        </div>
+      </div>
+    </section>
+    <div class="section-divider"></div>
+
+    <!-- ABOUT -->
+    <section class="about reveal" id="about">
+      <div class="about-container">
+        <h2 class="section-title">About INNOU</h2>
+        <p>
+          INNOU 1.0 is a fusion of technology and business brilliance, bringing
+          innovators, coders, strategists and creators together under one
+          futuristic platform.
+        </p>
+      </div>
+    </section>
+    <div class="section-divider"></div>
+
+    <!-- COMPETITIONS -->
+    <section id="competitions" class="tracks reveal">
+      <h2 class="section-title">Competitions</h2>
+      <div class="track-grid">
+        <div class="track-card">
+          <h3>Hackathon</h3>
+          <p>Build innovative tech solutions under pressure.</p>
+        </div>
+        <div class="track-card">
+          <h3>Debugging Challenge</h3>
+          <p>Find and fix errors faster than anyone else.</p>
+        </div>
+      </div>
+    </section>
+    <div class="section-divider"></div>
+
+    <!-- SCHEDULE -->
+    <section id="schedule" class="timeline-section reveal">
+      <h2 class="section-title">Event Schedule</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Day 1</h3>
+            <p>Hackathon & Coding Rounds</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Day 2</h3>
+            <p>Final Presentations & Awards</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="section-divider"></div>
+
+    <!-- SPONSORS -->
+    <section id="sponsors" class="tracks reveal">
+      <h2 class="section-title">Our Sponsors</h2>
+      <div class="sponsor-wrapper">
+        <div class="sponsor-track">
+          <div class="sponsor">Sponsor 1</div>
+          <div class="sponsor">Sponsor 2</div>
+          <div class="sponsor">Sponsor 3</div>
+          <div class="sponsor">Sponsor 4</div>
+
+          <!-- duplicate for smooth loop -->
+          <div class="sponsor">Sponsor 1</div>
+          <div class="sponsor">Sponsor 2</div>
+          <div class="sponsor">Sponsor 3</div>
+          <div class="sponsor">Sponsor 4</div>
+        </div>
+      </div>
+    </section>
+    <div class="section-divider"></div>
+
+    <!-- TEAM -->
+    <section id="team" class="tracks reveal">
+      <h2 class="section-title">Meet The Team</h2>
+      <div class="track-grid">
+        <div class="track-card">
+          <h3>Coordinator Name</h3>
+          <p>Event Head</p>
+        </div>
+        <div class="track-card">
+          <h3>Technical Lead</h3>
+          <p>Innovation Director</p>
+        </div>
+      </div>
+    </section>
+    <div class="section-divider"></div>
+
+    <!-- FAQ -->
+    <section id="faq" class="tracks reveal">
+      <h2 class="section-title">FAQs</h2>
+      <div class="track-card">
+        <h3>Who can participate?</h3>
+        <p>Open for all BCA & BBA students.</p>
+      </div>
+    </section>
+    <div class="section-divider"></div>
+
+    <!-- CONTACT -->
+    <section id="contact" class="tracks reveal">
+      <h2 class="section-title">Contact Us</h2>
+
+      <div class="track-card contact-card">
+        <p><i class="fa-solid fa-envelope"></i> innou@fest.com</p>
+        <p><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+
+        <div class="social-icons">
+          <a href="mailto:innou@fest.com" target="_blank">
+            <i class="fa-solid fa-envelope"></i>
+          </a>
+
+          <a href="https://instagram.com/" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+
+          <a href="https://twitter.com/" target="_blank">
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+
+          <a href="https://facebook.com/" target="_blank">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+
+          <a href="https://wa.me/919876543210" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-content">
+        <h3>INNOU 1.0</h3>
+        <p>© 2026 All Rights Reserved</p>
+        <div class="footer-social">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- REGISTER MODAL -->
+    <div class="modal" id="registerModal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Register for INNOU 1.0</h2>
+        <input type="text" placeholder="Your Name" />
+        <input type="email" placeholder="Email" />
+        <button class="btn-primary">Submit</button>
+      </div>
+    </div>
+    <div class="cursor-glow"></div>
+    <div class="particles"></div>
+
+    <script type="module" src="hero.js"></script>
+  </body>
+</html>
