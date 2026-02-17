@@ -706,7 +706,7 @@ body {
   }
 
   .nav-logo {
-    height: 28px; /* 🔥 Fixed height instead of em */
+    height: 1em; /* 🔥 Fixed height instead of em */
     width: auto;
     object-fit: contain;
     transform: none; /* ❌ REMOVE translateY */
