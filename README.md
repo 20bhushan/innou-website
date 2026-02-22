@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+INNOU Website – Maintenance Guide
+📌 Project Overview
 
-## Getting Started
+This website is built using:
 
-First, run the development server:
+Next.js (App Router)
 
-```bash
+Three.js (3D background engine)
+
+GSAP (animation timing)
+
+The 3D animation system is modular and must NOT be modified unless you fully understand how it works.
+
+🚀 How To Run The Project
+Install dependencies
+npm install
+Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
+http://localhost:3000
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+🔧 How To Update For Next Year
+1️⃣ Update Event Details
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Edit this file:
 
-## Learn More
+src/config/eventConfig.js
 
-To learn more about Next.js, take a look at the following resources:
+You can safely change:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Event name
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Year
 
-## Deploy on Vercel
+Countdown date
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Contact details
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Sponsor list
+
+Do NOT edit animation files for this.
+
+2️⃣ Update Text or Sections
+
+Edit files inside:
+
+src/components/sections/
+
+You can:
+
+Change text
+
+Replace images
+
+Add or remove sections
+
+3️⃣ Update Colors
+
+Edit:
+
+src/config/themeConfig.js
+
+Change:
+
+Primary color
+
+Secondary color
+
+Background color
+
+⚠ DO NOT MODIFY
+src/components/three/
+
+This folder contains:
+
+Particle morph engine
+
+Floating objects system
+
+Camera animation
+
+Rendering system
+
+Changing these files may break the entire website.
+
+Only modify if you fully understand Three.js.
+
+🛠 If Something Breaks
+
+Check browser console for errors.
+
+Ensure images exist in /public.
+
+Revert changes inside three/ folder if animation breaks.
+
+🏗 Project Structure
+src/
+components/
+sections/ ← Editable
+ui/ ← Editable
+three/ ← Do Not Modify
+config/ ← Safe to Edit
+👨‍💻 Maintained By
+
+INNOU Technical Team
+Year: 2026
