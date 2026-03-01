@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -14,55 +15,65 @@ export default function Navbar() {
     }
 
     document.addEventListener("click", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
+    return () => document.removeEventListener("click", handleOutsideClick);
   }, [open]);
 
   return (
     <nav className="navbar">
       <div className="nav-container">
-        <div className="logo">
+        {/* Logo → goes to homepage */}
+        <Link href="/" className="logo">
           <img src="/logoIcon.png" alt="INNOU Logo" className="nav-logo" />
           <div className="logo-text">
             <span className="para">INNOU</span>
             <span className="gradient-text">1.0</span>
           </div>
-        </div>
+        </Link>
 
-        {/* IMPORTANT: ref only on nav-links wrapper */}
+        {/* Navigation Links */}
         <ul ref={navRef} className={`nav-links ${open ? "show" : ""}`}>
           <li>
-            <a href="#home" onClick={() => setOpen(false)}>
+            <Link href="/" onClick={() => setOpen(false)}>
               Home
-            </a>
+            </Link>
           </li>
+
           <li>
-            <a href="#home-events" onClick={() => setOpen(false)}>
-              Events
-            </a>
+            <Link href="/schedule" onClick={() => setOpen(false)}>
+              Schedule
+            </Link>
           </li>
+
           <li>
-            <a href="#competitions" onClick={() => setOpen(false)}>
+            <Link href="/competitions" onClick={() => setOpen(false)}>
               Competitions
-            </a>
+            </Link>
           </li>
+
           <li>
-            <a href="#sponsors" onClick={() => setOpen(false)}>
+            <Link href="/sponsors" onClick={() => setOpen(false)}>
               Sponsors
-            </a>
+            </Link>
           </li>
+
           <li>
-            <a href="#contact" onClick={() => setOpen(false)}>
+            <Link href="/contact" onClick={() => setOpen(false)}>
               Contact
-            </a>
+            </Link>
           </li>
         </ul>
-        {/* Register Button - Desktop */}
-        <a href="#register" className="btn-primary register-btn">
+
+        {/* Register Button */}
+        <a
+          href="https://forms.google.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary register-btn"
+        >
           Register Now
         </a>
+
+        {/* Hamburger */}
         <div className="hamburger" onClick={() => setOpen((prev) => !prev)}>
           ☰
         </div>

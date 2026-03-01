@@ -1,5 +1,6 @@
 import "./globals.css";
-
+import Navbar from "@/components/sections/Navbar.js";
+import Engine from "@/components/three/Engine.js";
 export const metadata = {
   title: "INNOU 1.0 | 2026",
   icons: {
@@ -25,7 +26,15 @@ export default function RootLayout({ children }) {
         />
       </head>
 
-      <body>{children}</body>
+      <body>
+        {/* 3D Background Always Mounted */}
+        <Engine />
+
+        {/* Navbar Always Visible */}
+        <Navbar />
+
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Engine from "./Engine";
+import Engine from "./CoreEngine";
 
 export default function ThreeCanvas() {
   const containerRef = useRef(null);

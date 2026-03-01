@@ -62,6 +62,7 @@ body {
   font-weight: 800;
   letter-spacing: 3px;
   text-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+  text-decoration: none;
 }
 
 .nav-logo {
@@ -905,4 +906,30 @@ body {
   .register-btn {
     display: none;
   }
+}
+.competition-section {
+  max-width: 1000px;
+  margin: 0 auto 80px auto;
+  padding: 2.5rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: 0.4s ease;
+}
+
+.competition-section:hover {
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 40px rgba(188, 112, 255, 0.4);
+}
+
+.competition-section h2,
+.competition-section h3 {
+  margin-bottom: 1rem;
+  color: var(--neon-cyan);
+}
+
+.competition-section ul {
+  padding-left: 20px;
+  line-height: 1.8;
 }
