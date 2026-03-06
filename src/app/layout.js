@@ -1,4 +1,6 @@
 import "./globals.css";
+import "../css/events.css";
+import "../css/rules.css";
 import Navbar from "@/components/sections/Navbar.js";
 import Engine from "@/components/three/Engine.js";
 export const metadata = {

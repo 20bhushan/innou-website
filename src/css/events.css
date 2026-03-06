@@ -1,0 +1,343 @@
+/* ================= GLOBAL ================= */
+
+.events-body {
+  font-family: "Orbitron", sans-serif;
+
+  background:
+    radial-gradient(circle at 50% 0%, rgba(0, 242, 255, 0.12), transparent 60%),
+    linear-gradient(180deg, #020617 0%, #01030a 100%);
+
+  min-height: 100vh;
+
+  padding: 120px 20px;
+
+  color: white;
+
+  overflow-x: hidden;
+}
+
+/* ================= GRID BACKGROUND ================= */
+
+.events-body::before {
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  background:
+    linear-gradient(rgba(0, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.06) 1px, transparent 1px);
+
+  background-size: 120px 120px;
+
+  opacity: 0.25;
+
+  pointer-events: none;
+
+  z-index: -2;
+}
+
+/* ================= SECTION TITLE ================= */
+
+.events-title {
+  text-align: center;
+
+  font-size: 2.5rem;
+
+  letter-spacing: 8px;
+
+  margin-bottom: 80px;
+}
+
+.events-title span {
+  color: #00f2ff;
+}
+
+/* ================= GRID ================= */
+
+.events-grid {
+  max-width: 1300px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+  gap: 40px;
+}
+
+/* ================= EVENT CARD ================= */
+
+.event-card {
+  position: relative;
+
+  height: 460px;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  background: #020617;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  transition: 0.4s;
+}
+
+/* Hover lift */
+
+.event-card:hover {
+  transform: translateY(-15px) scale(1.02);
+
+  box-shadow:
+    0 0 40px var(--glow-soft),
+    0 0 70px var(--glow-fade);
+}
+
+/* Animated border */
+
+.event-card::before {
+  content: "";
+
+  position: absolute;
+
+  inset: -2px;
+
+  border-radius: 20px;
+
+  padding: 2px;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    var(--glow-color),
+    transparent
+  );
+
+  background-size: 300% 300%;
+
+  animation: borderFlow 6s linear infinite;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+
+  -webkit-mask-composite: xor;
+
+  mask-composite: exclude;
+
+  opacity: 0.5;
+}
+
+@keyframes borderFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+/* ================= CARD CONTENT ================= */
+
+.event-content {
+  height: 100%;
+
+  padding: 30px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  text-align: center;
+}
+
+.event-title {
+  font-size: 1.5rem;
+
+  letter-spacing: 2px;
+}
+
+.event-subtitle {
+  font-size: 0.8rem;
+
+  opacity: 0.8;
+
+  letter-spacing: 2px;
+}
+
+/* ================= PRIZE ================= */
+
+.event-prize {
+  background: rgba(255, 255, 255, 0.05);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  padding: 15px;
+
+  border-radius: 10px;
+}
+
+.event-prize span {
+  font-size: 12px;
+
+  opacity: 0.7;
+}
+
+.event-prize h3 {
+  font-size: 1.8rem;
+
+  color: #ffd166;
+}
+
+/* ================= BUTTONS ================= */
+
+.event-buttons {
+  display: flex;
+
+  gap: 10px;
+}
+
+/* RULE BUTTON */
+
+.btn-outline {
+  flex: 1;
+
+  padding: 10px 0;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  text-decoration: none;
+
+  color: white;
+
+  transition: 0.3s;
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* REGISTER BUTTON */
+
+.btn-primary {
+  flex: 1;
+
+  padding: 10px 0;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  border: none;
+
+  background: var(--glow-color);
+
+  color: #020617;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: transparent;
+
+  color: var(--glow-color);
+
+  box-shadow:
+    inset 0 0 0 2px var(--glow-color),
+    0 0 20px var(--glow-soft);
+}
+
+/* ================= EVENT COLORS ================= */
+
+.event-hackathon {
+  --glow-color: #00f2ff;
+  --glow-soft: rgba(0, 242, 255, 0.4);
+  --glow-fade: rgba(0, 242, 255, 0.2);
+}
+
+.event-business {
+  --glow-color: #38bdf8;
+  --glow-soft: rgba(56, 189, 248, 0.4);
+  --glow-fade: rgba(56, 189, 248, 0.2);
+}
+
+.event-debug {
+  --glow-color: #d400ff;
+  --glow-soft: rgba(212, 0, 255, 0.4);
+  --glow-fade: rgba(212, 0, 255, 0.2);
+}
+
+.event-typing {
+  --glow-color: #00ff88;
+  --glow-soft: rgba(0, 255, 136, 0.4);
+  --glow-fade: rgba(0, 255, 136, 0.2);
+}
+
+.event-bgmi {
+  --glow-color: #ff3c3c;
+  --glow-soft: rgba(255, 60, 60, 0.4);
+  --glow-fade: rgba(255, 60, 60, 0.2);
+}
+
+.event-mlbb {
+  --glow-color: #ffcc00;
+  --glow-soft: rgba(255, 204, 0, 0.4);
+  --glow-fade: rgba(255, 204, 0, 0.2);
+}
+
+.event-cosplay {
+  --glow-color: #ff66cc;
+  --glow-soft: rgba(255, 102, 204, 0.4);
+  --glow-fade: rgba(255, 102, 204, 0.2);
+}
+
+.event-dance {
+  --glow-color: #66ccff;
+  --glow-soft: rgba(102, 204, 255, 0.4);
+  --glow-fade: rgba(102, 204, 255, 0.2);
+}
+
+.event-reels {
+  --glow-color: #ff8800;
+  --glow-soft: rgba(255, 136, 0, 0.4);
+  --glow-fade: rgba(255, 136, 0, 0.2);
+}
+
+.event-treasure {
+  --glow-color: #00ffaa;
+  --glow-soft: rgba(0, 255, 170, 0.4);
+  --glow-fade: rgba(0, 255, 170, 0.2);
+}
+
+.event-run {
+  --glow-color: #00ffcc;
+  --glow-soft: rgba(0, 255, 204, 0.4);
+  --glow-fade: rgba(0, 255, 204, 0.2);
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 700px) {
+  .events-title {
+    font-size: 1.8rem;
+  }
+
+  .event-card {
+    height: auto;
+    min-height: 420px;
+  }
+}
