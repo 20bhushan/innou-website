@@ -6,7 +6,6 @@ import ThreeCanvas from "@/components/three/ThreeCanvas";
 import initDomEffects from "@/components/three/DomEffects";
 
 import Loader from "@/components/sections/Loader";
-import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
 import Events from "@/components/sections/Events";
 import About from "@/components/sections/About";
@@ -29,15 +28,11 @@ export default function Home() {
 
       {/* Loader */}
       <Loader />
-
-      {/* Navigation */}
-      <Navbar />
-
       {/* Main Sections */}
       <Hero />
       <Events />
       <About />
-      <Competitions />
+      <Competitions marquee />
       <Schedule />
       <Sponsors />
       <Contact />

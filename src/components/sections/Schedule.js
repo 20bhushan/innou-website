@@ -1,11 +1,9 @@
 "use client";
 
+import { eventConfig } from "@/config/eventConfig";
+
 export default function Schedule() {
-  const days = [
-    { title: "Day 1", desc: "Opening Ceremony & Workshops" },
-    { title: "Day 2", desc: "Competitions & Final Presentations" },
-    { title: "Day 3", desc: "Networking & Closing Ceremony" },
-  ];
+  const days = eventConfig.schedule || [];
 
   return (
     <section id="schedule" className="timeline-section reveal">

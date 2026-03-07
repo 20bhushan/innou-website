@@ -1,12 +1,9 @@
 "use client";
 
+import { eventConfig } from "@/config/eventConfig";
+
 export default function Sponsors() {
-  const sponsors = [
-    { name: "TechCorp" },
-    { name: "InnovateX" },
-    { name: "FutureLabs" },
-    { name: "CodeWorks" },
-  ];
+  const sponsors = eventConfig.sponsors || [];
 
   return (
     <section id="sponsors" className="tracks reveal">

@@ -1,8 +1,8 @@
 import "./globals.css";
 import "../css/events.css";
 import "../css/rules.css";
+import BackgroundController from "@/components/three/BackgroundController";
 import Navbar from "@/components/sections/Navbar.js";
-import Engine from "@/components/three/Engine.js";
 export const metadata = {
   title: "INNOU 1.0 | 2026",
   icons: {
@@ -29,9 +29,8 @@ export default function RootLayout({ children }) {
       </head>
 
       <body>
-        {/* 3D Background Always Mounted */}
-        <Engine />
-
+        {/* Smart Background Controller */}
+        <BackgroundController />
         {/* Navbar Always Visible */}
         <Navbar />
 
