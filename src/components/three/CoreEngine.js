@@ -31,10 +31,10 @@ import { UnrealBloomPass } from "three-stdlib";
 export default class CoreEngine {
   constructor(container,options={}) {
     this.container = container;
-this.isMobile=options.isMobile||false;
-this.clock=new THREE.Clock();
-this.frameInterval=this.isMobile?1/30:1/60;
-this.lastframe=0;
+    this.isMobile=options.isMobile||false;
+    this.clock=new THREE.Clock();
+    this.frameInterval=this.isMobile?1/30:1/60;
+    this.lastFrame=0;
     this.scene = null;
     this.camera = null;
     this.renderer = null;
@@ -152,8 +152,11 @@ this.lastframe=0;
   /* ================= PARTICLES ================= */
 
   initParticles() {
+    const screenWidth=window.innerWidth;
+    const scaleFactor=Math.min(Math.max(screenWidth/1200,0.45),1);
+    const sphereRadius=260*scaleFactor;
+    const SAMPLE_STEP=Math.round(3/scaleFactor);
     const LOGO_SRC = "/logo.png";
-    const SAMPLE_STEP = this.isMobile?6:3;
     const MORPH_TIME = 3;
 
     let geometry;
@@ -213,9 +216,9 @@ this.lastframe=0;
         const theta = 2 * Math.PI * u;
         const phi = Math.acos(2 * v - 1);
 
-        spherePos[i3] = 260 * Math.sin(phi) * Math.cos(theta);
-        spherePos[i3 + 1] = 260 * Math.sin(phi) * Math.sin(theta);
-        spherePos[i3 + 2] = 260 * Math.cos(phi);
+        spherePos[i3] = sphereRadius^Math.sin(phi)*Math.cos(theta);
+        spherePos[i3 + 1] = sphereRadius^Math.sin(phi)*Math.sin(theta);
+        spherePos[i3 + 2] = sphereRadius*Math.cos(phi);
 
         // Scatter
         scatterPos[i3] = (Math.random() - 0.5) * 1500;
@@ -413,8 +416,8 @@ const objectCount=this.isMobile?80:300;
   animate = () => {
     requestAnimationFrame(this.animate);
 const elapsed=this.clock.getElapsedTime();
-if(elapsed-this.lastframe<this.frameInterval)return;
-this.lastframe=elapsed;
+if(elapsed-this.lastFrame<this.frameInterval)return;
+this.lastFrame=elapsed;
     /* PARTICLE ROTATION */
     if (this.particles) {
       this.particles.rotation.y +=this.isMobile?0.004: 0.008;
