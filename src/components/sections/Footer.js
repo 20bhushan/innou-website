@@ -21,10 +21,6 @@ export default function Footer() {
             <FaInstagram />
           </a>
 
-          <a href="#">
-            <FaXTwitter />
-          </a>
-
           <a href="mailto:innoujgc@gmail.com">
             <FaEnvelope />
           </a>
