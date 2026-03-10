@@ -31,7 +31,8 @@ import { UnrealBloomPass } from "three-stdlib";
 export default class CoreEngine {
   constructor(container,options={}) {
     this.container = container;
-    this.isMobile=options.isMobile||false;
+    this.isMobile=options.isMobile||window.innerWidth<768;
+    this.lowerPowerdevices=navigator.hardwareConcurrency<=4||window.devicePixelRatio>2||this.isMobile;
     this.clock=new THREE.Clock();
     this.frameInterval=this.isMobile?1/30:1/60;
     this.lastFrame=0;
@@ -89,7 +90,7 @@ export default class CoreEngine {
 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    this.renderer.setPixelRatio(this.lowerPowerdevices?Math.min(window.devicePixelRatio,1):Math.min(window.devicePixelRatio,1.5));
 
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
@@ -107,7 +108,7 @@ export default class CoreEngine {
 
     const bloom = new UnrealBloomPass(
       new THREE.Vector2(window.innerWidth, window.innerHeight),
-      1.2,
+      this.lowerPowerdevices?0.7:0.2,
       0.6,
       0.4,
     );
@@ -242,7 +243,7 @@ export default class CoreEngine {
 
       const material = new THREE.PointsMaterial({
         color: 0xffffff,
-        size: 4,
+        size: this.lowerPowerdevices?3:4,
         map: new THREE.TextureLoader().load(
           "https://threejs.org/examples/textures/sprites/circle.png",
         ),
@@ -370,7 +371,7 @@ export default class CoreEngine {
 
       return group;
     };
-const objectCount=this.isMobile?80:300;
+const objectCount=Math.min(Math.max(Math.round((window.innerWidth/1200)*300),80),300);
     for (let i = 0; i < objectCount; i++) {
       let obj;
       const rand = Math.random();
@@ -455,7 +456,7 @@ this.lastFrame=elapsed;
 
         obj.rotation.y += obj.userData.rotSpeed;
 
-        obj.position.z += 3.5;
+        obj.position.z += this.isMobile?2:3.5;
 
         if (obj.position.z > 1500) obj.position.z = -3000;
       });
