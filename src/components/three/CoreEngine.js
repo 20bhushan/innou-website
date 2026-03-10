@@ -234,6 +234,7 @@ export default class CoreEngine {
 
         delays[i] = Math.random();
       }
+      geometry.setAttribute("position",new THREE.BufferAttribute(spherePos.slice(), 3) );
 
       geometry.setAttribute("spherePos",new THREE.BufferAttribute(spherePos, 3) );
       geometry.setAttribute("logoPos",new THREE.BufferAttribute(logoPos, 3) );
