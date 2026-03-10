@@ -216,8 +216,8 @@ export default class CoreEngine {
         const theta = 2 * Math.PI * u;
         const phi = Math.acos(2 * v - 1);
 
-        spherePos[i3] = sphereRadius^Math.sin(phi)*Math.cos(theta);
-        spherePos[i3 + 1] = sphereRadius^Math.sin(phi)*Math.sin(theta);
+        spherePos[i3] = sphereRadius*Math.sin(phi)*Math.cos(theta);
+        spherePos[i3 + 1] = sphereRadius*Math.sin(phi)*Math.sin(theta);
         spherePos[i3 + 2] = sphereRadius*Math.cos(phi);
 
         // Scatter
