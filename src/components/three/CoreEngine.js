@@ -29,9 +29,12 @@ import { UnrealBloomPass } from "three-stdlib";
  */
 
 export default class CoreEngine {
-  constructor(container) {
+  constructor(container,options={}) {
     this.container = container;
-
+this.isMobile=options.isMobile||false;
+this.clock=new THREE.Clock();
+this.frameInterval=this.isMobile?1/30:1/60;
+this.lastframe=0;
     this.scene = null;
     this.camera = null;
     this.renderer = null;
@@ -150,7 +153,7 @@ export default class CoreEngine {
 
   initParticles() {
     const LOGO_SRC = "/logo.png";
-    const SAMPLE_STEP = 3;
+    const SAMPLE_STEP = this.isMobile?6:3;
     const MORPH_TIME = 3;
 
     let geometry;
@@ -364,8 +367,8 @@ export default class CoreEngine {
 
       return group;
     };
-
-    for (let i = 0; i < 300; i++) {
+const objectCount=this.isMobile?80:300;
+    for (let i = 0; i < objectCount; i++) {
       let obj;
       const rand = Math.random();
 
@@ -409,10 +412,12 @@ export default class CoreEngine {
 
   animate = () => {
     requestAnimationFrame(this.animate);
-
+const elapsed=this.clock.getElapsedTime();
+if(elapsed-this.lastframe<this.frameInterval)return;
+this.lastframe=elapsed;
     /* PARTICLE ROTATION */
     if (this.particles) {
-      this.particles.rotation.y += 0.008;
+      this.particles.rotation.y +=this.isMobile?0.004: 0.008;
 
       const angle = this.particles.rotation.y % (Math.PI * 2);
 
@@ -436,7 +441,7 @@ export default class CoreEngine {
     this.camera.lookAt(0, 0, 0);
 
     /* GRID SCROLL */
-    this.grid.position.z += 2;
+    this.grid.position.z +=this.isMobile?1: 2;
 
     if (this.grid.position.z > 200) this.grid.position.z = 0;
 
