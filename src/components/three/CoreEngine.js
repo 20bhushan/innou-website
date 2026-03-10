@@ -246,48 +246,46 @@ export default class CoreEngine {
 
   transparent: true,
   depthWrite: false,
+  depthTest:false,
   blending: THREE.AdditiveBlending,
 
   uniforms: {
     uMix: { value: 0 },
-    uSize: { value: this.lowerPowerdevices ? 3.0 : 4.0 }
+    uSize: { value: this.lowerPowerdevices ? 4.0 : 6.0 }
   },
 
-  vertexShader: `
+ vertexShader: `
+attribute vec3 position;
+attribute vec3 spherePos;
+attribute vec3 logoPos;
+attribute vec3 scatterPos;
+attribute float delay;
 
-    attribute vec3 spherePos;
-    attribute vec3 logoPos;
-    attribute vec3 scatterPos;
-    attribute float delay;
+uniform float uMix;
+uniform float uSize;
 
-    uniform float uMix;
-    uniform float uSize;
+void main() {
 
-    void main() {
+  float t = clamp(uMix * 1.4 - delay * 0.5, 0.0, 1.0);
+  float smooth = t * t * (3.0 - 2.0 * t);
 
-      float t = clamp(uMix * 1.4 - delay * 0.5, 0.0, 1.0);
-      float smooth = t * t * (3.0 - 2.0 * t);
+  vec3 pos;
 
-      vec3 pos;
-      if(uMix<0.5){pos= mix(spherePos, logoPos, smooth*2.0);}
-      else{pos= mix( logoPos,scatterPos, (smooth-0.5)*2.0);}
+  if (uMix < 0.5) {
+    pos = mix(spherePos, logoPos, smooth * 2.0);
+  } 
+  else {
+    pos = mix(logoPos, scatterPos, (smooth - 0.5) * 2.0);
+  }
 
-      vec4 mvPosition = modelViewMatrix * vec4(pos,1.0);
+  vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
 
-      gl_PointSize = uSize * (300.0 / -mvPosition.z);
+  gl_PointSize = uSize * (300.0 / -mvPosition.z);
 
-      gl_Position = projectionMatrix * mvPosition;
+  gl_Position = projectionMatrix * mvPosition;
+}
+`
 
-    }
-  `,
-
-  fragmentShader: `
-    void main() {
-      float dist = length(gl_PointCoord - vec2(0.5));
-      if(dist > 0.5) discard;
-      gl_FragColor = vec4(1.0);
-    }
-  `
 });
 
 
@@ -430,7 +428,7 @@ this.lastFrame=elapsed;
     this.camera.position.y +=
       (-this.mouse.y * 100 - this.camera.position.y) * 0.05;
 
-    const time =this.clock.elapsedTime;
+    const time =elapsed;
 
     this.camera.position.x += Math.sin(time) * 0.3;
 
