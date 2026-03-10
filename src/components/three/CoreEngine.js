@@ -237,6 +237,8 @@ export default class CoreEngine {
 
       geometry.setAttribute("spherePos",new THREE.BufferAttribute(spherePos, 3) );
       geometry.setAttribute("logoPos",new THREE.BufferAttribute(logoPos, 3) );
+      geometry.setAttribute("scatterPos",new THREE.BufferAttribute(scatterPos, 3) );
+
       geometry.setAttribute("delay", new THREE.BufferAttribute(delays, 1));
 
       const material = new THREE.ShaderMaterial({
@@ -254,6 +256,7 @@ export default class CoreEngine {
 
     attribute vec3 spherePos;
     attribute vec3 logoPos;
+    attribute vec3 scatterPos;
     attribute float delay;
 
     uniform float uMix;
@@ -264,7 +267,9 @@ export default class CoreEngine {
       float t = clamp(uMix * 1.4 - delay * 0.5, 0.0, 1.0);
       float smooth = t * t * (3.0 - 2.0 * t);
 
-      vec3 pos = mix(spherePos, logoPos, smooth);
+      vec3 pos;
+      if(uMix<0.5){pos= mix(spherePos, logoPos, smooth*2.0);}
+      else{pos= mix( logoPos,scatterPos, (smooth-0.5)*2.0);}
 
       vec4 mvPosition = modelViewMatrix * vec4(pos,1.0);
 
@@ -288,55 +293,10 @@ export default class CoreEngine {
       this.particles = new THREE.Points(geometry, material);
 
       this.scene.add(this.particles);
+      gsap.to(material.uniforms.uMix,{value:1,duration:6,ease:"power2.inOut",repeat:-1,yoyo:true});
 
-      startSequence();
     };
 
-    const morph = (from, to, duration) => {
-      mix.v = 0;
-
-      gsap.to(mix, {
-        v: 1,
-        duration,
-        ease: "power2.inOut",
-        onUpdate: () => {
-          const pos = geometry.attributes.position.array;
-          const d = geometry.attributes.delay.array;
-
-          for (let i = 0; i < pos.length; i += 3) {
-            let t = THREE.MathUtils.clamp(mix.v * 1.4 - d[i / 3] * 0.5, 0, 1);
-
-            const smooth = t * t * (3 - 2 * t);
-
-            pos[i] = THREE.MathUtils.lerp(from[i], to[i], smooth);
-            pos[i + 1] = THREE.MathUtils.lerp(from[i + 1], to[i + 1], smooth);
-            pos[i + 2] = THREE.MathUtils.lerp(from[i + 2], to[i + 2], smooth);
-          }
-
-          geometry.attributes.position.needsUpdate = true;
-        },
-      });
-    };
-
-    const startSequence = () => {
-      morph(spherePos, logoPos, MORPH_TIME);
-
-      setTimeout(
-        () => {
-          morph(logoPos, scatterPos, 2.5);
-        },
-        MORPH_TIME * 1000 + 500,
-      );
-
-      setTimeout(
-        () => {
-          morph(scatterPos, spherePos, 3.5);
-        },
-        MORPH_TIME * 1000 + 3500,
-      );
-
-      setTimeout(startSequence, MORPH_TIME * 1000 + 8000);
-    };
   }
   /* ================= FLOATING OBJECTS ================= */
 
@@ -469,7 +429,7 @@ this.lastFrame=elapsed;
     this.camera.position.y +=
       (-this.mouse.y * 100 - this.camera.position.y) * 0.05;
 
-    const time = Date.now() * 0.05;
+    const time =this.clock.elapsedTime;
 
     this.camera.position.x += Math.sin(time) * 0.3;
 
@@ -508,4 +468,4 @@ this.lastFrame=elapsed;
       }
     });
   }
-}
+  }
