@@ -108,7 +108,7 @@ export default class CoreEngine {
 
     const bloom = new UnrealBloomPass(
       new THREE.Vector2(window.innerWidth, window.innerHeight),
-      this.lowerPowerdevices?0.7:0.2,
+      this.lowerPowerdevices?0.6:1.2,
       0.6,
       0.4,
     );
@@ -436,7 +436,7 @@ this.lastFrame=elapsed;
     this.camera.position.y +=
       (-this.mouse.y * 100 - this.camera.position.y) * 0.05;
 
-    const time = Date.now() * 0.00005;
+    const time = Date.now() * 0.05;
 
     this.camera.position.x += Math.sin(time) * 0.3;
 
@@ -451,7 +451,9 @@ this.lastFrame=elapsed;
 
     /* FLOATING UPDATE */
     if (this.floatingGroup) {
-      this.floatingGroup.children.forEach((obj) => {
+      const objs=this.floatingGroup.children;
+      for(let i=0;i<objs.length;i++){
+        const obj=objs[i];
         obj.rotation.x += obj.userData.rotSpeed;
 
         obj.rotation.y += obj.userData.rotSpeed;
@@ -459,7 +461,7 @@ this.lastFrame=elapsed;
         obj.position.z += this.isMobile?2:3.5;
 
         if (obj.position.z > 1500) obj.position.z = -3000;
-      });
+      };
     }
 
     this.composer.render();
