@@ -86,6 +86,7 @@ export default class CoreEngine {
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
+      powerPreference:"high-performance"
     });
 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -234,23 +235,55 @@ export default class CoreEngine {
         delays[i] = Math.random();
       }
 
-      geometry.setAttribute(
-        "position",
-        new THREE.BufferAttribute(spherePos.slice(), 3),
-      );
-
+      geometry.setAttribute("spherePos",new THREE.BufferAttribute(spherePos, 3) );
+      geometry.setAttribute("logoPos",new THREE.BufferAttribute(logoPos, 3) );
       geometry.setAttribute("delay", new THREE.BufferAttribute(delays, 1));
 
-      const material = new THREE.PointsMaterial({
-        color: 0xffffff,
-        size: this.lowerPowerdevices?3:4,
-        map: new THREE.TextureLoader().load(
-          "https://threejs.org/examples/textures/sprites/circle.png",
-        ),
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-      });
+      const material = new THREE.ShaderMaterial({
+
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+
+  uniforms: {
+    uMix: { value: 0 },
+    uSize: { value: this.lowerPowerdevices ? 3.0 : 4.0 }
+  },
+
+  vertexShader: `
+
+    attribute vec3 spherePos;
+    attribute vec3 logoPos;
+    attribute float delay;
+
+    uniform float uMix;
+    uniform float uSize;
+
+    void main() {
+
+      float t = clamp(uMix * 1.4 - delay * 0.5, 0.0, 1.0);
+      float smooth = t * t * (3.0 - 2.0 * t);
+
+      vec3 pos = mix(spherePos, logoPos, smooth);
+
+      vec4 mvPosition = modelViewMatrix * vec4(pos,1.0);
+
+      gl_PointSize = uSize * (300.0 / -mvPosition.z);
+
+      gl_Position = projectionMatrix * mvPosition;
+
+    }
+  `,
+
+  fragmentShader: `
+    void main() {
+      float dist = length(gl_PointCoord - vec2(0.5));
+      if(dist > 0.5) discard;
+      gl_FragColor = vec4(1.0);
+    }
+  `
+});
+
 
       this.particles = new THREE.Points(geometry, material);
 
