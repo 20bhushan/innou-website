@@ -29,13 +29,17 @@ import { UnrealBloomPass } from "three-stdlib";
  */
 
 export default class CoreEngine {
-  constructor(container,options={}) {
+  constructor(container, options = {}) {
     this.container = container;
-    this.isMobile=options.isMobile||window.innerWidth<768;
-    this.lowerPowerdevices=navigator.hardwareConcurrency<=4||window.devicePixelRatio>2||this.isMobile;
-    this.clock=new THREE.Clock();
-    this.frameInterval=this.isMobile?1/30:1/60;
-    this.lastFrame=0;
+    this.isMobile = options.isMobile || window.innerWidth < 768;
+    this.lowerPowerdevices =
+      navigator.hardwareConcurrency <= 4 ||
+      window.devicePixelRatio > 2 ||
+      this.isMobile;
+    this.clock = new THREE.Clock();
+    this.frameInterval = this.isMobile ? 1 / 30 : 1 / 60;
+    this.lastFrame = 0;
+
     this.scene = null;
     this.camera = null;
     this.renderer = null;
@@ -86,12 +90,16 @@ export default class CoreEngine {
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
-      powerPreference:"high-performance"
+      powerPreference: "high-performance",
     });
 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
-    this.renderer.setPixelRatio(this.lowerPowerdevices?Math.min(window.devicePixelRatio,1):Math.min(window.devicePixelRatio,1.5));
+    this.renderer.setPixelRatio(
+      this.lowerPowerdevices
+        ? Math.min(window.devicePixelRatio, 1)
+        : Math.min(window.devicePixelRatio, 1.5),
+    );
 
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
@@ -108,8 +116,11 @@ export default class CoreEngine {
     this.composer.addPass(new RenderPass(this.scene, this.camera));
 
     const bloom = new UnrealBloomPass(
-      new THREE.Vector2(window.innerWidth, window.innerHeight),
-      this.lowerPowerdevices?0.6:1.2,
+      new THREE.Vector2(
+        this.renderer.domElement.width,
+        this.renderer.domElement.height,
+      ),
+      this.lowerPowerdevices ? 0.6 : 1.2,
       0.6,
       0.4,
     );
@@ -154,11 +165,8 @@ export default class CoreEngine {
   /* ================= PARTICLES ================= */
 
   initParticles() {
-    const screenWidth=window.innerWidth;
-    const scaleFactor=Math.min(Math.max(screenWidth/1200,0.45),1);
-    const sphereRadius=260*scaleFactor;
-    const SAMPLE_STEP=Math.round(3/scaleFactor);
     const LOGO_SRC = "/logo.png";
+    const SAMPLE_STEP = 3;
     const MORPH_TIME = 3;
 
     let geometry;
@@ -218,9 +226,9 @@ export default class CoreEngine {
         const theta = 2 * Math.PI * u;
         const phi = Math.acos(2 * v - 1);
 
-        spherePos[i3] = sphereRadius*Math.sin(phi)*Math.cos(theta);
-        spherePos[i3 + 1] = sphereRadius*Math.sin(phi)*Math.sin(theta);
-        spherePos[i3 + 2] = sphereRadius*Math.cos(phi);
+        spherePos[i3] = 260 * Math.sin(phi) * Math.cos(theta);
+        spherePos[i3 + 1] = 260 * Math.sin(phi) * Math.sin(theta);
+        spherePos[i3 + 2] = 260 * Math.cos(phi);
 
         // Scatter
         scatterPos[i3] = (Math.random() - 0.5) * 1500;
@@ -234,68 +242,100 @@ export default class CoreEngine {
 
         delays[i] = Math.random();
       }
-      geometry.setAttribute("position",new THREE.BufferAttribute(spherePos.slice(), 3) );
 
-      geometry.setAttribute("spherePos",new THREE.BufferAttribute(spherePos, 3) );
-      geometry.setAttribute("logoPos",new THREE.BufferAttribute(logoPos, 3) );
-      geometry.setAttribute("scatterPos",new THREE.BufferAttribute(scatterPos, 3) );
+      geometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(spherePos.slice(), 3),
+      );
 
       geometry.setAttribute("delay", new THREE.BufferAttribute(delays, 1));
 
-      const material = new THREE.ShaderMaterial({
+      const spriteCanvas = document.createElement("canvas");
+      const spriteSize = 64;
+      const spriteCtx = spriteCanvas.getContext("2d");
 
-  transparent: true,
-  depthWrite: false,
-  depthTest:false,
-  blending: THREE.AdditiveBlending,
+      spriteCanvas.width = spriteSize;
+      spriteCanvas.height = spriteSize;
 
-  uniforms: {
-    uMix: { value: 0 },
-    uSize: { value: this.lowerPowerdevices ? 4.0 : 6.0 }
-  },
+      const gradient = spriteCtx.createRadialGradient(
+        spriteSize / 2,
+        spriteSize / 2,
+        0,
+        spriteSize / 2,
+        spriteSize / 2,
+        spriteSize / 2,
+      );
 
- vertexShader: `
-attribute vec3 position;
-attribute vec3 spherePos;
-attribute vec3 logoPos;
-attribute vec3 scatterPos;
-attribute float delay;
+      gradient.addColorStop(0, "rgba(255,255,255,1)");
+      gradient.addColorStop(0.6, "rgba(255,255,255,1)");
+      gradient.addColorStop(1, "rgba(255,255,255,0)");
 
-uniform float uMix;
-uniform float uSize;
+      spriteCtx.fillStyle = gradient;
+      spriteCtx.fillRect(0, 0, spriteSize, spriteSize);
 
-void main() {
+      const spriteTexture = new THREE.CanvasTexture(spriteCanvas);
 
-  float t = clamp(uMix * 1.4 - delay * 0.5, 0.0, 1.0);
-  float smooth = t * t * (3.0 - 2.0 * t);
-
-  vec3 pos;
-
-  if (uMix < 0.5) {
-    pos = mix(spherePos, logoPos, smooth * 2.0);
-  } 
-  else {
-    pos = mix(logoPos, scatterPos, (smooth - 0.5) * 2.0);
-  }
-
-  vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-
-  gl_PointSize = uSize * (300.0 / -mvPosition.z);
-
-  gl_Position = projectionMatrix * mvPosition;
-}
-`
-
-});
-
+      const material = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: this.lowerPowerdevices ? 3.5 : 4,
+        map: spriteTexture,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      });
 
       this.particles = new THREE.Points(geometry, material);
 
       this.scene.add(this.particles);
-      gsap.to(material.uniforms.uMix,{value:1,duration:6,ease:"power2.inOut",repeat:-1,yoyo:true});
 
+      startSequence();
     };
 
+    const morph = (from, to, duration) => {
+      mix.v = 0;
+
+      gsap.to(mix, {
+        v: 1,
+        duration,
+        ease: "power2.inOut",
+        onUpdate: () => {
+          const pos = geometry.attributes.position.array;
+          const d = geometry.attributes.delay.array;
+
+          for (let i = 0; i < pos.length; i += 3) {
+            let t = THREE.MathUtils.clamp(mix.v * 1.4 - d[i / 3] * 0.5, 0, 1);
+
+            const smooth = t * t * (3 - 2 * t);
+
+            pos[i] = THREE.MathUtils.lerp(from[i], to[i], smooth);
+            pos[i + 1] = THREE.MathUtils.lerp(from[i + 1], to[i + 1], smooth);
+            pos[i + 2] = THREE.MathUtils.lerp(from[i + 2], to[i + 2], smooth);
+          }
+
+          geometry.attributes.position.needsUpdate = true;
+        },
+      });
+    };
+
+    const startSequence = () => {
+      morph(spherePos, logoPos, MORPH_TIME);
+
+      setTimeout(
+        () => {
+          morph(logoPos, scatterPos, 2.5);
+        },
+        MORPH_TIME * 1000 + 500,
+      );
+
+      setTimeout(
+        () => {
+          morph(scatterPos, spherePos, 3.5);
+        },
+        MORPH_TIME * 1000 + 3500,
+      );
+
+      setTimeout(startSequence, MORPH_TIME * 1000 + 8000);
+    };
   }
   /* ================= FLOATING OBJECTS ================= */
 
@@ -363,7 +403,12 @@ void main() {
 
       return group;
     };
-const objectCount=Math.min(Math.max(Math.round((window.innerWidth/1200)*300),80),300);
+
+    const objectCount = Math.min(
+      Math.max(Math.round((window.innerWidth / 1200) * 300), 80),
+      300,
+    );
+
     for (let i = 0; i < objectCount; i++) {
       let obj;
       const rand = Math.random();
@@ -408,12 +453,15 @@ const objectCount=Math.min(Math.max(Math.round((window.innerWidth/1200)*300),80)
 
   animate = () => {
     requestAnimationFrame(this.animate);
-const elapsed=this.clock.getElapsedTime();
-if(elapsed-this.lastFrame<this.frameInterval)return;
-this.lastFrame=elapsed;
+    const elapsed = this.clock.getElapsedTime();
+
+    if (elapsed - this.lastFrame < this.frameInterval) return;
+
+    this.lastFrame = elapsed;
+
     /* PARTICLE ROTATION */
     if (this.particles) {
-      this.particles.rotation.y +=this.isMobile?0.004: 0.008;
+      this.particles.rotation.y += this.isMobile ? 0.004 : 0.008;
 
       const angle = this.particles.rotation.y % (Math.PI * 2);
 
@@ -428,7 +476,7 @@ this.lastFrame=elapsed;
     this.camera.position.y +=
       (-this.mouse.y * 100 - this.camera.position.y) * 0.05;
 
-    const time =elapsed;
+    const time = this.clock.elapsedTime;
 
     this.camera.position.x += Math.sin(time) * 0.3;
 
@@ -437,23 +485,21 @@ this.lastFrame=elapsed;
     this.camera.lookAt(0, 0, 0);
 
     /* GRID SCROLL */
-    this.grid.position.z +=this.isMobile?1: 2;
+    this.grid.position.z += this.isMobile ? 1 : 2;
 
     if (this.grid.position.z > 200) this.grid.position.z = 0;
 
     /* FLOATING UPDATE */
     if (this.floatingGroup) {
-      const objs=this.floatingGroup.children;
-      for(let i=0;i<objs.length;i++){
-        const obj=objs[i];
+      this.floatingGroup.children.forEach((obj) => {
         obj.rotation.x += obj.userData.rotSpeed;
 
         obj.rotation.y += obj.userData.rotSpeed;
 
-        obj.position.z += this.isMobile?2:3.5;
+        obj.position.z += this.isMobile ? 2 : 3.5;
 
         if (obj.position.z > 1500) obj.position.z = -3000;
-      };
+      });
     }
 
     this.composer.render();
@@ -467,4 +513,4 @@ this.lastFrame=elapsed;
       }
     });
   }
-  }
+}
