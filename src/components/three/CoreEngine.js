@@ -29,8 +29,16 @@ import { UnrealBloomPass } from "three-stdlib";
  */
 
 export default class CoreEngine {
-  constructor(container) {
+  constructor(container, options = {}) {
     this.container = container;
+    this.isMobile = options.isMobile || window.innerWidth < 768;
+    this.lowerPowerdevices =
+      navigator.hardwareConcurrency <= 4 ||
+      window.devicePixelRatio > 2 ||
+      this.isMobile;
+    this.clock = new THREE.Clock();
+    this.frameInterval = this.isMobile ? 1 / 30 : 1 / 60;
+    this.lastFrame = 0;
 
     this.scene = null;
     this.camera = null;
@@ -82,11 +90,16 @@ export default class CoreEngine {
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
+      powerPreference: "high-performance",
     });
 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    this.renderer.setPixelRatio(
+      this.lowerPowerdevices
+        ? Math.min(window.devicePixelRatio, 1)
+        : Math.min(window.devicePixelRatio, 1.5),
+    );
 
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
@@ -103,8 +116,11 @@ export default class CoreEngine {
     this.composer.addPass(new RenderPass(this.scene, this.camera));
 
     const bloom = new UnrealBloomPass(
-      new THREE.Vector2(window.innerWidth, window.innerHeight),
-      1.2,
+      new THREE.Vector2(
+        this.renderer.domElement.width,
+        this.renderer.domElement.height,
+      ),
+      this.lowerPowerdevices ? 0.6 : 1.2,
       0.6,
       0.4,
     );
@@ -234,12 +250,35 @@ export default class CoreEngine {
 
       geometry.setAttribute("delay", new THREE.BufferAttribute(delays, 1));
 
+      const spriteCanvas = document.createElement("canvas");
+      const spriteSize = 64;
+      const spriteCtx = spriteCanvas.getContext("2d");
+
+      spriteCanvas.width = spriteSize;
+      spriteCanvas.height = spriteSize;
+
+      const gradient = spriteCtx.createRadialGradient(
+        spriteSize / 2,
+        spriteSize / 2,
+        0,
+        spriteSize / 2,
+        spriteSize / 2,
+        spriteSize / 2,
+      );
+
+      gradient.addColorStop(0, "rgba(255,255,255,1)");
+      gradient.addColorStop(0.6, "rgba(255,255,255,1)");
+      gradient.addColorStop(1, "rgba(255,255,255,0)");
+
+      spriteCtx.fillStyle = gradient;
+      spriteCtx.fillRect(0, 0, spriteSize, spriteSize);
+
+      const spriteTexture = new THREE.CanvasTexture(spriteCanvas);
+
       const material = new THREE.PointsMaterial({
         color: 0xffffff,
-        size: 4,
-        map: new THREE.TextureLoader().load(
-          "https://threejs.org/examples/textures/sprites/circle.png",
-        ),
+        size: this.lowerPowerdevices ? 3.5 : 4,
+        map: spriteTexture,
         transparent: true,
         blending: THREE.AdditiveBlending,
         depthWrite: false,
@@ -365,7 +404,12 @@ export default class CoreEngine {
       return group;
     };
 
-    for (let i = 0; i < 300; i++) {
+    const objectCount = Math.min(
+      Math.max(Math.round((window.innerWidth / 1200) * 300), 80),
+      300,
+    );
+
+    for (let i = 0; i < objectCount; i++) {
       let obj;
       const rand = Math.random();
 
@@ -409,10 +453,15 @@ export default class CoreEngine {
 
   animate = () => {
     requestAnimationFrame(this.animate);
+    const elapsed = this.clock.getElapsedTime();
+
+    if (elapsed - this.lastFrame < this.frameInterval) return;
+
+    this.lastFrame = elapsed;
 
     /* PARTICLE ROTATION */
     if (this.particles) {
-      this.particles.rotation.y += 0.008;
+      this.particles.rotation.y += this.isMobile ? 0.004 : 0.008;
 
       const angle = this.particles.rotation.y % (Math.PI * 2);
 
@@ -427,7 +476,7 @@ export default class CoreEngine {
     this.camera.position.y +=
       (-this.mouse.y * 100 - this.camera.position.y) * 0.05;
 
-    const time = Date.now() * 0.00005;
+    const time = this.clock.elapsedTime;
 
     this.camera.position.x += Math.sin(time) * 0.3;
 
@@ -436,7 +485,7 @@ export default class CoreEngine {
     this.camera.lookAt(0, 0, 0);
 
     /* GRID SCROLL */
-    this.grid.position.z += 2;
+    this.grid.position.z += this.isMobile ? 1 : 2;
 
     if (this.grid.position.z > 200) this.grid.position.z = 0;
 
@@ -447,7 +496,7 @@ export default class CoreEngine {
 
         obj.rotation.y += obj.userData.rotSpeed;
 
-        obj.position.z += 3.5;
+        obj.position.z += this.isMobile ? 2 : 3.5;
 
         if (obj.position.z > 1500) obj.position.z = -3000;
       });
