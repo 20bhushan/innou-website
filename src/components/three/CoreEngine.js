@@ -2,8 +2,13 @@
  * ============================================================
  * CORE 3D ENGINE
  * ------------------------------------------------------------
- * Optimized to preserve the original visual sequence while
- * reducing CPU work, draw calls, and fill rate pressure.
+ * Performance-focused refactor that preserves the original
+ * visual sequence:
+ * - particles morph sphere -> logo -> scatter -> sphere
+ * - bloom stays enabled
+ * - floating objects remain present
+ * - grid and camera motion remain intact
+ * - GSAP timing is unchanged
  * ============================================================
  */
 "use client";
@@ -17,16 +22,25 @@ import { UnrealBloomPass } from "three-stdlib";
 const LOGO_SRC = "/logo.png";
 const LOGO_CANVAS_SIZE = 512;
 const PARTICLE_MORPH_TIME = 3;
-const GRID_Z_RESET = 200;
+
 const GRID_Y = -400;
-const FLOATING_Z_RESET = 1500;
-const FLOATING_Z_START = -3000;
+const GRID_Z_RESET = 200;
+
 const FLOATING_RANGE_X = 7000;
 const FLOATING_RANGE_Y = 5000;
 const FLOATING_RANGE_Z = 6000;
+const FLOATING_Z_START = -3000;
+const FLOATING_Z_RESET = 1500;
+
 const PARTICLE_STAGE_SPHERE_TO_LOGO = 0;
 const PARTICLE_STAGE_LOGO_TO_SCATTER = 1;
 const PARTICLE_STAGE_SCATTER_TO_SPHERE = 2;
+
+const FLOATING_TYPE_LINE = "line";
+const FLOATING_TYPE_AREA = "area";
+const FLOATING_TYPE_PILLAR = "pillar";
+const FLOATING_TYPE_TORUS = "torus";
+const FLOATING_TYPE_OCTA = "octa";
 
 export default class CoreEngine {
   constructor(container, options = {}) {
@@ -36,34 +50,38 @@ export default class CoreEngine {
     this.deviceMemory = navigator.deviceMemory || 4;
     this.width = window.innerWidth;
     this.height = window.innerHeight;
+
     this.clock = new THREE.Clock();
-    this.frameInterval = this.isMobile ? 1 / 30 : 1 / 60;
     this.lastFrame = 0;
+    this.frameInterval = this.isMobile ? 1 / 30 : 1 / 60;
 
     this.scene = null;
     this.camera = null;
     this.renderer = null;
     this.composer = null;
     this.bloomPass = null;
+    this.bloomResolutionScale = 1;
 
     this.grid = null;
     this.particles = null;
     this.particleMaterial = null;
     this.particleSequence = null;
+    this.particleUniforms = null;
 
     this.floatingGroup = null;
-    this.floatingObjects = [];
-    this.instancedFloating = [];
-    this.groupFloating = [];
+    this.floatingEntries = [];
+    this.sharedResources = null;
 
     this.mouse = { x: 0, y: 0 };
     this.pixelRatio = 1;
     this.qualityProfile = this.createQualityProfile();
+
     this.frustum = new THREE.Frustum();
     this.projectionScreenMatrix = new THREE.Matrix4();
-    this.reusableDummy = new THREE.Object3D();
     this.reusableBounds = new THREE.Sphere(new THREE.Vector3(), 1);
-    this.rafId = 0;
+    this.reusableDummy = new THREE.Object3D();
+    this.reusableParentMatrix = new THREE.Matrix4();
+    this.reusableMatrix = new THREE.Matrix4();
 
     this.onMouseMove = this.handleMouseMove.bind(this);
     this.onResize = this.handleResize.bind(this);
@@ -93,16 +111,20 @@ export default class CoreEngine {
 
     return {
       quality,
+      maxPixelRatio: this.isMobile ? 1 : 1.5,
       particleSize: this.isMobile ? 3 : 4,
       particleBudget: this.isMobile
         ? Math.round(2600 * quality + 500)
         : Math.round(5200 * quality + 900),
-      objectBudget: this.isMobile
+      floatingBudget: this.isMobile
         ? Math.round(70 * quality + 30)
         : Math.round(180 * quality + 80),
       bloomStrength:
         this.hardwareConcurrency <= 4 || this.isMobile ? 0.6 : 1.2,
-      maxPixelRatio: this.isMobile ? 1 : 1.5,
+      bloomResolutionScale:
+        this.hardwareConcurrency <= 4 || this.deviceMemory <= 4 || this.isMobile
+          ? 0.5
+          : 1,
       gridSpeed: this.isMobile ? 1 : 2,
       floatingSpeed: this.isMobile ? 2 : 3.5,
       particleSpin: this.isMobile ? 0.004 : 0.008,
@@ -119,7 +141,7 @@ export default class CoreEngine {
     this.initParticles();
     this.initFloatingObjects();
     this.initInteraction();
-    this.animate();
+    this.renderer.setAnimationLoop(this.animate);
   }
 
   initScene() {
@@ -144,6 +166,7 @@ export default class CoreEngine {
       powerPreference: "high-performance",
     });
 
+    // Clamp pixel ratio aggressively to protect fill rate on dense screens.
     this.pixelRatio = Math.min(
       window.devicePixelRatio || 1,
       this.qualityProfile.maxPixelRatio,
@@ -151,6 +174,8 @@ export default class CoreEngine {
 
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(this.pixelRatio);
+    this.renderer.shadowMap.enabled = false;
+    this.renderer.info.autoReset = false;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.2;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -160,10 +185,15 @@ export default class CoreEngine {
 
   initPostProcessing() {
     this.composer = new EffectComposer(this.renderer);
+    this.composer.setPixelRatio(this.pixelRatio);
     this.composer.addPass(new RenderPass(this.scene, this.camera));
+    this.bloomResolutionScale = this.qualityProfile.bloomResolutionScale;
 
     this.bloomPass = new UnrealBloomPass(
-      new THREE.Vector2(this.width, this.height),
+      new THREE.Vector2(
+        this.width * this.bloomResolutionScale,
+        this.height * this.bloomResolutionScale,
+      ),
       this.qualityProfile.bloomStrength,
       0.6,
       0.4,
@@ -201,13 +231,12 @@ export default class CoreEngine {
   }
 
   initParticles() {
-    const img = new Image();
+    const image = new Image();
 
-    img.src = LOGO_SRC;
-    img.crossOrigin = "anonymous";
-
-    img.onload = () => {
-      const coords = this.sampleLogoPixels(img);
+    image.src = LOGO_SRC;
+    image.crossOrigin = "anonymous";
+    image.onload = () => {
+      const coords = this.sampleLogoPixels(image);
       const selectedCoords = this.selectParticleCoords(
         coords,
         this.qualityProfile.particleBudget,
@@ -220,8 +249,8 @@ export default class CoreEngine {
   sampleLogoPixels(image) {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
-    const sampleStep = this.isMobile ? 4 : 3;
     const coords = [];
+    const sampleStep = this.isMobile ? 4 : 3;
 
     canvas.width = LOGO_CANVAS_SIZE;
     canvas.height = LOGO_CANVAS_SIZE;
@@ -256,15 +285,15 @@ export default class CoreEngine {
   selectParticleCoords(coords, targetCount) {
     if (coords.length <= targetCount) return coords;
 
-    const result = new Array(targetCount);
+    const selected = new Array(targetCount);
     const stride = coords.length / targetCount;
 
-    // Evenly spaced sampling keeps the same silhouette while scaling the load.
+    // Uniform downsampling preserves the logo silhouette while trimming load.
     for (let i = 0; i < targetCount; i += 1) {
-      result[i] = coords[Math.floor(i * stride)];
+      selected[i] = coords[Math.floor(i * stride)];
     }
 
-    return result;
+    return selected;
   }
 
   createParticleSystem(coords) {
@@ -275,6 +304,7 @@ export default class CoreEngine {
     const scatterPositions = new Float32Array(count * 3);
     const delays = new Float32Array(count);
 
+    // All particle state is generated once up front and then left on the GPU.
     for (let i = 0; i < count; i += 1) {
       const i3 = i * 3;
       const u = Math.random();
@@ -316,9 +346,10 @@ export default class CoreEngine {
     geometry.setAttribute("aDelay", new THREE.BufferAttribute(delays, 1));
 
     this.particleMaterial = this.createParticleMaterial();
+    this.particleUniforms = this.particleMaterial.uniforms;
     this.particles = new THREE.Points(geometry, this.particleMaterial);
-    this.scene.add(this.particles);
 
+    this.scene.add(this.particles);
     this.startParticleSequence();
   }
 
@@ -408,40 +439,41 @@ export default class CoreEngine {
   }
 
   startParticleSequence() {
-    const { uniforms } = this.particleMaterial;
+    if (!this.particleUniforms) return;
 
     if (this.particleSequence) {
       this.particleSequence.kill();
     }
 
+    // GSAP timings intentionally match the original sequence exactly.
     this.particleSequence = gsap.timeline({ repeat: -1 });
 
     this.particleSequence
       .call(() => {
-        uniforms.uStage.value = PARTICLE_STAGE_SPHERE_TO_LOGO;
-        uniforms.uProgress.value = 0;
+        this.particleUniforms.uStage.value = PARTICLE_STAGE_SPHERE_TO_LOGO;
+        this.particleUniforms.uProgress.value = 0;
       })
-      .to(uniforms.uProgress, {
+      .to(this.particleUniforms.uProgress, {
         value: 1,
         duration: PARTICLE_MORPH_TIME,
         ease: "power2.inOut",
       })
       .to({}, { duration: 0.5 })
       .call(() => {
-        uniforms.uStage.value = PARTICLE_STAGE_LOGO_TO_SCATTER;
-        uniforms.uProgress.value = 0;
+        this.particleUniforms.uStage.value = PARTICLE_STAGE_LOGO_TO_SCATTER;
+        this.particleUniforms.uProgress.value = 0;
       })
-      .to(uniforms.uProgress, {
+      .to(this.particleUniforms.uProgress, {
         value: 1,
         duration: 2.5,
         ease: "power2.inOut",
       })
       .to({}, { duration: 0.5 })
       .call(() => {
-        uniforms.uStage.value = PARTICLE_STAGE_SCATTER_TO_SPHERE;
-        uniforms.uProgress.value = 0;
+        this.particleUniforms.uStage.value = PARTICLE_STAGE_SCATTER_TO_SPHERE;
+        this.particleUniforms.uProgress.value = 0;
       })
-      .to(uniforms.uProgress, {
+      .to(this.particleUniforms.uProgress, {
         value: 1,
         duration: 3.5,
         ease: "power2.inOut",
@@ -453,27 +485,27 @@ export default class CoreEngine {
     this.floatingGroup = new THREE.Group();
     this.scene.add(this.floatingGroup);
 
-    const count = THREE.MathUtils.clamp(
-      Math.round((this.width / 1200) * this.qualityProfile.objectBudget),
+    this.sharedResources = this.createFloatingResources();
+
+    const totalCount = THREE.MathUtils.clamp(
+      Math.round((this.width / 1200) * this.qualityProfile.floatingBudget),
       this.isMobile ? 40 : 80,
       this.isMobile ? 120 : 220,
     );
 
-    this.sharedResources = this.createFloatingResources();
-
-    let graphCount = 0;
-    let areaChartCount = 0;
+    let lineCount = 0;
+    let areaCount = 0;
     let pillarCount = 0;
     let torusCount = 0;
     let octaCount = 0;
 
-    for (let i = 0; i < count; i += 1) {
+    for (let i = 0; i < totalCount; i += 1) {
       const rand = Math.random();
 
       if (rand < 0.2) {
-        graphCount += 1;
+        lineCount += 1;
       } else if (rand < 0.4) {
-        areaChartCount += 1;
+        areaCount += 1;
       } else if (rand < 0.6) {
         pillarCount += 1;
       } else if (rand < 0.8) {
@@ -483,17 +515,20 @@ export default class CoreEngine {
       }
     }
 
-    this.createLineGraphs(graphCount);
-    this.createAreaCharts(areaChartCount);
-    this.createInstancedFloatingType("pillars", pillarCount);
-    this.createInstancedFloatingType("torus", torusCount);
-    this.createInstancedFloatingType("octa", octaCount);
-
-    this.floatingObjects = [...this.instancedFloating, ...this.groupFloating];
+    this.createLineGraphInstances(lineCount);
+    this.createAreaChartInstances(areaCount);
+    this.createSimpleFloatingInstances(FLOATING_TYPE_PILLAR, pillarCount);
+    this.createSimpleFloatingInstances(FLOATING_TYPE_TORUS, torusCount);
+    this.createSimpleFloatingInstances(FLOATING_TYPE_OCTA, octaCount);
   }
 
   createFloatingResources() {
     return {
+      lineGeometry: new THREE.BoxGeometry(1, 4, 4),
+      areaGeometry: new THREE.BoxGeometry(15, 1, 15),
+      pillarGeometry: new THREE.BoxGeometry(8, 60, 8),
+      torusGeometry: new THREE.TorusGeometry(20, 5, 8, 20),
+      octaGeometry: new THREE.OctahedronGeometry(25),
       lineMaterial: new THREE.MeshStandardMaterial({
         color: 0x00f2ff,
         transparent: true,
@@ -519,114 +554,43 @@ export default class CoreEngine {
         color: 0xbc70ff,
         wireframe: true,
       }),
-      lineGeometry: new THREE.BoxGeometry(1, 4, 4),
-      areaGeometry: new THREE.BoxGeometry(15, 1, 15),
-      pillarGeometry: new THREE.BoxGeometry(8, 60, 8),
-      torusGeometry: new THREE.TorusGeometry(20, 5, 8, 20),
-      octaGeometry: new THREE.OctahedronGeometry(25),
     };
   }
 
-  randomFloatingTransform() {
+  createTransformBuffers(count, radius) {
     return {
-      x: (Math.random() - 0.5) * FLOATING_RANGE_X,
-      y: (Math.random() - 0.5) * FLOATING_RANGE_Y,
-      z: (Math.random() - 0.5) * FLOATING_RANGE_Z,
-      rotX: Math.random() * Math.PI,
-      rotY: Math.random() * Math.PI,
-      rotSpeed: (Math.random() - 0.5) * 0.015,
-      radius: 55,
+      count,
+      radius,
+      x: new Float32Array(count),
+      y: new Float32Array(count),
+      z: new Float32Array(count),
+      rotX: new Float32Array(count),
+      rotY: new Float32Array(count),
+      rotSpeed: new Float32Array(count),
     };
   }
 
-  createLineGraphs(count) {
-    for (let i = 0; i < count; i += 1) {
-      const graph = new THREE.Group();
-      let prevX = 0;
-      let prevY = 0;
-
-      for (let segmentIndex = 0; segmentIndex < 5; segmentIndex += 1) {
-        const nextX = (segmentIndex + 1) * 20;
-        const nextY = Math.random() * 50;
-        const deltaX = nextX - prevX;
-        const deltaY = nextY - prevY;
-        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        const angle = Math.atan2(deltaY, deltaX);
-        const segment = new THREE.Mesh(
-          this.sharedResources.lineGeometry,
-          this.sharedResources.lineMaterial,
-        );
-
-        segment.position.set((prevX + nextX) * 0.5, (prevY + nextY) * 0.5, 0);
-        segment.rotation.z = angle;
-        segment.scale.x = distance;
-
-        graph.add(segment);
-
-        prevX = nextX;
-        prevY = nextY;
-      }
-
-      const transform = this.randomFloatingTransform();
-
-      graph.position.set(transform.x, transform.y, transform.z);
-      graph.rotation.set(transform.rotX, transform.rotY, 0);
-
-      this.floatingGroup.add(graph);
-      this.groupFloating.push({
-        type: "group",
-        object: graph,
-        z: transform.z,
-        rotSpeed: transform.rotSpeed,
-        radius: 80,
-      });
-    }
+  fillRandomTransform(buffers, index) {
+    buffers.x[index] = (Math.random() - 0.5) * FLOATING_RANGE_X;
+    buffers.y[index] = (Math.random() - 0.5) * FLOATING_RANGE_Y;
+    buffers.z[index] = (Math.random() - 0.5) * FLOATING_RANGE_Z;
+    buffers.rotX[index] = Math.random() * Math.PI;
+    buffers.rotY[index] = Math.random() * Math.PI;
+    buffers.rotSpeed[index] = (Math.random() - 0.5) * 0.015;
   }
 
-  createAreaCharts(count) {
-    for (let i = 0; i < count; i += 1) {
-      const chart = new THREE.Group();
-
-      for (let blockIndex = 0; blockIndex < 4; blockIndex += 1) {
-        const height = 20 + Math.random() * 60;
-        const block = new THREE.Mesh(
-          this.sharedResources.areaGeometry,
-          this.sharedResources.areaMaterial,
-        );
-
-        block.position.set(blockIndex * 20, height * 0.5, 0);
-        block.scale.y = height;
-        chart.add(block);
-      }
-
-      const transform = this.randomFloatingTransform();
-
-      chart.position.set(transform.x, transform.y, transform.z);
-      chart.rotation.set(transform.rotX, transform.rotY, 0);
-
-      this.floatingGroup.add(chart);
-      this.groupFloating.push({
-        type: "group",
-        object: chart,
-        z: transform.z,
-        rotSpeed: transform.rotSpeed,
-        radius: 90,
-      });
-    }
-  }
-
-  createInstancedFloatingType(type, count) {
+  createSimpleFloatingInstances(type, count) {
     if (!count) return;
 
     let geometry;
     let material;
     let radius;
 
-    if (type === "pillars") {
+    if (type === FLOATING_TYPE_PILLAR) {
       geometry = this.sharedResources.pillarGeometry;
       material = this.sharedResources.pillarMaterial;
       radius = 50;
-    } else if (type === "torus") {
+    } else if (type === FLOATING_TYPE_TORUS) {
       geometry = this.sharedResources.torusGeometry;
       material = this.sharedResources.torusMaterial;
       radius = 45;
@@ -637,35 +601,175 @@ export default class CoreEngine {
     }
 
     const mesh = new THREE.InstancedMesh(geometry, material, count);
-    const data = new Array(count);
+    const transforms = this.createTransformBuffers(count, radius);
 
     mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
 
     for (let i = 0; i < count; i += 1) {
-      const transform = this.randomFloatingTransform();
-
-      data[i] = {
-        x: transform.x,
-        y: transform.y,
-        z: transform.z,
-        rotX: transform.rotX,
-        rotY: transform.rotY,
-        rotSpeed: transform.rotSpeed,
-        radius,
-      };
-
-      this.reusableDummy.position.set(transform.x, transform.y, transform.z);
-      this.reusableDummy.rotation.set(transform.rotX, transform.rotY, 0);
+      this.fillRandomTransform(transforms, i);
+      this.reusableDummy.position.set(
+        transforms.x[i],
+        transforms.y[i],
+        transforms.z[i],
+      );
+      this.reusableDummy.rotation.set(
+        transforms.rotX[i],
+        transforms.rotY[i],
+        0,
+      );
+      this.reusableDummy.scale.set(1, 1, 1);
       this.reusableDummy.updateMatrix();
       mesh.setMatrixAt(i, this.reusableDummy.matrix);
     }
 
     this.floatingGroup.add(mesh);
-    this.instancedFloating.push({
-      type: "instanced",
+    this.floatingEntries.push({
+      kind: "simple",
+      type,
       mesh,
-      data,
+      transforms,
     });
+  }
+
+  createLineGraphInstances(count) {
+    if (!count) return;
+
+    const segmentsPerGraph = 5;
+    const totalInstances = count * segmentsPerGraph;
+    const mesh = new THREE.InstancedMesh(
+      this.sharedResources.lineGeometry,
+      this.sharedResources.lineMaterial,
+      totalInstances,
+    );
+    const transforms = this.createTransformBuffers(count, 80);
+    const localMatrices = new Array(totalInstances);
+
+    mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+
+    for (let parentIndex = 0; parentIndex < count; parentIndex += 1) {
+      this.fillRandomTransform(transforms, parentIndex);
+
+      let prevX = 0;
+      let prevY = 0;
+
+      for (
+        let segmentIndex = 0;
+        segmentIndex < segmentsPerGraph;
+        segmentIndex += 1
+      ) {
+        const nextX = (segmentIndex + 1) * 20;
+        const nextY = Math.random() * 50;
+        const deltaX = nextX - prevX;
+        const deltaY = nextY - prevY;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        const angle = Math.atan2(deltaY, deltaX);
+        const instanceIndex = parentIndex * segmentsPerGraph + segmentIndex;
+
+        this.reusableDummy.position.set(
+          (prevX + nextX) * 0.5,
+          (prevY + nextY) * 0.5,
+          0,
+        );
+        this.reusableDummy.rotation.set(0, 0, angle);
+        this.reusableDummy.scale.set(distance, 1, 1);
+        this.reusableDummy.updateMatrix();
+
+        localMatrices[instanceIndex] = this.reusableDummy.matrix.clone();
+
+        prevX = nextX;
+        prevY = nextY;
+      }
+    }
+
+    this.applyGroupedMatrices(mesh, transforms, localMatrices, segmentsPerGraph);
+
+    this.floatingGroup.add(mesh);
+    this.floatingEntries.push({
+      kind: "grouped",
+      type: FLOATING_TYPE_LINE,
+      mesh,
+      transforms,
+      localMatrices,
+      instancesPerParent: segmentsPerGraph,
+    });
+  }
+
+  createAreaChartInstances(count) {
+    if (!count) return;
+
+    const blocksPerChart = 4;
+    const totalInstances = count * blocksPerChart;
+    const mesh = new THREE.InstancedMesh(
+      this.sharedResources.areaGeometry,
+      this.sharedResources.areaMaterial,
+      totalInstances,
+    );
+    const transforms = this.createTransformBuffers(count, 90);
+    const localMatrices = new Array(totalInstances);
+
+    mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+
+    for (let parentIndex = 0; parentIndex < count; parentIndex += 1) {
+      this.fillRandomTransform(transforms, parentIndex);
+
+      for (let blockIndex = 0; blockIndex < blocksPerChart; blockIndex += 1) {
+        const height = 20 + Math.random() * 60;
+        const instanceIndex = parentIndex * blocksPerChart + blockIndex;
+
+        this.reusableDummy.position.set(blockIndex * 20, height * 0.5, 0);
+        this.reusableDummy.rotation.set(0, 0, 0);
+        this.reusableDummy.scale.set(1, height, 1);
+        this.reusableDummy.updateMatrix();
+
+        localMatrices[instanceIndex] = this.reusableDummy.matrix.clone();
+      }
+    }
+
+    this.applyGroupedMatrices(mesh, transforms, localMatrices, blocksPerChart);
+
+    this.floatingGroup.add(mesh);
+    this.floatingEntries.push({
+      kind: "grouped",
+      type: FLOATING_TYPE_AREA,
+      mesh,
+      transforms,
+      localMatrices,
+      instancesPerParent: blocksPerChart,
+    });
+  }
+
+  applyGroupedMatrices(mesh, transforms, localMatrices, instancesPerParent) {
+    const parentCount = transforms.count;
+
+    for (let parentIndex = 0; parentIndex < parentCount; parentIndex += 1) {
+      this.reusableDummy.position.set(
+        transforms.x[parentIndex],
+        transforms.y[parentIndex],
+        transforms.z[parentIndex],
+      );
+      this.reusableDummy.rotation.set(
+        transforms.rotX[parentIndex],
+        transforms.rotY[parentIndex],
+        0,
+      );
+      this.reusableDummy.scale.set(1, 1, 1);
+      this.reusableDummy.updateMatrix();
+
+      this.reusableParentMatrix.copy(this.reusableDummy.matrix);
+
+      const start = parentIndex * instancesPerParent;
+      const end = start + instancesPerParent;
+
+      for (let instanceIndex = start; instanceIndex < end; instanceIndex += 1) {
+        this.reusableMatrix.multiplyMatrices(
+          this.reusableParentMatrix,
+          localMatrices[instanceIndex],
+        );
+        mesh.setMatrixAt(instanceIndex, this.reusableMatrix);
+      }
+    }
+
+    mesh.instanceMatrix.needsUpdate = true;
   }
 
   updateFloatingFrustum() {
@@ -678,56 +782,113 @@ export default class CoreEngine {
   }
 
   isFloatingVisible(x, y, z, radius) {
-    const center = this.reusableBounds.center;
-
-    center.set(x, y, z);
+    this.reusableBounds.center.set(x, y, z);
     this.reusableBounds.radius = radius;
 
     return this.frustum.intersectsSphere(this.reusableBounds);
   }
 
-  updateGroupFloating() {
-    for (let i = 0; i < this.groupFloating.length; i += 1) {
-      const item = this.groupFloating[i];
-      const object = item.object;
+  updateFloating(deltaScale) {
+    for (let entryIndex = 0; entryIndex < this.floatingEntries.length; entryIndex += 1) {
+      const entry = this.floatingEntries[entryIndex];
+      const { transforms, mesh } = entry;
+      const count = transforms.count;
+      let changed = false;
 
-      item.z += this.qualityProfile.floatingSpeed;
-      if (item.z > FLOATING_Z_RESET) item.z = FLOATING_Z_START;
+      if (entry.kind === "simple") {
+        for (let i = 0; i < count; i += 1) {
+          transforms.z[i] += this.qualityProfile.floatingSpeed * deltaScale;
+          if (transforms.z[i] > FLOATING_Z_RESET) {
+            transforms.z[i] = FLOATING_Z_START;
+          }
 
-      object.position.z = item.z;
+          const isVisible = this.isFloatingVisible(
+            transforms.x[i],
+            transforms.y[i],
+            transforms.z[i],
+            transforms.radius,
+          );
 
-      if (!this.isFloatingVisible(object.position.x, object.position.y, item.z, item.radius)) {
-        continue;
-      }
+          if (isVisible) {
+            transforms.rotX[i] += transforms.rotSpeed[i] * deltaScale;
+            transforms.rotY[i] += transforms.rotSpeed[i] * deltaScale;
 
-      object.rotation.x += item.rotSpeed;
-      object.rotation.y += item.rotSpeed;
-    }
-  }
-
-  updateInstancedFloating() {
-    for (let groupIndex = 0; groupIndex < this.instancedFloating.length; groupIndex += 1) {
-      const instanced = this.instancedFloating[groupIndex];
-      const { mesh, data } = instanced;
-
-      for (let i = 0; i < data.length; i += 1) {
-        const item = data[i];
-
-        item.z += this.qualityProfile.floatingSpeed;
-        if (item.z > FLOATING_Z_RESET) item.z = FLOATING_Z_START;
-
-        if (this.isFloatingVisible(item.x, item.y, item.z, item.radius)) {
-          item.rotX += item.rotSpeed;
-          item.rotY += item.rotSpeed;
+            this.reusableDummy.position.set(
+              transforms.x[i],
+              transforms.y[i],
+              transforms.z[i],
+            );
+            this.reusableDummy.rotation.set(
+              transforms.rotX[i],
+              transforms.rotY[i],
+              0,
+            );
+            this.reusableDummy.scale.set(1, 1, 1);
+            this.reusableDummy.updateMatrix();
+            mesh.setMatrixAt(i, this.reusableDummy.matrix);
+            changed = true;
+          }
         }
+      } else {
+        const { localMatrices, instancesPerParent } = entry;
 
-        this.reusableDummy.position.set(item.x, item.y, item.z);
-        this.reusableDummy.rotation.set(item.rotX, item.rotY, 0);
-        this.reusableDummy.updateMatrix();
-        mesh.setMatrixAt(i, this.reusableDummy.matrix);
+        for (let parentIndex = 0; parentIndex < count; parentIndex += 1) {
+          transforms.z[parentIndex] +=
+            this.qualityProfile.floatingSpeed * deltaScale;
+          if (transforms.z[parentIndex] > FLOATING_Z_RESET) {
+            transforms.z[parentIndex] = FLOATING_Z_START;
+          }
+
+          const isVisible = this.isFloatingVisible(
+            transforms.x[parentIndex],
+            transforms.y[parentIndex],
+            transforms.z[parentIndex],
+            transforms.radius,
+          );
+
+          if (isVisible) {
+            transforms.rotX[parentIndex] +=
+              transforms.rotSpeed[parentIndex] * deltaScale;
+            transforms.rotY[parentIndex] +=
+              transforms.rotSpeed[parentIndex] * deltaScale;
+
+            this.reusableDummy.position.set(
+              transforms.x[parentIndex],
+              transforms.y[parentIndex],
+              transforms.z[parentIndex],
+            );
+            this.reusableDummy.rotation.set(
+              transforms.rotX[parentIndex],
+              transforms.rotY[parentIndex],
+              0,
+            );
+            this.reusableDummy.scale.set(1, 1, 1);
+            this.reusableDummy.updateMatrix();
+            this.reusableParentMatrix.copy(this.reusableDummy.matrix);
+
+            const start = parentIndex * instancesPerParent;
+            const end = start + instancesPerParent;
+
+            for (
+              let instanceIndex = start;
+              instanceIndex < end;
+              instanceIndex += 1
+            ) {
+              this.reusableMatrix.multiplyMatrices(
+                this.reusableParentMatrix,
+                localMatrices[instanceIndex],
+              );
+              mesh.setMatrixAt(instanceIndex, this.reusableMatrix);
+            }
+
+            changed = true;
+          }
+        }
       }
 
-      mesh.instanceMatrix.needsUpdate = true;
+      if (changed) {
+        mesh.instanceMatrix.needsUpdate = true;
+      }
     }
   }
 
@@ -737,6 +898,8 @@ export default class CoreEngine {
     this.isMobile = this.width < 768;
     this.qualityProfile = this.createQualityProfile();
     this.frameInterval = this.isMobile ? 1 / 30 : 1 / 60;
+    this.bloomResolutionScale = this.qualityProfile.bloomResolutionScale;
+
     this.pixelRatio = Math.min(
       window.devicePixelRatio || 1,
       this.qualityProfile.maxPixelRatio,
@@ -751,26 +914,33 @@ export default class CoreEngine {
     this.composer.setPixelRatio(this.pixelRatio);
 
     if (this.bloomPass) {
-      this.bloomPass.setSize(this.width, this.height);
+      this.bloomPass.setSize(
+        this.width * this.bloomResolutionScale,
+        this.height * this.bloomResolutionScale,
+      );
       this.bloomPass.strength = this.qualityProfile.bloomStrength;
     }
 
-    if (this.particleMaterial) {
-      this.particleMaterial.uniforms.uPixelRatio.value = this.pixelRatio;
-      this.particleMaterial.uniforms.uSize.value =
-        this.qualityProfile.particleSize;
+    if (this.particleUniforms) {
+      this.particleUniforms.uPixelRatio.value = this.pixelRatio;
+      this.particleUniforms.uSize.value = this.qualityProfile.particleSize;
     }
   }
 
   animate() {
-    this.rafId = requestAnimationFrame(this.animate);
-
+    this.renderer.info.reset();
     const elapsed = this.clock.getElapsedTime();
-    if (elapsed - this.lastFrame < this.frameInterval) return;
+    const delta = Math.min(elapsed - this.lastFrame, 0.1);
+
+    if (delta < this.frameInterval) return;
+
     this.lastFrame = elapsed;
 
+    // Normalize motion to ~60 fps so throttling on mobile does not change timing.
+    const deltaScale = delta * 60;
+
     if (this.particles) {
-      this.particles.rotation.y += this.qualityProfile.particleSpin;
+      this.particles.rotation.y += this.qualityProfile.particleSpin * deltaScale;
 
       const angle = this.particles.rotation.y % (Math.PI * 2);
 
@@ -779,20 +949,19 @@ export default class CoreEngine {
     }
 
     this.camera.position.x +=
-      (this.mouse.x * 100 - this.camera.position.x) * 0.05;
+      (this.mouse.x * 100 - this.camera.position.x) * 0.05 * deltaScale;
     this.camera.position.y +=
-      (-this.mouse.y * 100 - this.camera.position.y) * 0.05;
+      (-this.mouse.y * 100 - this.camera.position.y) * 0.05 * deltaScale;
 
-    this.camera.position.x += Math.sin(elapsed) * 0.3;
-    this.camera.position.y += Math.cos(elapsed) * 0.3;
+    this.camera.position.x += Math.sin(elapsed) * 0.3 * deltaScale;
+    this.camera.position.y += Math.cos(elapsed) * 0.3 * deltaScale;
     this.camera.lookAt(0, 0, 0);
 
-    this.grid.position.z += this.qualityProfile.gridSpeed;
+    this.grid.position.z += this.qualityProfile.gridSpeed * deltaScale;
     if (this.grid.position.z > GRID_Z_RESET) this.grid.position.z = 0;
 
     this.updateFloatingFrustum();
-    this.updateGroupFloating();
-    this.updateInstancedFloating();
+    this.updateFloating(deltaScale);
 
     this.composer.render();
   }
@@ -808,7 +977,10 @@ export default class CoreEngine {
   }
 
   dispose() {
-    cancelAnimationFrame(this.rafId);
+    if (this.renderer) {
+      this.renderer.setAnimationLoop(null);
+    }
+
     window.removeEventListener("mousemove", this.onMouseMove);
     window.removeEventListener("resize", this.onResize);
 
