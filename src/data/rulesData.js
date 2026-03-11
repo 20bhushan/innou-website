@@ -428,34 +428,6 @@ export const rulesData = {
       }
     ]
   },
-  treasure: {
-    title: "TREASURE HUNT",
-    subtitle: "Puzzle Adventure",
-    color: "#00ffaa",
-    rules: [
-      {
-        title: "Team Size",
-        items: [
-          "Teams of 2-4 participants.",
-          "Teams must stay together."
-        ]
-      },
-      {
-        title: "Game Format",
-        items: [
-          "Clues will lead to next checkpoints.",
-          "All clues must be solved in order."
-        ]
-      },
-      {
-        title: "Winning",
-        items: [
-          "First team to reach final clue wins.",
-          "Time may be used as tie-breaker."
-        ]
-      }
-    ]
-  },
   run: {
     title: "INNOU RUN",
     subtitle: "7KM Endurance Challenge",
