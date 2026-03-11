@@ -18,6 +18,7 @@ import gsap from "gsap";
 import { EffectComposer } from "three-stdlib";
 import { RenderPass } from "three-stdlib";
 import { UnrealBloomPass } from "three-stdlib";
+import { floatBitsToUint } from "three/src/nodes/math/BitcastNode";
 
 const LOGO_SRC = "/logo.png";
 const LOGO_CANVAS_SIZE = 512;
@@ -161,11 +162,23 @@ export default class CoreEngine {
 
   initRenderer() {
     this.renderer = new THREE.WebGLRenderer({
-      antialias: true,
+      antialias: !this.isMobile,
       alpha: true,
       powerPreference: "high-performance",
+      stencil: false,
+      depth: true,
     });
-
+    this.renderer.setClearColor(0x000000, 0);
+    this.renderer.autoClear=false;
+    const gl=this.renderer.getContext();
+    const floatBuffer=gl.getExtension("EXT_color_buffer_float");
+    const floatLinear=gl.getExtension("OES_texture_float_linear");
+    if(!floatBuffer){
+      console.warn("EXT_color_buffer_float not supported");
+    }
+    if(!floatLinear){
+      console.warn("OES_texture_float_linear not supported");
+    }
     // Clamp pixel ratio aggressively to protect fill rate on dense screens.
     this.pixelRatio = Math.min(
       window.devicePixelRatio || 1,
