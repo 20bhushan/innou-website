@@ -115,16 +115,16 @@ export default class CoreEngine {
       maxPixelRatio: this.isMobile ? 1 : 1.5,
       particleSize: this.isMobile ? 3 : 4,
       particleBudget: this.isMobile
-        ? Math.round(2600 * quality + 500)
+        ? Math.round(1400 * quality + 300)
         : Math.round(5200 * quality + 900),
       floatingBudget: this.isMobile
-        ? Math.round(70 * quality + 30)
+        ? Math.round(40 * quality + 20)
         : Math.round(180 * quality + 80),
       bloomStrength:
         this.hardwareConcurrency <= 4 || this.isMobile ? 0.6 : 1.2,
       bloomResolutionScale:
         this.hardwareConcurrency <= 4 || this.deviceMemory <= 4 || this.isMobile
-          ? 0.5
+          ? 0.35
           : 1,
       gridSpeed: this.isMobile ? 1 : 2,
       floatingSpeed: this.isMobile ? 2 : 3.5,
@@ -186,7 +186,7 @@ export default class CoreEngine {
     );
 
     this.renderer.setSize(this.width, this.height);
-    this.renderer.setPixelRatio(this.pixelRatio);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio,this.qualityProfile.maxPixelRatio));
     this.renderer.shadowMap.enabled = false;
     this.renderer.info.autoReset = false;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -236,6 +236,14 @@ export default class CoreEngine {
   initInteraction() {
     window.addEventListener("mousemove", this.onMouseMove, { passive: true });
     window.addEventListener("resize", this.onResize, { passive: true });
+    document.addEventListener("visibilitychange",()=>{
+      if(document.hidden){
+        this.renderer.setAnimationLoop(null);
+      }
+      else{
+        this.renderer.setAnimationLoop(this.animate);
+      }
+    })
   }
 
   handleMouseMove(event) {
@@ -941,6 +949,7 @@ export default class CoreEngine {
   }
 
   animate() {
+    if(document.hidden) return;
     this.renderer.info.reset();
     const elapsed = this.clock.getElapsedTime();
     const delta = Math.min(elapsed - this.lastFrame, 0.1);

@@ -1,5 +1,5 @@
 "use client";
-
+import "./contact.css";
 import {
   FaInstagram,
   FaWhatsapp,

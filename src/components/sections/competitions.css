@@ -1,0 +1,136 @@
+/* ================= COMPETITIONS ================= */
+
+.competitions {
+  padding: 8rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.track-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.track-card {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+
+  background: rgba(15, 20, 40, 0.55);
+  padding: 1.6rem;
+  border-radius: 20px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  backdrop-filter: blur(18px);
+  text-align: center;
+
+  transition: transform .35s ease,box-shadow .35s ease,border .35s ease;
+  will-change: transform;
+}
+
+.track-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 35px rgba(0, 242, 255, 0.25),0 0 30px rgba(188,112,255,0.2);
+  border-color: var(--neon-cyan);
+}
+
+.track-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.track-card p {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.rules-btn {
+  margin-top: 12px;
+  display: inline-block;
+  padding: 8px 16px;
+
+  border-radius: 20px;
+
+  background: linear-gradient(
+    90deg,
+    var(--neon-cyan),
+    var(--neon-purple)
+  );
+
+  color:#020617;
+  font-weight: 700;
+  text-decoration: none;
+  transition:all 0.3s ease;
+}
+
+.rules-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 242, 255, 0.5),0 0 30px rgba(188,112,255,0.3);
+}
+
+/* ================= SCROLL VERSION ================= */
+
+.circle-wrapper {
+  overflow: visible;
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+.circle-track {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: circularScroll 25s linear infinite;
+  overflow: visible;
+}
+
+.circle-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes circularScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.circle-track .track-card {
+  min-width: 280px;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+  .circle-track {
+    gap: 1.2rem;
+    animation-duration: 40s;
+  }
+
+  .circle-track .track-card {
+    min-width: 220px;
+    max-width: 220px;
+  }
+
+  .track-card {
+    min-height: 210px;
+    padding: 1.6rem;
+  }
+
+  .track-card h3 {
+    font-size: 1.4rem;
+  }
+
+  .track-card p {
+    font-size: 0.9rem;
+  }
+
+}

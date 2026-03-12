@@ -14,7 +14,6 @@ import Schedule from "@/components/sections/Schedule";
 import Sponsors from "@/components/sections/Sponsors";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
-import RegisterModal from "@/components/sections/RegisterModal";
 
 export default function Home() {
   useEffect(() => {
@@ -39,9 +38,6 @@ export default function Home() {
 
       {/* Footer */}
       <Footer />
-
-      {/* Modal */}
-      <RegisterModal />
 
       {/* Cursor Glow */}
       <div className="cursor-glow"></div>

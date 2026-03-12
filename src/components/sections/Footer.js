@@ -1,3 +1,4 @@
+import "./footer.css";
 import { projectMeta } from "@/config/projectMeta";
 import {
   FaInstagram,
@@ -5,7 +6,6 @@ import {
   FaEnvelope,
   FaFacebookF,
 } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
 export default function Footer() {
   return (
     <footer className="footer">

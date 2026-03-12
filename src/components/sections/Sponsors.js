@@ -1,5 +1,5 @@
 "use client";
-
+import "./sponsors.css";
 import { eventConfig } from "@/config/eventConfig";
 
 export default function Sponsors() {

@@ -1,5 +1,5 @@
 "use client";
-
+import "./competitions.css";
 import Link from "next/link";
 import { rulesData } from "@/data/rulesData";
 

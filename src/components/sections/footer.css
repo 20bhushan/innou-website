@@ -1,0 +1,118 @@
+/* ================= FOOTER ================= */
+
+.footer{
+width:100%;
+margin-top:120px;
+padding:50px 20px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:rgba(10,10,25,0.4);
+backdrop-filter:blur(12px);
+
+border-top:1px solid rgba(255,255,255,0.08);
+
+color:#cbd5f5;
+text-align:center;
+}
+
+
+/* footer container */
+
+.footer-content{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:12px;
+}
+
+
+/* title */
+
+.footer-content h3{
+font-size:1.4rem;
+font-weight:600;
+color:white;
+}
+
+
+/* copyright text */
+
+.footer-content p{
+font-size:0.9rem;
+opacity:0.7;
+}
+
+
+/* social icons */
+
+.social-icons{
+display:flex;
+gap:18px;
+margin-top:10px;
+}
+
+
+/* icon style */
+
+.social-icons a{
+font-size:20px;
+color:white;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+width:40px;
+height:40px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,0.05);
+
+border:1px solid rgba(255,255,255,0.08);
+
+transition:all .3s ease;
+}
+
+
+/* hover effect */
+
+.social-icons a:hover{
+transform:translateY(-4px) scale(1.05);
+
+color:var(--neon-cyan);
+
+border-color:var(--neon-cyan);
+
+box-shadow:
+0 0 15px rgba(0,242,255,0.5),
+0 0 30px rgba(0,242,255,0.2);
+}
+
+
+/* mobile */
+
+@media(max-width:768px){
+
+.footer{
+padding:40px 20px;
+}
+
+.footer-content h3{
+font-size:1.2rem;
+}
+
+.social-icons{
+gap:14px;
+}
+
+.social-icons a{
+width:36px;
+height:36px;
+font-size:18px;
+}
+
+}
