@@ -253,12 +253,42 @@ body {
   gap: 2rem;
 }
 .track-card {
-  background: rgba(255, 255, 255, 0.03);
-  padding: 3rem;
+  background: rgba(15, 20, 40, 0.55);
+  padding: 1.6rem;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   text-align: center;
+  backdrop-filter: blur(18px);
+}
+.track-card h3{
+  font-size:1.3rem;
+  margin-bottom:8px;
+}
+.track-card p{
+  font-size: 0.9rem;
+  opacity:0.85;
+}
+.track-card ul{
+  margin: 10px 0;
+  padding: 0;
+  list-style: none;
+}
+.track-card ul li{
+  margin:4px 0;
+  font-size:0.95rem;
+}
+.track-card li{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin:8px 0
+  font-size
+}
+.track-card svg{
+  color:#00f2ff;
+  margin-right: 6px;
 }
 .track-card,
 .about {
@@ -411,7 +441,7 @@ html {
 
 .track-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 0 40px rgba(0, 242, 255, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
   border-color: var(--neon-cyan);
 }
 .nav-links a.active {
@@ -928,7 +958,8 @@ body {
 
   .circle-track .track-card,
   .sponsor {
-    min-width: 200px;
+    min-width: 240px;
+    max-width:240px;
   }
 
   /* ================= PARTICLES SMALLER ================= */
