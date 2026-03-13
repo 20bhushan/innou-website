@@ -6,7 +6,6 @@ import initDomEffects from "@/components/three/DomEffects";
 
 import Loader from "@/components/sections/Loader";
 import Hero from "@/components/sections/Hero";
-import Events from "@/components/sections/Events";
 import About from "@/components/sections/About";
 import Competitions from "@/components/sections/Competitions";
 import Schedule from "@/components/sections/Schedule";
@@ -25,7 +24,6 @@ export default function Home() {
       <Loader />
       {/* Main Sections */}
       <Hero />
-      <Events />
       <About />
       <Competitions marquee />
       <Schedule />

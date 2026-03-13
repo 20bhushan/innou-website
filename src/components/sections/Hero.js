@@ -3,11 +3,9 @@ import "./hero.css";
 export default function Hero() {
   return (
     <section id="home" className="hero">
-
       <div className="hero-bg"></div>
 
       <div className="hero-content section-shell">
-
         <h1 className="hero-title">
           INNOU <span>1.0</span>
         </h1>
@@ -17,19 +15,16 @@ export default function Hero() {
         </p>
 
         <div className="hero-buttons">
-
-          <a href="#home-events" className="btn-primary">
-            View Tracks
+          <a href="#competitions" className="btn-primary">
+            View Events
           </a>
 
           <a href="#about" className="btn-outline">
             About Fest
           </a>
-
         </div>
 
         <div className="countdown">
-
           <div className="count-item">
             <span id="days">00</span>
             <p>Days</p>
@@ -49,11 +44,8 @@ export default function Hero() {
             <span id="seconds">00</span>
             <p>Seconds</p>
           </div>
-
         </div>
-
       </div>
-
     </section>
   );
 }
