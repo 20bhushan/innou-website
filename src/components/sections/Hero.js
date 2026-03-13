@@ -1,47 +1,59 @@
 import "./hero.css";
+
 export default function Hero() {
   return (
     <section id="home" className="hero">
-      <div className="particles"></div>
 
-      <div className="hero-overlay">
-        <div className="title-wrapper">
-          <h1 className="main-title">
-            INNOU <span className="gradient-text">1.0</span>
-          </h1>
-          <div className="title-line"></div>
-        </div>
+      <div className="hero-bg"></div>
 
-        <p className="subtitle">The intersection of Technology & Business</p>
+      <div className="hero-content">
 
-        <div className="cta-group">
+        <h1 className="hero-title">
+          INNOU <span>1.0</span>
+        </h1>
+
+        <p className="hero-subtitle">
+          The Intersection of Technology & Business
+        </p>
+
+        <div className="hero-buttons">
+
           <a href="#home-events" className="btn-primary">
-            View Track
+            View Tracks
           </a>
+
           <a href="#about" className="btn-outline">
             About Fest
           </a>
+
         </div>
 
         <div className="countdown">
-          <div>
+
+          <div className="count-item">
             <span id="days">00</span>
             <p>Days</p>
           </div>
-          <div>
+
+          <div className="count-item">
             <span id="hours">00</span>
             <p>Hours</p>
           </div>
-          <div>
+
+          <div className="count-item">
             <span id="minutes">00</span>
             <p>Minutes</p>
           </div>
-          <div>
+
+          <div className="count-item">
             <span id="seconds">00</span>
             <p>Seconds</p>
           </div>
+
         </div>
+
       </div>
+
     </section>
   );
 }
