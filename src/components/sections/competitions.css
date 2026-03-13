@@ -1,18 +1,16 @@
 /* ================= COMPETITIONS ================= */
 
 .competitions {
-  padding: 8rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding-block: 8rem;
 }
 
-.track-grid {
+#competitions .track-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 2rem;
 }
 
-.track-card {
+#competitions .track-card {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   align-items: center;
@@ -30,20 +28,21 @@
 
   transition: transform .35s ease,box-shadow .35s ease,border .35s ease;
   will-change: transform;
+  contain: layout paint;
 }
 
-.track-card:hover {
+#competitions .track-card:hover {
   transform: translateY(-10px) scale(1.03);
   box-shadow: 0 15px 35px rgba(0, 242, 255, 0.25),0 0 30px rgba(188,112,255,0.2);
   border-color: var(--neon-cyan);
 }
 
-.track-card h3 {
+#competitions .track-card h3 {
   font-size: 1.4rem;
   margin-bottom: 0.5rem;
 }
 
-.track-card p {
+#competitions .track-card p {
   font-size: 0.95rem;
   opacity: 0.85;
 }
@@ -74,22 +73,21 @@
 
 /* ================= SCROLL VERSION ================= */
 
-.circle-wrapper {
-  overflow: visible;
+.competitions-marquee {
   position: relative;
   width: 100%;
-  overflow: visible;
+  overflow: hidden;
 }
 
-.circle-track {
+.competitions-track {
   display: flex;
   gap: 3rem;
   width: max-content;
   animation: circularScroll 25s linear infinite;
-  overflow: visible;
+  will-change: transform;
 }
 
-.circle-track:hover {
+.competitions-track:hover {
   animation-play-state: paused;
 }
 
@@ -102,7 +100,7 @@
   }
 }
 
-.circle-track .track-card {
+.competitions-track .track-card {
   min-width: 280px;
 }
 
@@ -110,26 +108,30 @@
 
 @media (max-width: 768px) {
 
-  .circle-track {
+  .competitions {
+    padding-block: 5rem;
+  }
+
+  .competitions-track {
     gap: 1.2rem;
     animation-duration: 40s;
   }
 
-  .circle-track .track-card {
+  .competitions-track .track-card {
     min-width: 220px;
     max-width: 220px;
   }
 
-  .track-card {
+  #competitions .track-card {
     min-height: 210px;
     padding: 1.6rem;
   }
 
-  .track-card h3 {
+  #competitions .track-card h3 {
     font-size: 1.4rem;
   }
 
-  .track-card p {
+  #competitions .track-card p {
     font-size: 0.9rem;
   }
 

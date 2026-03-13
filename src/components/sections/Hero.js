@@ -6,7 +6,7 @@ export default function Hero() {
 
       <div className="hero-bg"></div>
 
-      <div className="hero-content">
+      <div className="hero-content section-shell">
 
         <h1 className="hero-title">
           INNOU <span>1.0</span>

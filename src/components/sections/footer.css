@@ -48,7 +48,7 @@ opacity:0.7;
 
 /* social icons */
 
-.social-icons{
+.footer .social-icons{
 display:flex;
 gap:18px;
 margin-top:10px;
@@ -57,7 +57,7 @@ margin-top:10px;
 
 /* icon style */
 
-.social-icons a{
+.footer .social-icons a{
 font-size:20px;
 color:white;
 
@@ -80,7 +80,7 @@ transition:all .3s ease;
 
 /* hover effect */
 
-.social-icons a:hover{
+.footer .social-icons a:hover{
 transform:translateY(-4px) scale(1.05);
 
 color:var(--neon-cyan);
@@ -105,11 +105,11 @@ padding:40px 20px;
 font-size:1.2rem;
 }
 
-.social-icons{
+.footer .social-icons{
 gap:14px;
 }
 
-.social-icons a{
+.footer .social-icons a{
 width:36px;
 height:36px;
 font-size:18px;

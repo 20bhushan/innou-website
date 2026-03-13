@@ -25,12 +25,12 @@ export default function Competitions({ marquee = false }) {
   );
 
   return (
-    <section id="competitions" className="competitions">
+    <section id="competitions" className="competitions section-shell">
       <h2 className="section-title">All Events</h2>
 
       {marquee ? (
-        <div className="circle-wrapper">
-          <div className="circle-track">
+        <div className="competitions-marquee">
+          <div className="competitions-track">
             {events.map((entry) => renderCard(entry))}
             {events.map((entry) => renderCard(entry, true))}
           </div>

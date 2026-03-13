@@ -7,6 +7,8 @@
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 /* ================= TECH GRID BACKGROUND ================= */
@@ -53,7 +55,7 @@
 }
 
 .rules-nav .nav-container {
-  max-width: 1200px;
+  width: min(100%, 1200px);
   margin: auto;
   display: flex;
   align-items: center;
@@ -132,7 +134,7 @@
 .rules-grid {
   max-width: 1100px;
   margin: 40px auto;
-  padding: 0 20px 80px;
+  padding: 0 clamp(16px, 3vw, 20px) 80px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 26px;
@@ -212,5 +214,10 @@
 
   .rules-nav .nav-title {
     display: none;
+  }
+
+  .rules-nav .nav-container {
+    padding: 16px;
+    gap: 12px;
   }
 }

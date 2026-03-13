@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 
-import ThreeCanvas from "@/components/three/ThreeCanvas";
 import initDomEffects from "@/components/three/DomEffects";
 
 import Loader from "@/components/sections/Loader";
@@ -17,14 +16,11 @@ import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   useEffect(() => {
-    initDomEffects();
+    return initDomEffects();
   }, []);
 
   return (
     <>
-      {/* 3D Background Engine */}
-      <ThreeCanvas />
-
       {/* Loader */}
       <Loader />
       {/* Main Sections */}

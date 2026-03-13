@@ -3,49 +3,49 @@ import "./schedule.css";
 import { eventConfig } from "@/config/eventConfig";
 
 import {
-  Keyboard,
-  Bug,
-  Laptop,
-  Activity,
-  Mic,
-  Trophy,
-  Lightbulb,
-  Gamepad2,
-  Sparkles,
-  MapPin,
-  Calendar
-} from "lucide-react";
+  LuActivity,
+  LuBug,
+  LuCalendar,
+  LuGamepad2,
+  LuKeyboard,
+  LuLaptop,
+  LuLightbulb,
+  LuMapPin,
+  LuMic,
+  LuSparkles,
+  LuTrophy,
+} from "react-icons/lu";
 
 export default function Schedule() {
   const days = eventConfig.schedule || [];
 
   // Icon mapping (clean professional way)
   const iconMap = {
-    keyboard: Keyboard,
-    bug: Bug,
-    laptop: Laptop,
-    activity: Activity,
-    mic: Mic,
-    trophy: Trophy,
-    lightbulb: Lightbulb,
-    gamepad: Gamepad2,
-    sparkles: Sparkles
+    keyboard: LuKeyboard,
+    bug: LuBug,
+    laptop: LuLaptop,
+    activity: LuActivity,
+    mic: LuMic,
+    trophy: LuTrophy,
+    lightbulb: LuLightbulb,
+    gamepad: LuGamepad2,
+    sparkles: LuSparkles
   };
 
   return (
-    <section id="schedule" className="timeline-section reveal">
+    <section id="schedule" className="timeline-section reveal section-shell">
       <h2 className="section-title">Schedule</h2>
 
-      <div className="circle-wrapper">
-        <div className="circle-track">
+      <div className="schedule-scroll">
+        <div className="schedule-track">
 
           {days.map((d, i) => (
-            <div key={i} className="track-card">
+            <article key={i} className="track-card">
 
               <h3>{d.day}</h3>
 
               <p className="date">
-                <Calendar size={16} />
+                <LuCalendar size={16} />
                 {d.date}
               </p>
 
@@ -55,7 +55,7 @@ export default function Schedule() {
 
                   return (
                     <li key={index}>
-                      {Icon && <Icon size={16} color="var(--neon-cyan)"strokeWidth={2.5} />}
+                      {Icon && <Icon size={16} color="var(--neon-cyan)" />}
                       {e.text}
                     </li>
                   );
@@ -63,11 +63,11 @@ export default function Schedule() {
               </ul>
 
               <p className="venue">
-                <MapPin size={16} />
+                <LuMapPin size={16} />
                 {d.venue}
               </p>
 
-            </div>
+            </article>
           ))}
 
         </div>

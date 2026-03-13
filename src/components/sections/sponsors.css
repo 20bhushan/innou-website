@@ -1,34 +1,28 @@
 /* ================= SPONSORS ================= */
 
 #sponsors {
-  padding: 8rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding-block: 8rem;
 }
 
-.sponsor-wrapper {
+#sponsors .sponsors-marquee {
   overflow: hidden;
 }
 
-.circle-wrapper {
-  overflow: visible;
-}
-
-.circle-track {
+#sponsors .sponsors-track {
   display: flex;
   gap: 2rem;
   width: max-content;
   animation: circularScroll 20s linear infinite;
-  overflow: visible;
+  will-change: transform;
 }
-.track-card{
-    overflow: hidden;
+#sponsors .track-card{
+  overflow: hidden;
 }
-.circle-track:hover {
+#sponsors .sponsors-track:hover {
   animation-play-state: paused;
 }
 
-.track-card.sponsor {
+#sponsors .track-card.sponsor {
   min-width: 200px;
 
   padding: 2rem;
@@ -43,9 +37,10 @@
     backdrop-filter: blur(18px);
 
   transition:transform 0.3s ease,box-shadow .35s ease,border .35s ease;
+  contain: layout paint;
 }
 
-.track-card.sponsor:hover {
+#sponsors .track-card.sponsor:hover {
   border-color: var(--neon-cyan);
   transform: translateY(-10px) scale(1.03);
   box-shadow: 0 0 20px rgba(0, 242, 255, 0.25),0 0 40px rgba(188, 112, 255, 0.2);
@@ -66,12 +61,16 @@
 
 @media (max-width: 768px) {
 
-  .circle-track {
+  #sponsors {
+    padding-block: 5rem;
+  }
+
+  #sponsors .sponsors-track {
     gap: 1.2rem;
     animation-duration: 40s;
   }
 
-  .track-card.sponsor {
+  #sponsors .track-card.sponsor {
     min-width: 180px;
   }
 

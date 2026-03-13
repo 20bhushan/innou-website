@@ -10,7 +10,7 @@ import { FaXTwitter } from "react-icons/fa6";
 
 export default function Contact() {
   return (
-    <section id="contact" className="tracks reveal">
+    <section id="contact" className="tracks reveal section-shell">
       <h2 className="section-title">Contact Us</h2>
 
       <div className="track-card contact-card">

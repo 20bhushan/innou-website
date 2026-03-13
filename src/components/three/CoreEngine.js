@@ -18,7 +18,6 @@ import gsap from "gsap";
 import { EffectComposer } from "three-stdlib";
 import { RenderPass } from "three-stdlib";
 import { UnrealBloomPass } from "three-stdlib";
-import { floatBitsToUint } from "three/src/nodes/math/BitcastNode";
 
 const LOGO_SRC = "/logo.png";
 const LOGO_CANVAS_SIZE = 512;
@@ -76,6 +75,7 @@ export default class CoreEngine {
     this.mouse = { x: 0, y: 0 };
     this.pixelRatio = 1;
     this.qualityProfile = this.createQualityProfile();
+    this.isDisposed = false;
 
     this.frustum = new THREE.Frustum();
     this.projectionScreenMatrix = new THREE.Matrix4();
@@ -86,6 +86,7 @@ export default class CoreEngine {
 
     this.onMouseMove = this.handleMouseMove.bind(this);
     this.onResize = this.handleResize.bind(this);
+    this.onVisibilityChange = this.handleVisibilityChange.bind(this);
     this.animate = this.animate.bind(this);
 
     this.init();
@@ -169,14 +170,14 @@ export default class CoreEngine {
       depth: true,
     });
     this.renderer.setClearColor(0x000000, 0);
-    this.renderer.autoClear=false;
-    const gl=this.renderer.getContext();
-    const floatBuffer=gl.getExtension("EXT_color_buffer_float");
-    const floatLinear=gl.getExtension("OES_texture_float_linear");
-    if(!floatBuffer){
+    this.renderer.autoClear = false;
+    const gl = this.renderer.getContext();
+    const floatBuffer = gl.getExtension("EXT_color_buffer_float");
+    const floatLinear = gl.getExtension("OES_texture_float_linear");
+    if (!floatBuffer) {
       console.warn("EXT_color_buffer_float not supported");
     }
-    if(!floatLinear){
+    if (!floatLinear) {
       console.warn("OES_texture_float_linear not supported");
     }
     // Clamp pixel ratio aggressively to protect fill rate on dense screens.
@@ -186,7 +187,7 @@ export default class CoreEngine {
     );
 
     this.renderer.setSize(this.width, this.height);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio,this.qualityProfile.maxPixelRatio));
+    this.renderer.setPixelRatio(this.pixelRatio);
     this.renderer.shadowMap.enabled = false;
     this.renderer.info.autoReset = false;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -234,16 +235,23 @@ export default class CoreEngine {
   }
 
   initInteraction() {
-    window.addEventListener("mousemove", this.onMouseMove, { passive: true });
+    if (!this.isMobile) {
+      window.addEventListener("mousemove", this.onMouseMove, { passive: true });
+    }
     window.addEventListener("resize", this.onResize, { passive: true });
-    document.addEventListener("visibilitychange",()=>{
-      if(document.hidden){
-        this.renderer.setAnimationLoop(null);
-      }
-      else{
-        this.renderer.setAnimationLoop(this.animate);
-      }
-    })
+    document.addEventListener("visibilitychange", this.onVisibilityChange);
+  }
+
+  handleVisibilityChange() {
+    if (!this.renderer || this.isDisposed) return;
+
+    if (document.hidden) {
+      this.renderer.setAnimationLoop(null);
+    } else {
+      this.clock.start();
+      this.lastFrame = this.clock.getElapsedTime();
+      this.renderer.setAnimationLoop(this.animate);
+    }
   }
 
   handleMouseMove(event) {
@@ -914,6 +922,9 @@ export default class CoreEngine {
   }
 
   handleResize() {
+    if (this.isDisposed || !this.renderer || !this.camera || !this.composer) return;
+
+    const wasMobile = this.isMobile;
     this.width = window.innerWidth;
     this.height = window.innerHeight;
     this.isMobile = this.width < 768;
@@ -925,6 +936,14 @@ export default class CoreEngine {
       window.devicePixelRatio || 1,
       this.qualityProfile.maxPixelRatio,
     );
+
+    if (wasMobile !== this.isMobile) {
+      if (this.isMobile) {
+        window.removeEventListener("mousemove", this.onMouseMove);
+      } else {
+        window.addEventListener("mousemove", this.onMouseMove, { passive: true });
+      }
+    }
 
     this.camera.aspect = this.width / this.height;
     this.camera.updateProjectionMatrix();
@@ -949,7 +968,7 @@ export default class CoreEngine {
   }
 
   animate() {
-    if(document.hidden) return;
+    if (document.hidden || this.isDisposed || !this.renderer || !this.composer) return;
     this.renderer.info.reset();
     const elapsed = this.clock.getElapsedTime();
     const delta = Math.min(elapsed - this.lastFrame, 0.1);
@@ -999,15 +1018,52 @@ export default class CoreEngine {
   }
 
   dispose() {
+    this.isDisposed = true;
+
     if (this.renderer) {
       this.renderer.setAnimationLoop(null);
     }
 
     window.removeEventListener("mousemove", this.onMouseMove);
     window.removeEventListener("resize", this.onResize);
+    document.removeEventListener("visibilitychange", this.onVisibilityChange);
 
     if (this.particleSequence) {
       this.particleSequence.kill();
     }
+
+    if (this.particles) {
+      this.scene?.remove(this.particles);
+      this.particles.geometry?.dispose();
+      this.particleMaterial?.uniforms?.uTexture?.value?.dispose?.();
+      this.particleMaterial?.dispose();
+      this.particles = null;
+    }
+
+    this.floatingEntries.forEach(({ mesh }) => {
+      this.floatingGroup?.remove(mesh);
+      mesh.dispose?.();
+    });
+    this.floatingEntries = [];
+
+    if (this.sharedResources) {
+      Object.values(this.sharedResources).forEach((resource) => {
+        resource?.dispose?.();
+      });
+      this.sharedResources = null;
+    }
+
+    if (this.grid) {
+      this.scene?.remove(this.grid);
+      this.grid.geometry?.dispose?.();
+      this.grid.material?.dispose?.();
+      this.grid = null;
+    }
+
+    this.composer?.dispose?.();
+    this.renderer?.dispose?.();
+    this.renderer?.domElement?.remove?.();
+    this.composer = null;
+    this.renderer = null;
   }
 }

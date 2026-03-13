@@ -1,28 +1,28 @@
 ﻿import "./schedule-page.css";
 import { eventConfig } from "@/config/eventConfig";
 import {
-  Keyboard,
-  Bug,
-  Laptop,
-  Activity,
-  Mic,
-  Trophy,
-  Lightbulb,
-  Gamepad2,
-  Sparkles,
-  MapPin,
-} from "lucide-react";
+  LuActivity,
+  LuBug,
+  LuGamepad2,
+  LuKeyboard,
+  LuLaptop,
+  LuLightbulb,
+  LuMapPin,
+  LuMic,
+  LuSparkles,
+  LuTrophy,
+} from "react-icons/lu";
 export default function SchedulePage() {
 const iconMap = {
-    keyboard: Keyboard,
-    bug: Bug,
-    laptop: Laptop,
-    activity: Activity,
-    mic: Mic,
-    trophy: Trophy,
-    lightbulb: Lightbulb,
-    gamepad: Gamepad2,
-    sparkles: Sparkles
+    keyboard: LuKeyboard,
+    bug: LuBug,
+    laptop: LuLaptop,
+    activity: LuActivity,
+    mic: LuMic,
+    trophy: LuTrophy,
+    lightbulb: LuLightbulb,
+    gamepad: LuGamepad2,
+    sparkles: LuSparkles
   };
 
   return (
@@ -45,13 +45,13 @@ const iconMap = {
 
                   return (
                     <li key={i}>
-                      {Icon && <Icon size={18} color="var(--neon-cyan)"strokeWidth={2.5}/>}
+                      {Icon && <Icon size={18} color="var(--neon-cyan)"/>}
                       {event.text}
                     </li>
                   );
                 })}
 
-              <p className="schedule-venue"><MapPin size={18}/>{day.venue}</p>
+              <p className="schedule-venue"><LuMapPin size={18}/>{day.venue}</p>
             </div>
 
 

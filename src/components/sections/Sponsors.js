@@ -6,11 +6,11 @@ export default function Sponsors() {
   const sponsors = eventConfig.sponsors || [];
 
   return (
-    <section id="sponsors" className="tracks reveal">
+    <section id="sponsors" className="tracks reveal section-shell">
       <h2 className="section-title">Sponsors</h2>
 
-      <div className="circle-wrapper">
-        <div className="circle-track">
+      <div className="sponsors-marquee">
+        <div className="sponsors-track">
           {sponsors.map((s, i) => (
             <div key={i} className="track-card sponsor">
               {s.name}

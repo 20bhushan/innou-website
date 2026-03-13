@@ -1,12 +1,10 @@
 #about{
-    padding: 8rem 2rem;
-    max-width: 1200px;
-    margin: auto;
+    padding-block: 8rem;
     text-align: center;
 
 }
 #about h2{
-    font-size: 3rem;
+    font-size: clamp(2rem, 4vw, 3rem);
     margin-bottom: 1rem;
     background: linear-gradient(90deg,var(--neon-cyan),var(--neon-purple));
     -webkit-background-clip: text;
@@ -14,14 +12,14 @@
     text-shadow: 0 0 10px rgba(0,242,255,0.4),0 0 20px rgba(188,112,255,0.3);;
 }
 #about p{
-    font-size: 1.15rem;
+    font-size: clamp(1rem, 2vw, 1.15rem);
     color: #cbd5e1;
     max-width: 820px;
     margin: auto;
     line-height: 1.7;
     letter-spacing: 0.4px;
     background: rgba(10,20,40,0.35);
-    padding: 1.5rem 2rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
     border-radius: 16px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(0,242,255,0.25);
@@ -32,4 +30,10 @@
     box-shadow: 0 0 30px rgba(0,242,255,0.25),0 15px 50px rgba(0, 0, 0, 0.7);
     transition: all 0.3s ease;
 
+}
+
+@media(max-width:768px){
+    #about{
+        padding-block: 5rem;
+    }
 }
