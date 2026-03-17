@@ -243,9 +243,7 @@ export default function CompetitionsPage() {
                         Rules
                       </Link>
                       <a
-                        href="https://forms.google.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="/updating"
                         className="btn-primary"
                       >
                         Register

@@ -1,0 +1,33 @@
+.update-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #020617;
+  color: white;
+}
+
+.update-box {
+  text-align: center;
+  padding: 2rem 3rem;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 242, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+}
+
+.update-box h1 {
+  font-size: 2rem;
+  color: #00f2ff;
+  margin-bottom: 10px;
+}
+
+.update-box p {
+  opacity: 0.8;
+}
+.note {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  color: #00f2ff;
+  text-shadow: 0 0 8px rgba(0, 242, 255, 0.6);
+}
