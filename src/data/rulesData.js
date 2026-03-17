@@ -352,8 +352,8 @@ export const rulesData = {
     ]
   },
   dance: {
-    title: "CULTURAL DANCE",
-    subtitle: "Traditional Performance",
+    title: "K-POP DANCE",
+    subtitle: "Synchronize. Perform. Dominate.",
     color: "#66ccff",
     rules: [
       {

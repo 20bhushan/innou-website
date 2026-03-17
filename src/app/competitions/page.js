@@ -10,7 +10,7 @@ const CATEGORY_ORDER = [
   "MAIN EVENTS",
   "TECHNICAL EVENTS",
   "E-SPORTS",
-  "CULTURAL AND CREATIVE",
+  "CREATIVE ARENA",
   "SPORTS",
   "OTHER",
 ];
@@ -268,6 +268,12 @@ export default function CompetitionsPage() {
                     <div className="card-prize">
                       <span>PRIZE POOL</span>
                       <h3>{visual.prize}</h3>
+                    <div className="card-fee">
+                      <span>REGISTRATION</span>
+                      <p>{visual.fee}</p>
+
+                    </div>
+
                     </div>
 
                     <p className="card-description">{visual.description}</p>

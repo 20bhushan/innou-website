@@ -271,6 +271,25 @@
   font-size: 1.8rem;
   color: #ffd166;
 }
+.card-fee{
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+.card-fee span{
+  font-size:0.75rem;
+  opacity:0.85;
+  display:block;
+}
+
+.card-fee p{
+  font-size:1.15rem;
+  font-weight:800;
+  color:var(--glow-color);
+  text-shadow: 0 0 10px var(--glow-color);
+}
+
 
 .card-description {
   font-size: 0.75rem;
