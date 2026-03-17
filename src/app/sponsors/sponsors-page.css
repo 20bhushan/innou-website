@@ -1,0 +1,177 @@
+/* PAGE */
+
+#sponsors-page{
+
+padding-block:8rem;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+
+text-align:center;
+
+}
+
+
+/* TITLE */
+
+.sponsor-hero{
+
+font-size:3rem;
+
+margin-bottom:4rem;
+
+background: linear-gradient(90deg,#FFD36B,#FF8A7A,#FF5DA2);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+text-shadow: 0 0 10px rgba(255,140,120,0.35),0 0 20px rgba(255,90,150,0.2);
+}
+
+
+/* SECTION */
+
+.sponsor-section{
+
+width:100%;
+max-width:1200px;
+
+margin-bottom:4rem;
+
+}
+
+
+/* SECTION TITLE */
+
+.sponsor-title{
+
+font-size:1.5rem;
+
+margin-bottom:2rem;
+
+background: linear-gradient(90deg,#FFD36B,#FF8A7A,#FF5DA2);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+text-shadow: 0 0 10px rgba(255,140,120,0.35),0 0 20px rgba(255,90,150,0.2);
+
+}
+
+
+/* GRID */
+
+.sponsor-grid{
+
+display:grid;
+
+gap:2rem;
+
+justify-content:center;
+
+}
+
+
+/* GRID SIZES */
+
+.sponsor-grid.large{
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+}
+
+.sponsor-grid.medium{
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+}
+
+.sponsor-grid.small{
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+}
+
+
+/* CARD */
+
+.sponsor-card{
+
+background:rgba(20,40,90,0.45);
+
+border-radius:18px;
+
+padding:1.8rem;
+
+border:1px solid rgba(255,255,255,0.08);
+
+backdrop-filter:blur(14px);
+
+transition:
+transform .35s ease,
+border-color .35s ease,
+box-shadow .35s ease;
+
+}
+
+
+/* HOVER */
+
+.sponsor-card:hover{
+
+transform:translateY(-6px) scale(1.02);
+
+border-color:#FF8A7A;
+
+box-shadow:
+0 0 20px rgba(255,138,122,0.35),
+0 0 40px rgba(255,93,162,0.25);
+
+}
+
+
+/* LOGO */
+
+.sponsor-card img{
+
+width:100%;
+
+max-height:90px;
+
+object-fit:contain;
+
+margin-bottom:1rem;
+
+filter:drop-shadow(0 0 10px rgba(0,242,255,0.4));
+
+}
+
+
+/* TEXT */
+
+.sponsor-card p{
+
+font-size:.9rem;
+
+color:#cbd5f5;
+
+}
+
+
+/* EMPTY SLOT */
+
+.coming-soon{
+
+padding:2rem;
+
+border-radius:16px;
+
+border:1px dashed rgba(255,255,255,0.15);
+
+color:#9fb3ff;
+
+font-size:.9rem;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.sponsor-hero{
+font-size:2.2rem;
+}
+
+}

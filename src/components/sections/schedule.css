@@ -1,101 +1,205 @@
+/* ================= SECTION ================= */
+
 #schedule{
 padding-block:8rem;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding-inline:2rem;
 }
+
+
+/* ================= LIST RESET ================= */
 
 #schedule ul{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-#schedule li{
-    list-style: none;
-}
-#schedule .schedule-scroll{
-    overflow-x:auto;
-    overflow-y:hidden;
-    padding-bottom:0.5rem;
-    scrollbar-width:none;
-}
-#schedule .schedule-scroll::-webkit-scrollbar{
-    display:none;
-}
-#schedule .schedule-track{
-    display:flex;
-    gap:2rem;
-    width:max-content;
-}
-#schedule .track-card{
-background:rgba(15,20,40,0.55);
-padding:1.6rem;
-border-radius:20px;
-border:1px solid rgba(255,255,255,0.1);
-backdrop-filter:blur(12px);
-text-align:center;
-overflow:hidden;
-transition:transform 0.3s ease,border-color 0.3s ease,box-shadow 0.3s ease;
-min-width:min(320px,calc(100vw - (var(--page-gutter) * 2)));
-max-width:420px;
-contain:layout paint;
+list-style:none;
+padding:0;
+margin:0;
 }
 
-#schedule .track-card:hover{
-transform:translateY(-10px) scale(1.02);
-border-color:var(--neon-cyan);
-box-shadow: 0 12px 30px rgba(0,242,255,0.25),0 0 20px rgba(188,112,255,0.15);
+
+/* ================= SCROLL AREA ================= */
+
+#schedule .schedule-scroll{
+width:100%;
+max-width:1200px;
+overflow-x:hidden;
+overflow-y:visible;
+position:relative;
+
+/* prevents side card cut */
+padding-inline:120px;
 }
+
+
+/* ================= CARD TRACK ================= */
+
+#schedule .schedule-track{
+display:flex;
+gap:2rem;
+padding:2rem 0;
+width:max-content;
+align-items:stretch;
+
+/* GPU acceleration */
+will-change:transform;
+transform:translateZ(0);
+}
+
+
+/* ================= CARD ================= */
+
+#schedule .track-card{
+
+background:rgba(15,20,40,0.55);
+
+/* glass effect */
+backdrop-filter:blur(12px);
+
+border-radius:20px;
+border:1px solid rgba(255,255,255,0.1);
+
+padding:1.6rem;
+
+min-width:320px;
+max-width:420px;
+height:260px;
+
+display:flex;
+flex-direction:column;
+
+text-align:center;
+
+/* performance */
+contain:layout paint;
+
+transition:
+transform .35s ease,
+border-color .35s ease,
+box-shadow .35s ease;
+}
+
+
+/* ================= HOVER ================= */
+
+#schedule .track-card:hover{
+
+transform:translateY(-10px) scale(1.02);
+
+border-color:var(--neon-cyan);
+
+box-shadow:
+0 12px 30px rgba(0,242,255,.25),
+0 0 20px rgba(188,112,255,.15);
+
+}
+
+
+/* ================= TITLE ================= */
 
 #schedule .track-card h3{
 font-size:1.3rem;
-margin-bottom:10px;
+margin-bottom:.5rem;
 }
+
+
+/* ================= DATE ================= */
 
 #schedule .date{
 display:flex;
 align-items:center;
 justify-content:center;
 gap:6px;
+
 color:var(--neon-cyan);
-margin-bottom:10px;
+margin-bottom:8px;
 }
+
+
+/* ================= EVENTS AREA ================= */
+
+#schedule .track-card ul{
+
+flex:1;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+}
+
+
+/* ================= EVENTS ================= */
 
 #schedule li{
-display:flex;
-align-items:center;
-justify-content:flex-start;
-gap:10px;
-font-size:0.95rem;
-opacity: .9;
-text-align:left;
-margin-top:0.75rem;
-}
 
-#schedule .venue{
-margin-top:12px;
 display:flex;
 align-items:center;
 justify-content:center;
-gap:6px;
-font-size:0.9rem;
-color:#94a3b8;
+
+gap:10px;
+
+font-size:.95rem;
+
+opacity:.9;
+
+margin-top:.6rem;
+
 }
+
+
+/* ================= VENUE ================= */
+
+#schedule .venue{
+
+margin-top:auto;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+gap:6px;
+
+font-size:.9rem;
+
+color:#94a3b8;
+
+}
+
+
+/* ================= ICON GLOW ================= */
+
 #schedule li svg,
 #schedule .venue svg{
-    filter: drop-shadow(0 0 6px rgba(0,242,255,0.9))drop-shadow(0 0 12px rgba(0,242,255,0.5))drop-shadow(0 0 12px rgba(0,242,255,0.5));
+
+filter:
+drop-shadow(0 0 6px rgba(0,242,255,.9))
+drop-shadow(0 0 12px rgba(0,242,255,.5));
+
 }
+
+
+/* ================= MOBILE ================= */
 
 @media(max-width:768px){
 
-  #schedule{
-    padding-block:5rem;
-  }
+#schedule{
+padding-block:5rem;
+}
 
-  #schedule .schedule-track{
-    gap:1rem;
-  }
+#schedule .schedule-scroll{
+padding-inline:60px;
+}
 
-  #schedule .track-card{
-    min-width:min(280px,calc(100vw - (var(--page-gutter) * 2)));
-    padding:1.25rem;
-  }
+#schedule .schedule-track{
+gap:1rem;
+}
+
+#schedule .track-card{
+min-width:260px;
+height:240px;
+padding:1.2rem;
+}
 
 }

@@ -2,7 +2,7 @@
   hackathon: {
     classKey: "hackathon",
     category: "MAIN EVENTS",
-    prize: "Rs 40,000",
+    prize: "Rs 45,000",
     image: "/images/hackathon.png",
     description:
       "Innovate for a smarter campus. Build impactful solutions using web and Python development.",
@@ -10,7 +10,7 @@
   business: {
     classKey: "business",
     category: "MAIN EVENTS",
-    prize: "Rs 40,000",
+    prize: "Rs 45,000",
     image: "/images/bussinessPlan.jpg",
     description: "Pitch your startup idea.",
   },
@@ -33,39 +33,39 @@
   bgmi: {
     classKey: "bgmi",
     category: "E-SPORTS",
-    prize: "Rs 15,000",
+    prize: "TBA",
     image: "/images/bgmi.jpg",
     description: "Squad up and dominate the battleground.",
   },
   mlbb: {
     classKey: "mlbb",
     category: "E-SPORTS",
-    prize: "Rs 15,000",
+    prize: "TBA",
     image: "/images/mlbb.jpg",
     description: "Teamwork defines victory.",
   },
   cosplay: {
     classKey: "cosplay",
     category: "CULTURAL AND CREATIVE",
-    prize: "Rs 8,000",
+    prize: "TBA",
     description: "Bring characters to life.",
   },
   dance: {
     classKey: "dance",
     category: "CULTURAL AND CREATIVE",
-    prize: "Rs 10,000",
+    prize: "TBA",
     description: "Celebrate culture through performance.",
   },
   reels: {
     classKey: "reels",
     category: "CULTURAL AND CREATIVE",
-    prize: "Rs 5,000",
+    prize: "TBA",
     description: "Create engaging content.",
   },
   treasure: {
     classKey: "treasure",
     category: "CULTURAL AND CREATIVE",
-    prize: "Rs 6,000",
+    prize: "TBA",
     description: "Decode clues to win.",
   },
   run: {

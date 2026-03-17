@@ -7,7 +7,7 @@ export const rulesData = {
       {
         title: "Event Overview",
         items: [
-          "Mode: Offline (On-Campus)",
+          "Mode: Offline (MTI Hub)",
           "Duration: 12 Hours",
           "Team Size: 2-4 Students",
           "Participants: College Students Only",
@@ -32,19 +32,23 @@ export const rulesData = {
           "Pre-built projects are not allowed"
         ]
       },
-      {
-        title: "Allowed Technology",
-        items: [
-          "Mandatory: HTML, CSS, JavaScript",
-          "One enhancement allowed (Firebase / Charts / LocalStorage)",
-          "UI frameworks allowed (Bootstrap / Tailwind)",
-          "No heavy backend systems",
-          "Python core logic required",
-          "Basic libraries allowed",
-          "Only one external library allowed",
-          "Django / Flask frameworks are not allowed"
-        ]
-      },
+        {
+      title: "Allowed Technology – Web Development",
+      items: [
+        "Build your project using HTML, CSS, and JavaScript",
+        "You may use tools or libraries you are comfortable with",
+        "Focus on creating a working and useful web application"
+      ]
+    },
+ {
+      title: "Allowed Technology – Python Development",
+      items: [
+        "Use Python to develop your solution",
+        "Python libraries or APIs may be used if needed",
+        "Focus on clear logic and a working program"
+      ]
+    },
+
       {
         title: "Judging Criteria",
         items: [
@@ -210,54 +214,44 @@ export const rulesData = {
     color: "#38bdf8",
     rules: [
       {
-        title: "Team Composition",
-        items: [
-          "Participants may compete individually or in teams.",
-          "Maximum team size: 4 members.",
-          "Each team must register before the competition."
-        ]
-      },
-      {
-        title: "Business Idea",
-        items: [
-          "The idea must be original.",
-          "It can be technology based or service based.",
-          "Concept must address a real-world problem."
-        ]
-      },
-      {
-        title: "Presentation",
-        items: [
-          "Each team will present their idea to judges.",
-          "Presentation time: 5-7 minutes.",
-          "Additional 3 minutes for Q&A."
-        ]
-      },
-      {
-        title: "Evaluation Criteria",
-        items: [
-          "Innovation and creativity.",
-          "Market potential.",
-          "Feasibility of implementation.",
-          "Presentation quality."
-        ]
-      },
-      {
-        title: "Submission",
-        items: [
-          "Teams must submit a short pitch deck.",
-          "Maximum 10 slides allowed.",
-          "File must be submitted before the deadline."
-        ]
-      },
-      {
-        title: "Judges Decision",
-        items: [
-          "Judges decisions are final.",
-          "No disputes will be entertained.",
-          "Top teams will receive prizes."
-        ]
-      }
+  title: "Idea Requirements",
+  items: [
+    "The business idea must be original and genuine"
+  ]
+},
+{
+  title: "Presentation Medium",
+  items: [
+    "Presentation may be delivered in English or Manipuri"
+  ]
+},
+{
+  title: "Dress Code",
+  items: [
+    "Participants are required to follow a formal dress code"
+  ]
+},
+{
+  title: "Participant Guidelines",
+  items: [
+    "Participants must bring a valid ID proof",
+    "Participation is allowed individually or in teams of up to 2 members",
+    "Participants should bring their own required devices"
+  ]
+},
+{
+  title: "Presentation Format",
+  items: [
+    "Each participant or team will have 10 minutes for presentation followed by a Q&A session"
+  ]
+},
+{
+  title: "Final Decision",
+  items: [
+    "The decision of the judging panel and organizers will be final and binding"
+  ]
+}
+
     ]
   },
   bgmi: {
@@ -268,33 +262,28 @@ export const rulesData = {
       {
         title: "Team Structure",
         items: [
-          "Each team must consist of 4 players.",
-          "One substitute player is allowed.",
-          "Players must register before the event."
+          "Updating soon ......."
         ]
       },
       {
         title: "Match Format",
         items: [
-          "Custom lobby matches will be used.",
-          "Multiple rounds will be played.",
-          "Final ranking determined by total points."
+                    "Updating soon ......."
+
         ]
       },
       {
         title: "Scoring System",
         items: [
-          "Placement points will be awarded.",
-          "Each kill gives additional points.",
-          "Total points determine the winner."
+                   "Updating soon ......."
+
         ]
       },
       {
         title: "Fair Play",
         items: [
-          "No hacks, cheats or exploits allowed.",
-          "Teaming with other squads is prohibited.",
-          "Organizer decisions are final."
+                   "Updating soon ......."
+
         ]
       }
     ]
@@ -307,33 +296,29 @@ export const rulesData = {
       {
         title: "Team Composition",
         items: [
-          "Each team must have 5 players.",
-          "No substitutes allowed during match.",
-          "Players must be present before match start."
+                    "Updating soon ......."
+
         ]
       },
       {
         title: "Game Mode",
         items: [
-          "Matches played in Draft Pick mode.",
-          "Best of 3 format for most rounds.",
-          "Final round may be Best of 5."
+                   "Updating soon ......."
+
         ]
       },
       {
         title: "Match Rules",
         items: [
-          "No use of exploits or cheats.",
-          "Unsportsmanlike behavior not allowed.",
-          "Organizers may pause or restart games."
+                    "Updating soon ......."
+
         ]
       },
       {
         title: "Winning",
         items: [
-          "Team destroying enemy base wins.",
-          "Series winner advances to next round.",
-          "Final match determines champion."
+                   "Updating soon ......."
+
         ]
       }
     ]
@@ -346,25 +331,22 @@ export const rulesData = {
       {
         title: "Costume",
         items: [
-          "Participants must design their own costumes.",
-          "Costumes must represent a known character.",
-          "Judges evaluate creativity and craftsmanship."
+                   "Updating soon ......."
+
         ]
       },
       {
         title: "Performance",
         items: [
-          "Participants may perform short skits.",
-          "Time limit is 2-3 minutes.",
-          "Props are allowed."
+                   "Updating soon ......."
+
         ]
       },
       {
         title: "Judging Criteria",
         items: [
-          "Accuracy of character.",
-          "Costume quality.",
-          "Stage presence and creativity."
+                   "Updating soon ......."
+
         ]
       }
     ]
@@ -377,24 +359,22 @@ export const rulesData = {
       {
         title: "Participation",
         items: [
-          "Solo or group performance allowed.",
-          "Maximum team size: 8 members.",
-          "Participants must register beforehand."
+                   "Updating soon ......."
+
         ]
       },
       {
         title: "Time Limit",
         items: [
-          "Performance must not exceed 5 minutes.",
-          "Extra time may lead to penalty."
+                   "Updating soon ......."
+
         ]
       },
       {
         title: "Judging",
         items: [
-          "Dance technique.",
-          "Costume and theme.",
-          "Stage presence and synchronization."
+                   "Updating soon ......."
+
         ]
       }
     ]
@@ -407,23 +387,22 @@ export const rulesData = {
       {
         title: "Video Length",
         items: [
-          "Maximum duration: 60 seconds.",
-          "Vertical format required."
+                    "Updating soon ......."
+
         ]
       },
       {
         title: "Content",
         items: [
-          "Must be original content.",
-          "No offensive material allowed."
+                    "Updating soon ......."
+
         ]
       },
       {
         title: "Judging",
         items: [
-          "Creativity and storytelling.",
-          "Editing quality.",
-          "Audience engagement."
+                   "Updating soon ......."
+
         ]
       }
     ]
@@ -436,22 +415,22 @@ export const rulesData = {
       {
         title: "Distance",
         items: [
-          "Total distance is 7 kilometers.",
-          "Participants must complete full course."
+                    "Updating soon ......."
+
         ]
       },
       {
         title: "Eligibility",
         items: [
-          "Participants must be physically fit.",
-          "Medical assistance available on site."
+                   "Updating soon ......."
+
         ]
       },
       {
         title: "Winning",
         items: [
-          "Top 3 finishers receive prizes.",
-          "Timing chips may be used."
+                   "Updating soon ......."
+
         ]
       }
     ]

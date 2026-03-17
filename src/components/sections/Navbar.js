@@ -1,26 +1,25 @@
 ﻿"use client";
-
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image"
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const hideOnRulesPage = pathname?.startsWith("/rules/");
+useEffect(() => {
+  const updateColor = () => {
+    const color = getComputedStyle(document.documentElement)
+      .getPropertyValue("--accent-color");
 
-  useEffect(() => {
-    const colors = {
-      "/": "#00f2ff",
-      "/schedule": "#ff4d6d",
-      "/competitions": "#00ff9d",
-      "/sponsors": "#f7c948",
-      "/contact": "#ff00e0",
-    };
-
-    const color = colors[pathname] || "#00f2ff";
     document.documentElement.style.setProperty("--accent-color", color);
-  }, [pathname]);
+  };
+
+  window.addEventListener("scroll", updateColor);
+
+  return () => window.removeEventListener("scroll", updateColor);
+}, []);
+
 
   if (hideOnRulesPage) {
     return null;
@@ -30,15 +29,13 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="nav-container">
         <Link href="/" className="logo">
-          <Image
-            src="/logoIcon.png"
-            alt="INNOU Logo"
-            className="nav-logo"
-            width={48}
-            height={48}
-            priority
-          />
-          <div className="logo-text">
+        <Image src="/newLogo3.png" 
+        width={80}
+        height={80}
+        className="nav-logo" alt="INNOU logo"
+        priority
+        />
+        <div className="logo-text">
             <span className="para">INNOU</span>
             <span className="gradient-text">1.0</span>
           </div>
@@ -73,9 +70,7 @@ export default function Navbar() {
         </ul>
 
         <a
-          href="https://forms.google.com"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/competitions"
           className="btn-primary register-btn"
         >
           Register Now

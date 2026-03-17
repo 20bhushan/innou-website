@@ -52,9 +52,9 @@ export const eventConfig = {
 
 
   sponsors: [
-    { name: "TechCorp" },
-    { name: "InnovateX" },
-    { name: "FutureLabs" },
-    { name: "CodeWorks" },
+    { name: "" },
+    { name: "" },
+    { name: "" },
+    { name: "" },
   ],
 };
