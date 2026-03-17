@@ -560,3 +560,37 @@
     filter: blur(90px);
   }
 }
+/* ================= MOBILE OPTIMIZATION ================= */
+
+@media (max-width: 768px) {
+
+  /* ❌ disable heavy backgrounds */
+  .aurora-bg,
+  .grid-sweep,
+  .neon-field {
+    display: none;
+  }
+
+  /* ⚡ reduce blur */
+  .events-body::before {
+    animation: none;
+  }
+
+  .events-body::after {
+    animation: none;
+  }
+
+  /* ⚡ lighter particles */
+  .particles span {
+    width: 2px;
+    height: 2px;
+    animation-duration: 20s;
+  }
+
+  /* ❌ remove hover transform */
+  .hackathon-card:hover {
+    transform: none;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+  }
+
+}

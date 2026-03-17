@@ -29,154 +29,128 @@ export default function CompetitionsPage() {
     }, {});
   }, []);
 
-  useEffect(() => {
-    const hoverCapable = window.matchMedia(
-      "(hover: hover) and (pointer: fine)",
-    ).matches;
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    let glowFrame = 0;
-    let latestPointer = null;
+ useEffect(() => {
+  const isMobile = window.innerWidth < 768;
 
-    const handleMouseGlow = (e) => {
-      latestPointer = e;
-      if (glowFrame) return;
-      glowFrame = window.requestAnimationFrame(() => {
-        glowFrame = 0;
-        if (!latestPointer) return;
-        document.documentElement.style.setProperty("--x", `${latestPointer.clientX}px`);
-        document.documentElement.style.setProperty("--y", `${latestPointer.clientY}px`);
+  const hoverCapable = window.matchMedia(
+    "(hover: hover) and (pointer: fine)"
+  ).matches;
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  let glowFrame = 0;
+  let latestPointer = null;
+
+  // 🔥 MOUSE GLOW (ONLY DESKTOP)
+  const handleMouseGlow = (e) => {
+    latestPointer = e;
+    if (glowFrame) return;
+
+    glowFrame = requestAnimationFrame(() => {
+      glowFrame = 0;
+      if (!latestPointer) return;
+
+      document.documentElement.style.setProperty("--x", `${latestPointer.clientX}px`);
+      document.documentElement.style.setProperty("--y", `${latestPointer.clientY}px`);
+    });
+  };
+
+  if (!isMobile && hoverCapable) {
+    document.addEventListener("mousemove", handleMouseGlow);
+  }
+
+  const cards = document.querySelectorAll(".hackathon-card");
+  const buttons = document.querySelectorAll(".card-buttons .btn-primary");
+
+  // 🔥 HOVER EFFECTS ONLY DESKTOP
+  if (!isMobile && hoverCapable && !prefersReducedMotion) {
+    cards.forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = Math.max(Math.min((y - centerY) / 45, 6), -6);
+        const rotateY = Math.max(Math.min((centerX - x) / 45, 6), -6);
+
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+        card.style.setProperty("--mouse-x", `${x}px`);
+        card.style.setProperty("--mouse-y", `${y}px`);
       });
-    };
 
-    if (hoverCapable) {
-      document.addEventListener("mousemove", handleMouseGlow, { passive: true });
-    }
-
-    const cards = document.querySelectorAll(".hackathon-card");
-    const buttons = document.querySelectorAll(".card-buttons .btn-primary");
-    let viewportWidth = window.innerWidth;
-    let viewportHeight = window.innerHeight;
-
-    const cardMouseMoveHandlers = [];
-    const cardLeaveHandlers = [];
-
-    if (hoverCapable && !prefersReducedMotion) {
-      cards.forEach((card) => {
-        const onMove = (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          const rotateX = Math.max(Math.min((y - centerY) / 45, 6), -6);
-          const rotateY = Math.max(Math.min((centerX - x) / 45, 6), -6);
-
-          card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-          card.style.setProperty("--mouse-x", `${x}px`);
-          card.style.setProperty("--mouse-y", `${y}px`);
-        };
-
-        const onLeave = () => {
-          card.style.transform = "translateY(0) scale(1)";
-        };
-
-        card.addEventListener("mousemove", onMove);
-        card.addEventListener("mouseleave", onLeave);
-        cardMouseMoveHandlers.push([card, onMove]);
-        cardLeaveHandlers.push([card, onLeave]);
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "translateY(0) scale(1)";
       });
-    }
+    });
 
-    const btnMoveHandlers = [];
-    const btnLeaveHandlers = [];
+    buttons.forEach((btn) => {
+      btn.addEventListener("mousemove", (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
 
-    if (hoverCapable && !prefersReducedMotion) {
-      buttons.forEach((btn) => {
-        const onMove = (e) => {
-          const rect = btn.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-
-          btn.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px)`;
-        };
-
-        const onLeave = () => {
-          btn.style.transform = "translate(0,0)";
-        };
-
-        btn.addEventListener("mousemove", onMove);
-        btn.addEventListener("mouseleave", onLeave);
-        btnMoveHandlers.push([btn, onMove]);
-        btnLeaveHandlers.push([btn, onLeave]);
+        btn.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px)`;
       });
-    }
 
-    const canvas = canvasRef.current;
-    if (!canvas) {
-      return () => {
-        if (hoverCapable) {
-          document.removeEventListener("mousemove", handleMouseGlow);
-        }
-      };
-    }
+      btn.addEventListener("mouseleave", () => {
+        btn.style.transform = "translate(0,0)";
+      });
+    });
+  }
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) {
-      return () => {
-        if (hoverCapable) {
-          document.removeEventListener("mousemove", handleMouseGlow);
-        }
-      };
-    }
+  // 🔥 CANVAS (DESKTOP FULL, MOBILE LIGHT)
+  const canvas = canvasRef.current;
+  if (!canvas) return;
 
-    const setSize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, hoverCapable ? 1.25 : 1);
-      viewportWidth = window.innerWidth;
-      viewportHeight = window.innerHeight;
-      canvas.width = Math.floor(window.innerWidth * dpr);
-      canvas.height = Math.floor(window.innerHeight * dpr);
-      canvas.style.width = "100%";
-      canvas.style.height = "100%";
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
+  const ctx = canvas.getContext("2d");
 
-    setSize();
-    window.addEventListener("resize", setSize);
+  let w = window.innerWidth;
+  let h = window.innerHeight;
 
-    const particleCount = window.innerWidth < 768 ? 36 : 80;
-    const particles = Array.from({ length: particleCount }, () => ({
-      x: Math.random() * viewportWidth,
-      y: Math.random() * viewportHeight,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
-    }));
+  const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.25);
 
-    let frameId;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
 
-    const animate = () => {
-      if (document.hidden) {
-        frameId = window.requestAnimationFrame(animate);
-        return;
-      }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      ctx.clearRect(0, 0, viewportWidth, viewportHeight);
+  // ⚡ LESS PARTICLES ON MOBILE
+  const particleCount = isMobile ? 25 : 80;
 
-      particles.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
+  const particles = Array.from({ length: particleCount }, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    vx: (Math.random() - 0.5) * (isMobile ? 0.3 : 0.5),
+    vy: (Math.random() - 0.5) * (isMobile ? 0.3 : 0.5),
+  }));
 
-        if (p.x < 0 || p.x > viewportWidth) p.vx *= -1;
-        if (p.y < 0 || p.y > viewportHeight) p.vy *= -1;
+  let frame;
 
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = "#00f2ff";
-        ctx.fill();
+  const animate = () => {
+    ctx.clearRect(0, 0, w, h);
 
-        for (let j = i + 1; j < particles.length; j += 1) {
+    particles.forEach((p, i) => {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, isMobile ? 1.5 : 2, 0, Math.PI * 2);
+      ctx.fillStyle = "#00f2ff";
+      ctx.fill();
+
+      // ❌ skip connection lines on mobile (heavy)
+      if (!isMobile) {
+        for (let j = i + 1; j < particles.length; j++) {
           const dx = p.x - particles[j].x;
           const dy = p.y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
@@ -190,35 +164,21 @@ export default function CompetitionsPage() {
             ctx.stroke();
           }
         }
-      });
-
-      frameId = window.requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      if (hoverCapable) {
-        document.removeEventListener("mousemove", handleMouseGlow);
       }
-      window.removeEventListener("resize", setSize);
-      if (frameId) window.cancelAnimationFrame(frameId);
-      if (glowFrame) window.cancelAnimationFrame(glowFrame);
+    });
 
-      cardMouseMoveHandlers.forEach(([card, handler]) => {
-        card.removeEventListener("mousemove", handler);
-      });
-      cardLeaveHandlers.forEach(([card, handler]) => {
-        card.removeEventListener("mouseleave", handler);
-      });
-      btnMoveHandlers.forEach(([btn, handler]) => {
-        btn.removeEventListener("mousemove", handler);
-      });
-      btnLeaveHandlers.forEach(([btn, handler]) => {
-        btn.removeEventListener("mouseleave", handler);
-      });
-    };
-  }, []);
+    frame = requestAnimationFrame(animate);
+  };
+
+  animate();
+
+  return () => {
+    cancelAnimationFrame(frame);
+    document.removeEventListener("mousemove", handleMouseGlow);
+  };
+}, []);
+
+
 
   return (
     <main className="events-body">
