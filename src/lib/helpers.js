@@ -55,6 +55,8 @@
     category: "CREATIVE ARENA",
     prize: "Rs 25,000",
     fee:"₹300 / team",
+        image: "/images/cosplays.png",
+
     description: "Bring characters to life.",
   },
   dance: {
@@ -62,6 +64,8 @@
     category: "CREATIVE ARENA",
     prize: "TBA",
     fee:"TBA",
+            image: "/images/k-pop.jpg",
+
     description: "",
   },
   reels: {
@@ -69,6 +73,8 @@
     category: "CREATIVE ARENA",
     prize: "Rs 8,000",
     fee:"Free",
+        image: "/images/reels.png",
+
     description: "Create engaging content.",
   },
   run: {
@@ -76,6 +82,8 @@
     category: "SPORTS",
     prize: "TBA",
     fee:"TBA",
+                image: "/images/run.jpg",
+
     description: "Push your limits.",
   },
 };

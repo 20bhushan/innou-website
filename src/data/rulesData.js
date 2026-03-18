@@ -379,37 +379,93 @@ export const rulesData = {
       }
     ]
   },
-  reels: {
-    title: "REELS COMPETITION",
-    subtitle: "Creative Video Challenge",
-    color: "#ff8800",
-    rules: [
-      {
-        title: "Video Length",
-        items: [
-                    "Updating soon ......."
+reels: {
+  title: "REELS COMPETITION",
+  subtitle: "Official Rules & Guidelines",
+  color: "#ff8800",
 
-        ]
-      },
-      {
-        title: "Content",
-        items: [
-                    "Updating soon ......."
+  rules: [
+    {
+      title: "Event Overview",
+      items: [
+        "Theme: INNOU Festival Promotion",
+        "Registration: Free",
+        "Duration: 30-60 seconds",
+        "Prize Pool: Rs 8,000",
+        "Mode: Online Submission",
+      ],
+    },
 
-        ]
-      },
-      {
-        title: "Judging",
-        items: [
-                   "Updating soon ......."
+    {
+      title: "Theme & Content",
+      items: [
+        "Reels must promote INNOU Festival creatively",
+        "Any format allowed: dance, singing, skit, art, outdoor, etc.",
+        "Content must be original",
+        "Creative storytelling is encouraged",
+      ],
+    },
 
-        ]
-      }
-    ]
-  },
+    {
+      title: "Rules & Restrictions",
+      items: [
+        "Duration must be between 30–60 seconds",
+        "No offensive or inappropriate content",
+        "Content must not hurt any community sentiments",
+        "Use of bots, auto-likers, or unfair means will lead to disqualification",
+      ],
+    },
+
+    {
+      title: "Submission Process",
+      items: [
+        "Send reel for verification via WhatsApp",
+        "Contact: 8732055623",
+        "Include name and address",
+        "Only verified content can be uploaded",
+      ],
+    },
+
+    {
+      title: "Posting Guidelines",
+      items: [
+        "Upload from your own social media account",
+        "Collaborate with INNOU Facebook & Instagram pages",
+        "Posting period: 25 March – 18 April (till 12 PM)",
+      ],
+    },
+
+    {
+      title: "Judging Criteria",
+      items: [
+        "1 Like = 1 mark",
+        "1 Share = 5 marks",
+        "Higher engagement increases chances of winning",
+      ],
+    },
+
+    {
+      title: "Winner Selection",
+      items: [
+        "1st Prize: Based on total likes & shares",
+        "2nd Prize: Director’s Choice (quality & creativity)",
+        "3rd Prize: Lucky draw (must be present at venue)",
+      ],
+    },
+
+    {
+      title: "Result Announcement",
+      items: [
+        "Date: 25 April 2026",
+        "Venue: MFSDS",
+        "All winners will be announced officially",
+      ],
+    },
+  ],
+},
   run: {
     title: "INNOU RUN",
-    subtitle: "7KM Endurance Challenge",
+    subtitle: "10KM Endurance Challenge",
     color: "#00ffcc",
     rules: [
       {

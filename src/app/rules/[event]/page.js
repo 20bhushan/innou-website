@@ -38,9 +38,7 @@ export default async function RulesPage({ params }) {
           <div className="nav-title">{event.title} Rules</div>
 
           <a
-            href="https://forms.google.com"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/updating"
             className="nav-register"
           >
             Register
