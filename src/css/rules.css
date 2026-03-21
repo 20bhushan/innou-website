@@ -21,7 +21,7 @@
     linear-gradient(var(--accent-low) 1px, transparent 1px),
     linear-gradient(90deg, var(--accent-low) 1px, transparent 1px);
   background-size: 90px 90px;
-  opacity: 0.6;
+  opacity: 0.25;
   pointer-events: none;
   z-index: -2;
 }
@@ -35,7 +35,7 @@
     linear-gradient(90deg, var(--accent-glow) 1px, transparent 1px);
   background-size: 90px 90px;
   filter: blur(2px);
-  opacity: 0.35;
+  opacity: 0.15;
   pointer-events: none;
   z-index: -3;
 }
@@ -118,8 +118,8 @@
   text-transform: uppercase;
   color: var(--accent-color);
   text-shadow:
-    0 0 12px var(--accent-glow),
-    0 0 25px var(--accent-glow);
+    0 0 6px var(--accent-glow),
+    0 0 12px var(--accent-glow);
 }
 
 .rules-subtitle {
@@ -143,11 +143,8 @@
 /* ================= RULE CARD ================= */
 
 .rule-card {
-  background: linear-gradient(
-    160deg,
-    rgba(20, 30, 50, 0.8),
-    rgba(10, 15, 30, 0.7)
-  );
+  background:rgba(10,15,30,0.92);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 30px;
@@ -193,12 +190,12 @@
 }
 
 .rule-card li {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   margin-bottom: 12px;
-  color: #94a3b8;
-  padding-left: 14px;
-  border-left: 2px solid rgba(255, 255, 255, 0.08);
-  line-height: 1.5;
+  color: #e2e8f0;
+  padding-left: 12px;
+  border-left: 2px solid var(--accent-color);
+  line-height: 1.6;
 }
 
 /* ================= MOBILE ================= */
@@ -219,5 +216,14 @@
   .rules-nav .nav-container {
     padding: 16px;
     gap: 12px;
+  }
+  .rule-card{
+    padding: 22px;
+  }
+  .rule-card li{
+    font-size: 1rem;
+  }
+  .rules-title{
+    letter-spacing: 5px;
   }
 }
