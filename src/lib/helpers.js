@@ -20,7 +20,7 @@
     classKey: "debug",
     category: "TECHNICAL EVENTS",
     prize: "Rs 10,000",
-    fee:"₹150 / team",
+    fee:"₹150 / participant",
     image: "/images/codeDebug.png",
     description:
       "Test your logic and syntax knowledge under time pressure across multiple languages.",
@@ -29,7 +29,7 @@
     classKey: "typing",
     category: "TECHNICAL EVENTS",
     prize: "Rs 10,000",
-    fee:"₹150 / team",
+    fee:"₹150 / participant",
     image: "/images/typingMaster.png",
     description:
       "Compete to prove your speed and accuracy and claim the typing title.",
