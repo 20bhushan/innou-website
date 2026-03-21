@@ -242,12 +242,24 @@ export default function CompetitionsPage() {
                       <Link href={`/rules/${key}`} className="btn-outline">
                         Rules
                       </Link>
-                      <a
-                        href="/updating"
-                        className="btn-primary"
-                      >
-                        Register
-                      </a>
+                      {key === "reels" ? (
+  <a
+    href="https://wa.me/918732055623"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="btn-primary"
+  >
+    Upload
+  </a>
+) : (
+  <a
+    href="/updating"
+    className="btn-primary"
+  >
+    Register
+  </a>
+)}
+
                     </div>
                   </div>
                 </article>

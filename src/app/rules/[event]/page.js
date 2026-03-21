@@ -37,12 +37,21 @@ export default async function RulesPage({ params }) {
 
           <div className="nav-title">{event.title} Rules</div>
 
-          <a
-            href="/updating"
-            className="nav-register"
-          >
-            Register
-          </a>
+          {normalizedSlug === "reels" ? (
+  <a
+    href="https://wa.me/918732055623"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="nav-register"
+  >
+    Upload
+  </a>
+) : (
+  <a href="/updating" className="nav-register">
+    Register
+  </a>
+)}
+
         </div>
       </nav>
 

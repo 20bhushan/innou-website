@@ -20,7 +20,7 @@
     classKey: "debug",
     category: "TECHNICAL EVENTS",
     prize: "Rs 10,000",
-    fee:"₹150 / participant",
+    fee:"₹150 / Participant",
     image: "/images/codeDebug.png",
     description:
       "Test your logic and syntax knowledge under time pressure across multiple languages.",
@@ -29,7 +29,7 @@
     classKey: "typing",
     category: "TECHNICAL EVENTS",
     prize: "Rs 10,000",
-    fee:"₹150 / participant",
+    fee:"₹150 / Participant",
     image: "/images/typingMaster.png",
     description:
       "Compete to prove your speed and accuracy and claim the typing title.",
@@ -54,7 +54,7 @@
     classKey: "cosplay",
     category: "CREATIVE ARENA",
     prize: "Rs 25,000",
-    fee:"₹300 / team",
+    fee:"₹300 / Participant",
         image: "/images/cosplays.png",
 
     description: "Bring characters to life.",
@@ -62,9 +62,9 @@
   dance: {
     classKey: "dance",
     category: "CREATIVE ARENA",
-    prize: "TBA",
-    fee:"TBA",
-            image: "/images/k-pop.jpg",
+    prize: "Rs 22,000",
+    fee:"₹300 / team",
+   image: "/images/k-pop.jpg",
 
     description: "",
   },

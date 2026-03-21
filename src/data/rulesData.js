@@ -351,34 +351,62 @@ export const rulesData = {
       }
     ]
   },
-  dance: {
-    title: "K-POP DANCE",
-    subtitle: "Synchronize. Perform. Dominate.",
-    color: "#66ccff",
-    rules: [
-      {
-        title: "Participation",
-        items: [
-                   "Updating soon ......."
+ dance: {
+  title: "K-POP DANCE",
+  subtitle: "Synchronize. Perform. Dominate.",
+  color: "#66ccff", 
 
-        ]
-      },
-      {
-        title: "Time Limit",
-        items: [
-                   "Updating soon ......."
-
-        ]
-      },
-      {
-        title: "Judging",
-        items: [
-                   "Updating soon ......."
-
-        ]
-      }
-    ]
-  },
+  rules: [
+    {
+      title: "Participation",
+      items: [
+        "Maximum of 7 members per team",
+        "Teams may choose any Korean song",
+        "Remixes allowed (Korean version only)"
+      ]
+    },
+    {
+      title: "Registration",
+      items: [
+        "Registration period: 23 March – 5 April 2026",
+        "Fee: Rs. 300 per team"
+      ]
+    },
+    {
+      title: "Audition",
+      items: [
+        "Submit video via WhatsApp",
+        "Deadline: 7 April 2026",
+        "Duration: 1 – 1.3 minutes"
+      ]
+    },
+    {
+      title: "Selection",
+      items: [
+        "Top 15 teams selected",
+        "Results announced on 16 April 2026",
+        "Via INNOU social media"
+      ]
+    },
+    {
+      title: "Final Round",
+      items: [
+        "Grand Finale: 25 April 2026",
+        "Venue: MSFDS",
+        "Max performance time: 5 minutes"
+      ]
+    },
+    {
+      title: "Prize Pool",
+      items: [
+        "Total: Rs. 22,000",
+        "1st: Rs. 10,000",
+        "2nd: Rs. 7,000",
+        "3rd: Rs. 5,000"
+      ]
+    }
+  ]
+},
 reels: {
   title: "REELS COMPETITION",
   subtitle: "Official Rules & Guidelines",
