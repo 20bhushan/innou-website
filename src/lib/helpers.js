@@ -80,10 +80,14 @@
   run: {
     classKey: "run",
     category: "SPORTS",
-    prize: "TBA",
-    fee:"TBA",
-                image: "/images/run.jpg",
-
+    prize: "Rs 40,000",
+fee: `
+  <div class="fee-top">
+    <span class="old-price">₹300</span>
+    <span class="new-price">₹250</span>
+  </div>
+  <div class="fee-offer">Early Bird Offer</div>
+`,    image: "/images/run.jpg",
     description: "Push your limits.",
   },
 };

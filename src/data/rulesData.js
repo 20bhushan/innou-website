@@ -169,7 +169,7 @@ export const rulesData = {
         title: "Event Details",
         items: [
           "Mode: Offline",
-          "Duration: 1 Hour",
+          "Duration: 30 Minutes",
           "Participation Type: Individual"
         ]
       },

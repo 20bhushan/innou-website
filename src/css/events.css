@@ -594,3 +594,62 @@
   }
 
 }
+/* Container */
+.card-fee p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* center everything */
+  gap: 4px;
+  margin: 0;
+}
+
+/* Top row (₹300 ₹250) */
+.fee-top {
+  display: flex;
+  align-items: center;   /* 🔥 fixes vertical alignment */
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Old price */
+.old-price {
+  text-decoration: line-through;
+  color: #9ca3af; /* soft gray */
+  font-size: 0.95rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* New price */
+.new-price {
+  color: #38bdf8; /* your theme blue */
+  font-weight: bold;
+  font-size: 1.3rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* Offer text */
+.fee-offer {
+  font-size: 0.75rem;
+  color: #22c55e; /* green highlight */
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* 📱 Mobile optimization */
+@media (max-width: 768px) {
+  .new-price {
+    font-size: 1.1rem;
+  }
+
+  .old-price {
+    font-size: 0.85rem;
+  }
+
+  .fee-offer {
+    font-size: 0.7rem;
+  }
+}

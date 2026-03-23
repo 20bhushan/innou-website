@@ -230,8 +230,7 @@ export default function CompetitionsPage() {
                       <h3>{visual.prize}</h3>
                     <div className="card-fee">
                       <span>REGISTRATION</span>
-                      <p>{visual.fee}</p>
-
+                      <p dangerouslySetInnerHTML={{ __html: visual.fee }} />
                     </div>
 
                     </div>
