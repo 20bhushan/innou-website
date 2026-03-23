@@ -399,7 +399,6 @@ export const rulesData = {
     {
       title: "Prize Pool",
       items: [
-        "Total: Rs. 22,000",
         "1st: Rs. 10,000",
         "2nd: Rs. 7,000",
         "3rd: Rs. 5,000"
@@ -495,28 +494,79 @@ reels: {
     title: "INNOU RUN",
     subtitle: "10KM Endurance Challenge",
     color: "#00ffcc",
-    rules: [
-      {
-        title: "Distance",
-        items: [
-                    "Updating soon ......."
+   rules: [
+    {
+      title: "Event Details",
+      items: [
+        "Open category for both men and women",
+        "Race distance: 10 KM",
+        "Top 3 finishers will receive cash prizes (Total prize pool ₹40,000)"
+      ]
+    },
+    {
+      title: "Registration",
+      items: [
+        "Registration opens by late Monday or Tuesday",
+        "Early bird fee: ₹250 (23–24 March to 1st April approx.)",
+        "Regular fee: ₹300 (till 10th April)",
+        "On-spot registration available (limited slots)",
+        "Limited extra bibs available for on-spot registration"
+      ]
+    },
+    {
+      title: "Race Day Info",
+      items: [
+        "Participants must arrive early at the venue",
+        "On-spot registration opens 30–40 minutes before race",
+        "Flag-off time: 5:30 AM sharp",
+        "Participants must follow instructions from officials and volunteers"
+      ]
+    },
+    {
+      title: "Route & Hydration",
+      items: [
+        "Starting point: Tiddim Ground",
+        "Turn point (5 KM): IOCL Malom Depot",
+        "Hydration points at 2.5 KM, 5 KM, and 7.5 KM",
+        "Volunteers will be available at hydration points"
+      ]
+    },
+    {
+      title: "Bib Rules",
+      items: [
+        "Bib must be worn visibly on the front during the race",
+        "Bib is mandatory to receive finisher medal",
+        "Bib is non-transferable",
+        "No bib = disqualification"
+      ]
+    },
+    {
+      title: "Medical & Safety",
+      items: [
+        "Ambulance and medical aid will be available",
+        "Medical team will monitor participants for injuries",
+        "Participants run at their own risk",
+        "Follow all safety instructions during the race"
+      ]
+    },
+    {
+      title: "General Rules",
+      items: [
+        "Use of unfair means will lead to disqualification",
+        "Participants must respect fellow runners and officials",
+        "Any misconduct may result in removal from the event"
+      ]
+    },
+    {
+      title: "Extras",
+      items: [
+        "Custom medals will be awarded to finishers",
+        "Additional medals reserved for on-spot participants",
+        "Event details and updates will be announced before 19th April 2026"
+      ]
+    }
+  ]
 
-        ]
-      },
-      {
-        title: "Eligibility",
-        items: [
-                   "Updating soon ......."
 
-        ]
-      },
-      {
-        title: "Winning",
-        items: [
-                   "Updating soon ......."
-
-        ]
-      }
-    ]
   }
 };

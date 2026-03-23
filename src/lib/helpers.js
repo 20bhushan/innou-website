@@ -13,7 +13,7 @@
     category: "MAIN EVENTS",
     prize: "Rs 45,000",
     fee:"₹300 / team",
-    image: "/images/bussinessPlan.jpg",
+    image: "/images/bussinessplan.png",
     description: "Pitch your startup idea.",
   },
   debugging: {
