@@ -34,20 +34,20 @@ export const eventConfig = {
       date: "22 April",
       events: [{type:"lightbulb",text:"Business Idea Screening"}],
       venue: "MTI Hub"
-    },
-    {
+    },{
       day: "Day 5",
-      date: "25 April",
-      events: [{type:"mic",text:"Inauguration"},{type:"laptop",text:"Hackathon Final"},{type:"lightbulb",text: "Business Idea Final"},{type:"sparkles",text:"K-Pop Dance Competition"},{type:"trophy",text: "Prize Distribution"}
-      ],
-      venue: "Main Stage"
+      date: "23 April",
+      events: [{type:"gamepad",text:"Esports"}],
+      venue: "MTI Hub"
     },
     {
       day: "Day 6",
-      date: "26 April",
-      events: [{type:"gamepad",text:"Esports"},{type:"sparkles",text: "Cosplay"}],
-      venue: "Event Arena"
+      date: "25 April",
+      events: [{type:"mic",text:"Inauguration"},{type:"laptop",text:"Hackathon Final"},{type:"lightbulb",text: "Business Idea Final"},{type:"sparkles",text:"K-Pop Dance Competition"},{type:"trophy",text: "Prize Distribution"}
+      ,{type:"sparkles",text: "Cosplay"}],
+      venue: "MSFDS"
     }
+    
   ],
 
 
