@@ -42,7 +42,7 @@ export default async function RulesPage({ params }) {
               href="https://wa.me/918732055623"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary"
+              className="nav-register"
             >
               Upload
             </a>
@@ -51,7 +51,7 @@ export default async function RulesPage({ params }) {
               href={event.formLink ? event.formLink : "/updating"}
               target={event.formLink ? "_blank" : "_self"}
               rel="noopener noreferrer"
-              className="btn-primary"
+              className="nav-register"
             >
               {event.formLink ? "Register" : "Coming Soon"}
             </a>

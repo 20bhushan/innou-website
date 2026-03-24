@@ -293,7 +293,7 @@ export const rulesData = {
     title: "COSPLAY SHOWCASE",
     subtitle: "Character Creativity Competition",
     color: "#ff66cc",
-    formLink: null,
+    formLink: "https://forms.gle/7rJHJYDqvzcnX2Ta9",
     rules: [
       {
         title: "Costume",
