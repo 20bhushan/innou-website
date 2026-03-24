@@ -205,6 +205,7 @@ export const rulesData = {
     title: "BUSINESS PLAN",
     subtitle: "Startup Pitch Competition",
     color: "#38bdf8",
+    formLink: "https://forms.gle/y5rxqgvFfaNTMnqy8",
     rules: [
       {
         title: "Idea Requirements",
