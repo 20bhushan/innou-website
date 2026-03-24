@@ -2,8 +2,8 @@
   hackathon: {
     classKey: "hackathon",
     category: "MAIN EVENTS",
-    prize: "Rs 45,000",
-    fee:"₹300 / team",
+    prize: "Upto Rs 40,000",
+    fee: "₹300 / team",
     image: "/images/hackathon.png",
     description:
       "Innovate for a smarter campus. Build impactful solutions using web and Python development.",
@@ -12,7 +12,7 @@
     classKey: "business",
     category: "MAIN EVENTS",
     prize: "Rs 45,000",
-    fee:"₹300 / team",
+    fee: "₹300 / team",
     image: "/images/bussinessplan.png",
     description: "Pitch your startup idea.",
   },
@@ -20,7 +20,7 @@
     classKey: "debug",
     category: "TECHNICAL EVENTS",
     prize: "Rs 10,000",
-    fee:"₹150 / Participant",
+    fee: "₹150 / Participant",
     image: "/images/codeDebug.png",
     description:
       "Test your logic and syntax knowledge under time pressure across multiple languages.",
@@ -29,7 +29,7 @@
     classKey: "typing",
     category: "TECHNICAL EVENTS",
     prize: "Rs 10,000",
-    fee:"₹150 / Participant",
+    fee: "₹150 / Participant",
     image: "/images/typingMaster.png",
     description:
       "Compete to prove your speed and accuracy and claim the typing title.",
@@ -38,7 +38,7 @@
     classKey: "bgmi",
     category: "E-SPORTS",
     prize: "Rs 40,000",
-    fee:"₹400 / team",
+    fee: "₹400 / team",
     image: "/images/bgmi.jpg",
     description: "Squad up and dominate the battleground.",
   },
@@ -46,7 +46,7 @@
     classKey: "mlbb",
     category: "E-SPORTS",
     prize: "Rs 40,000",
-    fee:"₹500 / team",
+    fee: "₹500 / team",
     image: "/images/mlbb.jpg",
     description: "Teamwork defines victory.",
   },
@@ -54,8 +54,8 @@
     classKey: "cosplay",
     category: "CREATIVE ARENA",
     prize: "Rs 25,000",
-    fee:"₹300 / Participant",
-        image: "/images/cosplays.png",
+    fee: "₹300 / Participant",
+    image: "/images/cosplays.png",
 
     description: "Bring characters to life.",
   },
@@ -63,8 +63,8 @@
     classKey: "dance",
     category: "CREATIVE ARENA",
     prize: "Rs 22,000",
-    fee:"₹300 / team",
-   image: "/images/k-pop.jpg",
+    fee: "₹300 / team",
+    image: "/images/k-pop.jpg",
 
     description: "",
   },
@@ -72,8 +72,8 @@
     classKey: "reels",
     category: "CREATIVE ARENA",
     prize: "Rs 8,000",
-    fee:"Free",
-        image: "/images/reels.png",
+    fee: "Free",
+    image: "/images/reels.png",
 
     description: "Create engaging content.",
   },
@@ -81,13 +81,14 @@
     classKey: "run",
     category: "SPORTS",
     prize: "Rs 40,000",
-fee: `
+    fee: `
   <div class="fee-top">
     <span class="old-price">₹300</span>
     <span class="new-price">₹250</span>
   </div>
   <div class="fee-offer">Early Bird Offer</div>
-`,    image: "/images/run.jpg",
+`,
+    image: "/images/run.jpg",
     description: "Push your limits.",
   },
 };

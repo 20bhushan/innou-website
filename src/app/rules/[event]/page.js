@@ -38,20 +38,24 @@ export default async function RulesPage({ params }) {
           <div className="nav-title">{event.title} Rules</div>
 
           {normalizedSlug === "reels" ? (
-  <a
-    href="https://wa.me/918732055623"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="nav-register"
-  >
-    Upload
-  </a>
-) : (
-  <a href="/updating" className="nav-register">
-    Register
-  </a>
-)}
-
+            <a
+              href="https://wa.me/918732055623"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-register"
+            >
+              Upload
+            </a>
+          ) : (
+            <a
+              href={event.formLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-register"
+            >
+              Register
+            </a>
+          )}
         </div>
       </nav>
 
