@@ -165,7 +165,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: brightness(1.25)contrast(1.1)saturate(1.1);
+  filter: brightness(1.25) contrast(1.1) saturate(1.1);
   contain: layout paint;
 }
 
@@ -271,25 +271,24 @@
   font-size: 1.8rem;
   color: #ffd166;
 }
-.card-fee{
-  margin-top:10px;
-  padding-top:10px;
-  border-top:1px solid rgba(255,255,255,0.1);
+.card-fee {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.card-fee span{
-  font-size:0.75rem;
-  opacity:0.85;
-  display:block;
+.card-fee span {
+  font-size: 0.75rem;
+  opacity: 0.85;
+  display: block;
 }
 
-.card-fee p{
-  font-size:1.15rem;
-  font-weight:800;
-  color:var(--glow-color);
+.card-fee .fee-content {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--glow-color);
   text-shadow: 0 0 10px var(--glow-color);
 }
-
 
 .card-description {
   font-size: 0.75rem;
@@ -563,7 +562,6 @@
 /* ================= MOBILE OPTIMIZATION ================= */
 
 @media (max-width: 768px) {
-
   /* ❌ disable heavy backgrounds */
   .aurora-bg,
   .grid-sweep,
@@ -592,13 +590,12 @@
     transform: none;
     box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
   }
-
 }
 /* Container */
-.card-fee p {
+.card-fee .fee-content {
   display: flex;
   flex-direction: column;
-  align-items: center;   /* center everything */
+  align-items: center; /* center everything */
   gap: 4px;
   margin: 0;
 }
@@ -606,7 +603,7 @@
 /* Top row (₹300 ₹250) */
 .fee-top {
   display: flex;
-  align-items: center;   /* 🔥 fixes vertical alignment */
+  align-items: center; /* 🔥 fixes vertical alignment */
   justify-content: center;
   gap: 10px;
 }

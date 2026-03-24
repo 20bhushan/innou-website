@@ -42,18 +42,18 @@ export default async function RulesPage({ params }) {
               href="https://wa.me/918732055623"
               target="_blank"
               rel="noopener noreferrer"
-              className="nav-register"
+              className="btn-primary"
             >
               Upload
             </a>
           ) : (
             <a
-              href={event.formLink}
-              target="_blank"
+              href={event.formLink ? event.formLink : "/updating"}
+              target={event.formLink ? "_blank" : "_self"}
               rel="noopener noreferrer"
-              className="nav-register"
+              className="btn-primary"
             >
-              Register
+              {event.formLink ? "Register" : "Coming Soon"}
             </a>
           )}
         </div>

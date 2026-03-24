@@ -231,11 +231,14 @@ export default function CompetitionsPage() {
                   <p className="card-subtitle">{event.subtitle}</p>
 
                   <div className="card-prize">
-                    <span>PRIZE POOL</span>
+                    <span>PRIZE POOL UPTO</span>
                     <h3>{visual.prize}</h3>
                     <div className="card-fee">
                       <span>REGISTRATION</span>
-                      <p dangerouslySetInnerHTML={{ __html: visual.fee }} />
+                      <div
+                        className="fee-content"
+                        dangerouslySetInnerHTML={{ __html: visual.fee }}
+                      />
                     </div>
                   </div>
 
@@ -256,12 +259,12 @@ export default function CompetitionsPage() {
                       </a>
                     ) : (
                       <a
-                        href={event.formLink}
-                        target="_blank"
+                        href={event.formLink ? event.formLink : "/updating"}
+                        target={event.formLink ? "_blank" : "_self"}
                         rel="noopener noreferrer"
                         className="btn-primary"
                       >
-                        Register
+                        {event.formLink ? "Register" : "Coming Soon"}
                       </a>
                     )}
                   </div>
