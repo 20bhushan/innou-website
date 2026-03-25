@@ -37,25 +37,38 @@ export default async function RulesPage({ params }) {
 
           <div className="nav-title">{event.title} Rules</div>
 
-          {normalizedSlug === "reels" ? (
-            <a
-              href="https://wa.me/918732055623"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="nav-register"
-            >
-              Upload
-            </a>
-          ) : (
-            <a
-              href={event.formLink ? event.formLink : "/updating"}
-              target={event.formLink ? "_blank" : "_self"}
-              rel="noopener noreferrer"
-              className="nav-register"
-            >
-              {event.formLink ? "Register" : "Coming Soon"}
-            </a>
-          )}
+          <div className="rules-action-group">
+            {normalizedSlug === "reels" ? (
+              <a
+                href="https://wa.me/918732055623"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-register"
+              >
+                Upload
+              </a>
+            ) : (
+              <a
+                href={event.formLink ? event.formLink : "/updating"}
+                target={event.formLink ? "_blank" : "_self"}
+                rel="noopener noreferrer"
+                className="nav-register"
+              >
+                {event.formLink ? "Register" : "Coming Soon"}
+              </a>
+            )}
+
+            {event.pdfLink && (
+              <a
+                href={event.pdfLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-offline-form"
+              >
+                Offline Form PDF
+              </a>
+            )}
+          </div>
         </div>
       </nav>
 

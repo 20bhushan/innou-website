@@ -4,6 +4,7 @@ export const rulesData = {
     subtitle: "Official Rules & Guidelines",
     color: "#00f2ff",
     formLink: "https://forms.gle/1o11JmzfULzzWYjB8",
+    pdfLink: "/pdfs/hackathon-offline-form.pdf",
     rules: [
       {
         title: "Event Overview",
@@ -67,6 +68,8 @@ export const rulesData = {
     subtitle: "Crack the Code - Debug - Fix - Conquer",
     color: "#d400ff",
     formLink: "https://forms.gle/WM2wYWG7Jcqu7dRt7",
+    pdfLink: "/pdfs/codeDebugging-offline-form.pdf",
+
     rules: [
       {
         title: "Event Overview",
@@ -152,6 +155,8 @@ export const rulesData = {
     subtitle: "Precision at the Speed of Thought",
     color: "#00ff88",
     formLink: "https://forms.gle/pEvRbWm4m2A8SLVbA",
+    pdfLink: "/pdfs/typingMaster-offline-form.pdf",
+
     rules: [
       {
         title: "Objectives",
@@ -206,6 +211,8 @@ export const rulesData = {
     subtitle: "Startup Pitch Competition",
     color: "#38bdf8",
     formLink: "https://forms.gle/y5rxqgvFfaNTMnqy8",
+    // pdfLink: "/pdfs/-offline-form.pdf",
+
     rules: [
       {
         title: "Idea Requirements",
@@ -246,6 +253,8 @@ export const rulesData = {
     subtitle: "Battle Royale Competition",
     color: "#ff3c3c",
     formLink: "https://forms.gle/4NxtJibJdDLHEbbA6",
+    // pdfLink: "/pdfs/-offline-form.pdf",
+
     rules: [
       {
         title: "Team Structure",
@@ -270,6 +279,8 @@ export const rulesData = {
     subtitle: "Team Strategy Battle",
     color: "#ffcc00",
     formLink: "https://forms.gle/FPx1R2KMwwktWx8b7",
+    // pdfLink: "/pdfs/-offline-form.pdf",
+
     rules: [
       {
         title: "Team Composition",
@@ -291,21 +302,41 @@ export const rulesData = {
   },
   cosplay: {
     title: "COSPLAY SHOWCASE",
-    subtitle: "Character Creativity Competition",
+    subtitle: "Dress. Perform. Become the Character.",
     color: "#ff66cc",
     formLink: "https://forms.gle/7rJHJYDqvzcnX2Ta9",
+    // pdfLink: "/pdfs/-offline-form.pdf",
+
     rules: [
       {
-        title: "Costume",
-        items: ["Updating soon ......."],
+        title: "General Rules",
+        items: [
+          "Participants may choose any character of their preference",
+          "Costumes must be decent, culturally and campus appropriate",
+          "Inappropriate or offensive cosplay will result in direct disqualification",
+        ],
       },
       {
-        title: "Performance",
-        items: ["Updating soon ......."],
+        title: "Performance Rules",
+        items: [
+          "Maximum performance time: 6 minutes",
+          "Formats include character walk & pose, short skit, dance, monologue, and character-based acts",
+          "No aggressive stunts or dangerous acts are allowed",
+        ],
       },
       {
-        title: "Judging Criteria",
-        items: ["Updating soon ......."],
+        title: "Props & Safety",
+        items: [
+          "No real weapons, fire, or sharp objects are allowed",
+          "Only non-functional, lightweight, and safe props are permitted",
+        ],
+      },
+      {
+        title: "Music & Judging",
+        items: [
+          "Background music must be submitted in advance",
+          "Decisions by judges will be final and binding",
+        ],
       },
     ],
   },
@@ -314,6 +345,8 @@ export const rulesData = {
     subtitle: "Synchronize. Perform. Dominate.",
     color: "#66ccff",
     formLink: "https://forms.gle/ffExcp91JR3hZsf79",
+    // pdfLink: "/pdfs/-offline-form.pdf",
+
     rules: [
       {
         title: "Participation",
@@ -449,6 +482,8 @@ export const rulesData = {
     subtitle: "10KM Endurance Challenge",
     color: "#00ffcc",
     formLink: "https://forms.gle/jRAsVyiJQTUuhdbs7",
+    pdfLink: "/pdfs/innouRun-offline-form.pdf",
+
     rules: [
       {
         title: "Event Details",
