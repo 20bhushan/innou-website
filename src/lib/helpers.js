@@ -34,14 +34,6 @@
     description:
       "Compete to prove your speed and accuracy and claim the typing title.",
   },
-  bgmi: {
-    classKey: "bgmi",
-    category: "E-SPORTS",
-    prize: "Rs 30,000",
-    fee: "₹400 / team",
-    image: "/images/bgmi.jpg",
-    description: "Squad up and dominate the battleground.",
-  },
   mlbb: {
     classKey: "mlbb",
     category: "E-SPORTS",

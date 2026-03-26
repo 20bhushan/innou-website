@@ -248,32 +248,6 @@ export const rulesData = {
       },
     ],
   },
-  bgmi: {
-    title: "BGMI TOURNAMENT",
-    subtitle: "Battle Royale Competition",
-    color: "#ff3c3c",
-    formLink: "https://forms.gle/4NxtJibJdDLHEbbA6",
-    // pdfLink: "/pdfs/-offline-form.pdf",
-
-    rules: [
-      {
-        title: "Team Structure",
-        items: ["Updating soon ......."],
-      },
-      {
-        title: "Match Format",
-        items: ["Updating soon ......."],
-      },
-      {
-        title: "Scoring System",
-        items: ["Updating soon ......."],
-      },
-      {
-        title: "Fair Play",
-        items: ["Updating soon ......."],
-      },
-    ],
-  },
   mlbb: {
     title: "MLBB ARENA",
     subtitle: "Team Strategy Battle",
