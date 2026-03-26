@@ -257,20 +257,56 @@ export const rulesData = {
 
     rules: [
       {
-        title: "Team Composition",
-        items: ["Updating soon ......."],
+        title: "Player Punctuality & Lobby Entry",
+        items: [
+          "All players must join the lobby at least 10 minutes before match time",
+          "Teams late by 10 minutes will be disqualified",
+        ],
       },
       {
-        title: "Game Mode",
-        items: ["Updating soon ......."],
+        title: "Player & Network Responsibility",
+        items: [
+          "Players are responsible for their own device, power supply, and internet",
+          "Matches will not be restarted due to device issues",
+        ],
       },
       {
-        title: "Match Rules",
-        items: ["Updating soon ......."],
+        title: "Administrative Authority",
+        items: [
+          "All decisions by admins are final",
+          "Organizers can modify rules if necessary",
+        ],
       },
       {
-        title: "Winning",
-        items: ["Updating soon ......."],
+        title: "Team Composition & Pause Rules",
+        items: [
+          "Each team must have 5 main players",
+          "Substitute player is optional",
+          "Limited pauses allowed only for technical issues",
+          "Communication during pauses may be restricted",
+        ],
+      },
+      {
+        title: "Sportsmanship",
+        items: [
+          "No foul language or harassment",
+          "No toxic behavior towards players or officials",
+          "Violation may lead to disqualification",
+        ],
+      },
+      {
+        title: "Cheating",
+        items: [
+          "Use of hacks, exploits, or third-party tools is strictly prohibited",
+          "Immediate disqualification if caught",
+        ],
+      },
+      {
+        title: "Dispute Resolution",
+        items: [
+          "All disputes must be reported to tournament officials",
+          "Officials will review and give final decision",
+        ],
       },
     ],
   },
