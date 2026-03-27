@@ -46,7 +46,7 @@
     classKey: "cosplay",
     category: "CREATIVE ARENA",
     prize: "Rs 15,000",
-    fee: "₹300 / Participant",
+    fee: "₹200 / Participant",
     image: "/images/cosplays.png",
 
     description: "Bring characters to life.",
