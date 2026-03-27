@@ -2,24 +2,24 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from "next/image"
+import Image from "next/image";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const hideOnRulesPage = pathname?.startsWith("/rules/");
-useEffect(() => {
-  const updateColor = () => {
-    const color = getComputedStyle(document.documentElement)
-      .getPropertyValue("--accent-color");
+  useEffect(() => {
+    const updateColor = () => {
+      const color = getComputedStyle(document.documentElement).getPropertyValue(
+        "--accent-color",
+      );
 
-    document.documentElement.style.setProperty("--accent-color", color);
-  };
+      document.documentElement.style.setProperty("--accent-color", color);
+    };
 
-  window.addEventListener("scroll", updateColor);
+    window.addEventListener("scroll", updateColor);
 
-  return () => window.removeEventListener("scroll", updateColor);
-}, []);
-
+    return () => window.removeEventListener("scroll", updateColor);
+  }, []);
 
   if (hideOnRulesPage) {
     return null;
@@ -29,13 +29,15 @@ useEffect(() => {
     <nav className="navbar">
       <div className="nav-container">
         <Link href="/" className="logo">
-        <Image src="/newLogo3.png" 
-        width={80}
-        height={80}
-        className="nav-logo" alt="INNOU logo"
-        priority
-        />
-        <div className="logo-text">
+          <Image
+            src="/newLogo3.png"
+            width={80}
+            height={80}
+            className="nav-logo"
+            alt="INNOU logo"
+            priority
+          />
+          <div className="logo-text">
             <span className="para">INNOU</span>
             <span className="gradient-text">1.0</span>
           </div>
@@ -62,17 +64,14 @@ useEffect(() => {
               Sponsors
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link href="/contact" onClick={() => setOpen(false)}>
               Contact
             </Link>
-          </li>
+          </li> */}
         </ul>
 
-        <a
-          href="/competitions"
-          className="btn-primary register-btn"
-        >
+        <a href="/competitions" className="btn-primary register-btn">
           Register Now
         </a>
 
@@ -89,4 +88,3 @@ useEffect(() => {
     </nav>
   );
 }
-
