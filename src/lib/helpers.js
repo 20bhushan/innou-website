@@ -2,7 +2,7 @@
   hackathon: {
     classKey: "hackathon",
     category: "MAIN EVENTS",
-    prize: "Rs 40,000",
+    prize: "Rs 30,000",
     fee: "₹300 / team",
     image: "/images/hackathon.png",
     description:
@@ -11,7 +11,7 @@
   business: {
     classKey: "business",
     category: "MAIN EVENTS",
-    prize: "Rs 40,000",
+    prize: "Rs 30,000",
     fee: "₹300 / team",
     image: "/images/bussinessplan.png",
     description: "Pitch your startup idea.",
@@ -37,7 +37,7 @@
   mlbb: {
     classKey: "mlbb",
     category: "E-SPORTS",
-    prize: "Rs 20,000",
+    prize: "Rs 30,000",
     fee: "₹500 / team",
     image: "/images/mlbb.jpg",
     description: "Teamwork defines victory.",
@@ -45,7 +45,7 @@
   cosplay: {
     classKey: "cosplay",
     category: "CREATIVE ARENA",
-    prize: "Rs 20,000",
+    prize: "Rs 15,000",
     fee: "₹300 / Participant",
     image: "/images/cosplays.png",
 
@@ -63,7 +63,7 @@
   reels: {
     classKey: "reels",
     category: "CREATIVE ARENA",
-    prize: "Rs 8,000",
+    prize: "Rs 6,000",
     fee: "Free",
     image: "/images/reels.png",
 
