@@ -71,9 +71,9 @@ export default function Navbar() {
           </li> */}
         </ul>
 
-        <a href="/competitions" className="btn-primary register-btn">
+        {/* <a href="/competitions" className="btn-primary register-btn">
           Register Now
-        </a>
+        </a> */}
 
         <button
           type="button"

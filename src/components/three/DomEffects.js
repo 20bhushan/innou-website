@@ -6,8 +6,9 @@ export default function initDomEffects() {
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
-  const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)")
-    .matches;
+  const supportsHover = window.matchMedia(
+    "(hover: hover) and (pointer: fine)",
+  ).matches;
   let scrollFrame = 0;
   let cursorFrame = 0;
 
@@ -112,7 +113,8 @@ export default function initDomEffects() {
       const scrollHeight =
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
-      const scrollPercent = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      const scrollPercent =
+        scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
       bar.style.width = `${scrollPercent}%`;
     }
   };
@@ -147,26 +149,28 @@ export default function initDomEffects() {
 
   if (supportsHover && !prefersReducedMotion) {
     const buttonCleanup = [];
-    document.querySelectorAll(".btn-primary, .btn-outline").forEach((btn) => {
-      const onMove = (event) => {
-        const rect = btn.getBoundingClientRect();
-        const x = event.clientX - rect.left - rect.width / 2;
-        const y = event.clientY - rect.top - rect.height / 2;
+    document
+      .querySelectorAll(".btn-primary, .btn-outline , .btn-register-main")
+      .forEach((btn) => {
+        const onMove = (event) => {
+          const rect = btn.getBoundingClientRect();
+          const x = event.clientX - rect.left - rect.width / 2;
+          const y = event.clientY - rect.top - rect.height / 2;
 
-        btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
-      };
+          btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+        };
 
-      const onLeave = () => {
-        btn.style.transform = "translate(0,0)";
-      };
+        const onLeave = () => {
+          btn.style.transform = "translate(0,0)";
+        };
 
-      btn.addEventListener("mousemove", onMove);
-      btn.addEventListener("mouseleave", onLeave);
-      buttonCleanup.push(() => {
-        btn.removeEventListener("mousemove", onMove);
-        btn.removeEventListener("mouseleave", onLeave);
+        btn.addEventListener("mousemove", onMove);
+        btn.addEventListener("mouseleave", onLeave);
+        buttonCleanup.push(() => {
+          btn.removeEventListener("mousemove", onMove);
+          btn.removeEventListener("mouseleave", onLeave);
+        });
       });
-    });
     cleanups.push(() => buttonCleanup.forEach((fn) => fn()));
 
     const cardCleanup = [];

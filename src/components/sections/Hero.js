@@ -23,6 +23,11 @@ export default function Hero() {
             About Fest
           </a>
         </div>
+        <div className="hero-register">
+          <a href="/competitions" className="btn-register-main">
+            Register Now
+          </a>
+        </div>
 
         <div className="countdown">
           <div className="count-item">
