@@ -571,7 +571,8 @@ export const rulesData = {
     title: "STALL",
     subtitle: "SHOWCASE • SELL • ENGAGE",
     color: "#ff9f43",
-    formLink: "YOUR_GOOGLE_FORM_LINK",
+    formLink:
+      "https://docs.google.com/forms/d/e/1FAIpQLSf_pWoOido_ARya4oDVQ285ghDJQFPXN9Ik2-Be4wQhcPr3Lw/viewform?usp=preview",
     // pdfLink: "/pdfs/stall-rules.pdf",
 
     rules: [
