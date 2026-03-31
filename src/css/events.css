@@ -417,6 +417,11 @@
   --glow-color-soft: rgba(0, 255, 204, 0.4);
   --glow-color-fade: rgba(0, 255, 204, 0.2);
 }
+.event-stall {
+  --glow-color: #ff9f43;
+  --glow-color-soft: rgba(255, 159, 67, 0.4);
+  --glow-color-fade: rgba(255, 159, 67, 0.2);
+}
 
 /* ================= MOUSE NEON FIELD ================= */
 

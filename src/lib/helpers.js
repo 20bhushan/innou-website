@@ -83,6 +83,15 @@
     image: "/images/run.jpg",
     description: "Push your limits.",
   },
+  stall: {
+    classKey: "stall",
+    category: "OTHER",
+    prize: "LIMITED SLOTS ABAILABLE",
+    fee: "To Be Announced",
+    image: "/images/stall.png",
+    description:
+      "Showcase, sell, and engage with visitors by booking your stall at INNOU 1.0.",
+  },
 };
 
 const FALLBACK_CARD_BG =

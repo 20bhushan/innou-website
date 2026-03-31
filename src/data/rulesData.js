@@ -567,4 +567,61 @@ export const rulesData = {
       },
     ],
   },
+  stall: {
+    title: "STALL",
+    subtitle: "SHOWCASE • SELL • ENGAGE",
+    color: "#ff9f43",
+    formLink: "YOUR_GOOGLE_FORM_LINK",
+    // pdfLink: "/pdfs/stall-rules.pdf",
+
+    rules: [
+      {
+        title: "Event Details",
+        items: [
+          "Stall booking is open for vendors, food sellers, small businesses, and service promoters.",
+          "Event date: 25th April.",
+          "Venue: MSFDS.",
+          "Stall timing: 9 AM to 8 PM.",
+          "Limited slots available on a first come, first served basis.",
+        ],
+      },
+      {
+        title: "Registration",
+        items: [
+          "All vendors must complete official registration with the event organizer.",
+          "Vendors must provide valid identification, contact details, and a clear description of the goods or services offered.",
+          "Registration will be confirmed only after payment verification.",
+          "Proof of payment or receipt must be maintained at all times.",
+          "Registration amount paid is non-refundable.",
+        ],
+      },
+      {
+        title: "Stall Rules",
+        items: [
+          "Vendors must operate strictly within the space allocated to them.",
+          "Encroachment on walkways or neighbouring stalls is strictly prohibited.",
+          "Subletting, transferring, or renting the stall to another party without prior permission is not allowed.",
+          "Only approved goods or services may be displayed or sold at the stall.",
+          "Any activity causing disturbance to nearby stalls or visitors is not allowed.",
+        ],
+      },
+      {
+        title: "Cleanliness and Conduct",
+        items: [
+          "Cleanliness must be maintained in and around the stall area at all times.",
+          "Proper waste disposal is mandatory and vendors should use designated bins.",
+          "Vendors must behave respectfully with visitors, organizers, and other participants.",
+          "Use of offensive language, misconduct, or any unfair activity may lead to stall cancellation.",
+        ],
+      },
+      {
+        title: "Organizer Authority",
+        items: [
+          "The organizers reserve the right to inspect stalls at any time.",
+          "Any stall found violating the rules may be warned, removed, or disqualified without refund.",
+          "The decision of the organizing committee shall be final and binding in all matters.",
+        ],
+      },
+    ],
+  },
 };

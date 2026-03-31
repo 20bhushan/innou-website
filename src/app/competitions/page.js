@@ -231,8 +231,11 @@ export default function CompetitionsPage() {
                   <p className="card-subtitle">{event.subtitle}</p>
 
                   <div className="card-prize">
-                    <span>PRIZE POOL UPTO</span>
+                    <span>
+                      {key === "stall" ? "AVAILABILITY" : "PRIZE POOL UPTO"}
+                    </span>
                     <h3>{visual.prize}</h3>
+
                     <div className="card-fee">
                       <span>REGISTRATION</span>
                       <div
