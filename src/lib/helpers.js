@@ -69,19 +69,30 @@
 
     description: "Create engaging content.",
   },
-  run: {
-    classKey: "run",
-    category: "SPORTS",
-    prize: "Rs 40,000",
-    fee: `
-  <div class="fee-top">
-    <span class="new-price">₹250</span>
-  </div>
-  <div class="fee-ended">Early bird Offer</div>
-`,
-    image: "/images/run.jpg",
-    description: "Push your limits.",
+ run: {
+  classKey: "run",
+  category: "SPORTS",
+  prize: "Rs 40,000",
+  fee: `
+    <div class="fee-top">
+      <span class="old-price">₹300</span>
+      <span class="new-price">₹250</span>
+    </div>
+    <div class="fee-offer">⚡ Ends Today</div>
+  `,
+  
+  /* 👇 ADD THIS */
+  offerCountdown: {
+    enabled: true,
+    endTime: "2026-04-01T23:59:59+05:30",
+    activeLabel: "⏳",
+    expiredLabel: "Offer Ended",
   },
+
+  image: "/images/run.jpg",
+  description: "Push your limits.",
+},
+
   stall: {
     classKey: "stall",
     category: "OTHER",

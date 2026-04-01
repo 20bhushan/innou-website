@@ -596,56 +596,78 @@
     box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
   }
 }
-/* Container */
+/* ================= FEE / OFFER / COUNTDOWN ================= */
+
 .card-fee .fee-content {
   display: flex;
   flex-direction: column;
-  align-items: center; /* center everything */
+  align-items: center;
   gap: 4px;
   margin: 0;
 }
-.fee-final {
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: #00f2ff;
-  text-shadow: 0 0 12px rgba(0, 242, 255, 0.7);
-  margin-top: 6px;
+
+.card-fee .fee-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.limited {
-  color: #ff4d4d;
-  font-size: 0.8rem;
-  margin-top: 4px;
-  font-weight: 600;
+.card-fee .old-price {
+  font-size: 1rem;
+  text-decoration: line-through;
+  opacity: 0.45;
 }
 
-.closing {
-  color: #ffd76a;
-  font-size: 0.75rem;
-  margin-top: 2px;
-}
 .card-fee .new-price {
-  font-size: 1.15rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: #00f2ff;
   text-shadow: 0 0 10px #00f2ff;
+  opacity: 1;
 }
 
-/* NEW CLASS */
-.card-fee .fee-ended {
-  font-size: 1rem;
-  color: #ff4d4d;
-  opacity: 0.8;
+.card-fee .fee-offer {
+  font-size: 0.8rem;
+  color: #ffd76a;
+  font-weight: 600;
   margin-top: 4px;
 }
 
-/* 📱 Mobile optimization */
+.card-fee .fee-ended {
+  font-size: 0.8rem;
+  color: #ff4d4d;
+  font-weight: 600;
+  margin-top: 4px;
+  opacity: 0.9;
+}
+
+.card-fee .offer-countdown {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #00f2ff;
+  text-shadow: 0 0 8px rgba(0, 242, 255, 0.7);
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+.card-fee .offer-countdown.expired {
+  color: #ff4d4d;
+  text-shadow: none;
+}
+
 @media (max-width: 768px) {
+  .card-fee .old-price {
+    font-size: 0.9rem;
+  }
+
   .card-fee .new-price {
     font-size: 1.1rem;
   }
 
-  .card-fee .fee-ended {
-    font-size: 0.7rem;
+  .card-fee .fee-offer,
+  .card-fee .fee-ended,
+  .card-fee .offer-countdown {
+    font-size: 0.62rem;
   }
 }

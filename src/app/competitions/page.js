@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef,useState } from "react";
 import Link from "next/link";
 import Footer from "@/components/sections/Footer";
 import { rulesData } from "@/data/rulesData";
@@ -14,6 +14,59 @@ const CATEGORY_ORDER = [
   "SPORTS",
   "OTHER",
 ];
+function EventCountdown({ config }) {
+  const [timeLeft, setTimeLeft] = useState("");
+  const [expired, setExpired] = useState(false);
+
+  useEffect(() => {
+    if (!config?.enabled || !config?.endTime) return;
+
+    const updateCountdown = () => {
+      const now = new Date();
+      const endTime = new Date(config.endTime);
+      const diff = endTime - now;
+
+      if (diff <= 0) {
+        setExpired(true);
+        setTimeLeft(config.expiredLabel || "Ended");
+        return;
+      }
+
+      setExpired(false);
+
+      const totalSeconds = Math.floor(diff / 1000);
+      const days = Math.floor(totalSeconds / (60 * 60 * 24));
+      const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
+      const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+      const seconds = totalSeconds % 60;
+
+      if (days > 0) {
+        setTimeLeft(
+          `${days}d ${String(hours).padStart(2, "0")}h ${String(minutes).padStart(2, "0")}m ${String(seconds).padStart(2, "0")}s`,
+        );
+      } else {
+        setTimeLeft(
+          `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`,
+        );
+      }
+    };
+
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+
+    return () => clearInterval(timer);
+  }, [config]);
+
+  if (!config?.enabled) return null;
+
+  return (
+    <div className={`offer-countdown ${expired ? "expired" : ""}`}>
+      {expired
+        ? config.expiredLabel || "Ended"
+        : `${config.activeLabel || "⏳"} ${timeLeft}`}
+    </div>
+  );
+}
 
 export default function CompetitionsPage() {
   const canvasRef = useRef(null);
@@ -236,13 +289,15 @@ export default function CompetitionsPage() {
                     </span>
                     <h3>{visual.prize}</h3>
 
-                    <div className="card-fee">
-                      <span>REGISTRATION</span>
-                      <div
-                        className="fee-content"
-                        dangerouslySetInnerHTML={{ __html: visual.fee }}
-                      />
-                    </div>
+                 <div className="card-fee">
+  <span>REGISTRATION</span>
+  <div
+    className="fee-content"
+    dangerouslySetInnerHTML={{ __html: visual.fee }}
+  />
+  <EventCountdown config={visual.offerCountdown} />
+</div>
+
                   </div>
 
                   <p className="card-description">{visual.description}</p>
