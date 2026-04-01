@@ -342,7 +342,7 @@ body.scrolled .logo-svg {
     gap: 6px;
   }
 
-  .nav-svg {
+  .logo-svg {
     width: 36px;
     height: 36px;
     transform: translateY(1px);
@@ -401,7 +401,7 @@ body.scrolled .logo-svg {
     gap: 7px;
   }
 
-  .nav-svg {
+  .logo-svg {
     width: 32px;
     height: 32px;
     transform: translateY(1px);
