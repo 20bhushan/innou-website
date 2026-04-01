@@ -13,6 +13,7 @@ export const rulesData = {
           "Duration: 12 Hours",
           "Team Size: 2-4 Students",
           "Participants: College Students Only",
+          "Inter college team are also allowed",
           "One table assigned per team",
         ],
       },
