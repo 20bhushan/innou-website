@@ -14,7 +14,7 @@ const CATEGORY_ORDER = [
   "SPORTS",
   "OTHER",
 ];
-function EventCountdown({ config }) {
+function EventCountdown({ config, onExpireChange }) {
   const [timeLeft, setTimeLeft] = useState("");
   const [expired, setExpired] = useState(false);
 
@@ -29,10 +29,12 @@ function EventCountdown({ config }) {
       if (diff <= 0) {
         setExpired(true);
         setTimeLeft(config.expiredLabel || "Ended");
+        onExpireChange?.(true);
         return;
       }
 
       setExpired(false);
+      onExpireChange?.(false);
 
       const totalSeconds = Math.floor(diff / 1000);
       const days = Math.floor(totalSeconds / (60 * 60 * 24));
@@ -42,11 +44,11 @@ function EventCountdown({ config }) {
 
       if (days > 0) {
         setTimeLeft(
-          `${days}d ${String(hours).padStart(2, "0")}h ${String(minutes).padStart(2, "0")}m ${String(seconds).padStart(2, "0")}s`,
+          `${days}d ${String(hours).padStart(2, "0")}h ${String(minutes).padStart(2, "0")}m ${String(seconds).padStart(2, "0")}s`
         );
       } else {
         setTimeLeft(
-          `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`,
+          `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
         );
       }
     };
@@ -55,7 +57,7 @@ function EventCountdown({ config }) {
     const timer = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(timer);
-  }, [config]);
+  }, [config, onExpireChange]);
 
   if (!config?.enabled) return null;
 
@@ -68,9 +70,10 @@ function EventCountdown({ config }) {
   );
 }
 
+
 export default function CompetitionsPage() {
   const canvasRef = useRef(null);
-
+ const [runOfferExpired, setRunOfferExpired] = useState(false);
   const groupedEvents = useMemo(() => {
     return Object.entries(rulesData).reduce((acc, [key, event]) => {
       const visual = getEventVisual(key);
@@ -291,12 +294,39 @@ export default function CompetitionsPage() {
 
                  <div className="card-fee">
   <span>REGISTRATION</span>
-  <div
-    className="fee-content"
-    dangerouslySetInnerHTML={{ __html: visual.fee }}
+
+  <div className="fee-content">
+    {key === "run" ? (
+      runOfferExpired ? (
+        <>
+          <div className="fee-top">
+            <span className="new-price">₹300</span>
+          </div>
+          <div className="fee-ended">Offer Ended</div>
+        </>
+      ) : (
+        <>
+          <div className="fee-top">
+            <span className="old-price">₹300</span>
+            <span className="new-price">₹250</span>
+          </div>
+          <div className="fee-offer">⚡ Ends Today</div>
+        </>
+      )
+    ) : typeof visual.fee === "string" && visual.fee.includes("<") ? (
+  <div dangerouslySetInnerHTML={{ __html: visual.fee }} />
+) : (
+  <div>{visual.fee}</div>
+)}
+
+  </div>
+
+  <EventCountdown
+    config={visual.offerCountdown}
+    onExpireChange={key === "run" ? setRunOfferExpired : undefined}
   />
-  <EventCountdown config={visual.offerCountdown} />
 </div>
+
 
                   </div>
 
