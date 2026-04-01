@@ -1,69 +1,117 @@
 export const rulesData = {
-  hackathon: {
-    title: "SMART CAMPUS HACKATHON",
-    subtitle: "Official Rules & Guidelines",
-    color: "#00f2ff",
-    formLink: "https://forms.gle/1o11JmzfULzzWYjB8",
-    pdfLink: "/pdfs/hackathon-offline-form.pdf",
-    rules: [
-      {
-        title: "Event Overview",
-        items: [
-          "Mode: Offline (MTI Hub)",
-          "Duration: 12 Hours",
-          "Team Size: 2-4 Students",
-          "Participants: College Students Only",
-          "Inter college team are also allowed",
-          "One table assigned per team",
-        ],
-      },
-      {
-        title: "Theme",
-        items: [
-          "Smart Campus Support System",
-          "Solutions should improve campus life",
-          "Practical ideas are prioritized",
-          "Working logic matters more than complexity",
-        ],
-      },
-      {
-        title: "Fairness Policy",
-        items: [
-          "Problem tracks will not be revealed beforehand",
-          "Tracks revealed during the event",
-          "All teams receive information simultaneously",
-          "Pre-built projects are not allowed",
-        ],
-      },
-      {
-        title: "Allowed Technology – Web Development",
-        items: [
-          "Build your project using HTML, CSS, and JavaScript",
-          "You may use tools or libraries you are comfortable with",
-          "Focus on creating a working and useful web application",
-        ],
-      },
-      {
-        title: "Allowed Technology – Python Development",
-        items: [
-          "Use Python to develop your solution",
-          "Python libraries or APIs may be used if needed",
-          "Focus on clear logic and a working program",
-        ],
-      },
+hackathon: {
+  title: "SMART CAMPUS HACKATHON",
+  subtitle: "Official Rules & Guidelines",
+  color: "#00f2ff",
+  formLink: "https://forms.gle/1o11JmzfULzzWYjB8",
+  pdfLink: "/pdfs/hackathon-offline-form.pdf",
+  rules: [
+    {
+      title: "Event Overview",
+      items: [
+        "Mode: Offline (MTI Hub)",
+        "Total Duration: 12 Hours (5 Hours Development + Evaluation)",
+        "Team Size: 2–4 Members",
+        "Inter-college teams are allowed",
+        "Each team will be assigned a workspace",
+      ],
+    },
+    {
+      title: "Theme",
+      items: [
+        "Theme: Smart Campus Support System",
+        "Solutions should address real campus problems",
+        "Practical and working ideas are prioritized",
+      ],
+    },
+    {
+      title: "Fairness Policy",
+      items: [
+        "Problem statements will be revealed during the event",
+        "All teams will receive the same information simultaneously",
+        "Pre-built projects, templates, or reused code are strictly prohibited",
+      ],
+    },
+    {
+      title: "Allowed Technology",
+      items: [
+        "Web: HTML, CSS, JavaScript (frameworks allowed)",
+        "Python: Standard libraries and limited external libraries",
+        "Basic APIs, Firebase, or local storage can be used",
+      ],
+    },
+    {
+      title: "Development Rules",
+      items: [
+        "All development must be done during the hackathon",
+        "Open-source libraries are allowed but must be understood",
+        "Internet access is allowed for research purposes only",
+        "Teams must be able to explain their code clearly",
+      ],
+    },
+    {
+      title: "Submission & Presentation",
+      items: [
+        "Teams must submit source code (GitHub/ZIP), presentation, and working demo",
+        "Each team will get 7 minutes for presentation and 5 minutes for Q&A",
+        "Projects must be in working condition during evaluation",
+      ],
+    },
+    {
+      title: "Judging Criteria",
+      items: [
+        "Working Solution – 20%",
+        "Usefulness & Impact – 20%",
+        "Creativity & Innovation – 20%",
+        "Technical Implementation – 20%",
+        "Presentation & Explanation – 20%",
+      ],
+    },
+    {
+      title: "Team & Participation",
+      items: [
+        "Each team must have 2–4 members",
+        "All members must actively participate",
+        "Team changes are not allowed after the event starts",
+      ],
+    },
+    {
+      title: "Fair Play & Conduct",
+      items: [
+        "Cheating, plagiarism, or unfair advantage will lead to disqualification",
+        "Participants must maintain discipline and professional behavior",
+        "Misconduct may result in immediate removal from the event",
+      ],
+    },
+    {
+      title: "Time & Submission Policy",
+      items: [
+        "All submissions must be completed before the deadline",
+        "Late submissions will not be accepted",
+        "No changes will be allowed after final submission",
+      ],
+    },
+    {
+      title: "General Rules",
+      items: [
+        "All projects must be original and created by participants",
+        "Participants must bring their own laptops and required tools",
+        "Organizers are not responsible for personal belongings",
+        "Participants must follow institutional and safety guidelines",
+      ],
+    },
+    {
+      title: "Results & Terms",
+      items: [
+        "Judges’ decisions are final and binding",
+        "No objections will be considered once results are announced",
+        "Organizers reserve the right to modify rules or schedule at any time",
+      ],
+    },
+  ],
+}
 
-      {
-        title: "Judging Criteria",
-        items: [
-          "Working Solution - 20%",
-          "Usefulness & Practical Impact - 20%",
-          "Creativity & Innovation - 20%",
-          "Technical Implementation - 20%",
-          "Presentation & Explanation - 20%",
-        ],
-      },
-    ],
-  },
+,
   debugging: {
     title: "CODE DEBUGGING",
     subtitle: "Crack the Code - Debug - Fix - Conquer",
