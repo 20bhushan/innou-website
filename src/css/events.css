@@ -604,54 +604,48 @@
   gap: 4px;
   margin: 0;
 }
-
-/* Top row (₹300 ₹250) */
-.fee-top {
-  display: flex;
-  align-items: center; /* 🔥 fixes vertical alignment */
-  justify-content: center;
-  gap: 10px;
+.fee-final {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #00f2ff;
+  text-shadow: 0 0 12px rgba(0, 242, 255, 0.7);
+  margin-top: 6px;
 }
 
-/* Old price */
-.old-price {
-  text-decoration: line-through;
-  color: #9ca3af; /* soft gray */
-  font-size: 0.95rem;
-  line-height: 1;
-  display: flex;
-  align-items: center;
+.limited {
+  color: #ff4d4d;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  font-weight: 600;
 }
 
-/* New price */
-.new-price {
-  color: #38bdf8; /* your theme blue */
-  font-weight: bold;
-  font-size: 1.3rem;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-}
-
-/* Offer text */
-.fee-offer {
+.closing {
+  color: #ffd76a;
   font-size: 0.75rem;
-  color: #22c55e; /* green highlight */
-  font-weight: 500;
-  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+.card-fee .new-price {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #00f2ff;
+  text-shadow: 0 0 10px #00f2ff;
+}
+
+/* NEW CLASS */
+.card-fee .fee-ended {
+  font-size: 1rem;
+  color: #ff4d4d;
+  opacity: 0.8;
+  margin-top: 4px;
 }
 
 /* 📱 Mobile optimization */
 @media (max-width: 768px) {
-  .new-price {
+  .card-fee .new-price {
     font-size: 1.1rem;
   }
 
-  .old-price {
-    font-size: 0.85rem;
-  }
-
-  .fee-offer {
+  .card-fee .fee-ended {
     font-size: 0.7rem;
   }
 }

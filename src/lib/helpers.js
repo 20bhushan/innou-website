@@ -75,10 +75,9 @@
     prize: "Rs 40,000",
     fee: `
   <div class="fee-top">
-    <span class="old-price">₹300</span>
-    <span class="new-price">₹250</span>
+    <span class="new-price">₹300</span>
   </div>
-  <div class="fee-offer">Early Bird Offer</div>
+  <div class="fee-ended">Offer Ended</div>
 `,
     image: "/images/run.jpg",
     description: "Push your limits.",
