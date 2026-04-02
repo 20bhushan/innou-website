@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useEffect, useMemo, useRef,useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Footer from "@/components/sections/Footer";
 import { rulesData } from "@/data/rulesData";
@@ -14,7 +14,8 @@ const CATEGORY_ORDER = [
   "SPORTS",
   "OTHER",
 ];
-function EventCountdown({ config, onExpireChange }) {
+
+function EventCountdown({ config }) {
   const [timeLeft, setTimeLeft] = useState("");
   const [expired, setExpired] = useState(false);
 
@@ -29,12 +30,10 @@ function EventCountdown({ config, onExpireChange }) {
       if (diff <= 0) {
         setExpired(true);
         setTimeLeft(config.expiredLabel || "Ended");
-        onExpireChange?.(true);
         return;
       }
 
       setExpired(false);
-      onExpireChange?.(false);
 
       const totalSeconds = Math.floor(diff / 1000);
       const days = Math.floor(totalSeconds / (60 * 60 * 24));
@@ -44,11 +43,11 @@ function EventCountdown({ config, onExpireChange }) {
 
       if (days > 0) {
         setTimeLeft(
-          `${days}d ${String(hours).padStart(2, "0")}h ${String(minutes).padStart(2, "0")}m ${String(seconds).padStart(2, "0")}s`
+          `${days}d ${String(hours).padStart(2, "0")}h ${String(minutes).padStart(2, "0")}m ${String(seconds).padStart(2, "0")}s`,
         );
       } else {
         setTimeLeft(
-          `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+          `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`,
         );
       }
     };
@@ -57,7 +56,7 @@ function EventCountdown({ config, onExpireChange }) {
     const timer = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(timer);
-  }, [config, onExpireChange]);
+  }, [config]);
 
   if (!config?.enabled) return null;
 
@@ -70,10 +69,10 @@ function EventCountdown({ config, onExpireChange }) {
   );
 }
 
-
 export default function CompetitionsPage() {
   const canvasRef = useRef(null);
- const [runOfferExpired, setRunOfferExpired] = useState(false);
+  const [runSlots, setRunSlots] = useState(null);
+
   const groupedEvents = useMemo(() => {
     return Object.entries(rulesData).reduce((acc, [key, event]) => {
       const visual = getEventVisual(key);
@@ -86,12 +85,32 @@ export default function CompetitionsPage() {
   }, []);
 
   useEffect(() => {
-    const isMobile = window.innerWidth < 768;
+    const fetchSlots = async () => {
+      try {
+        const res = await fetch(
+          "https://script.googleusercontent.com/macros/echo?user_content_key=AWDtjMXAOgrYCuwlHjMIopsHH8Ox0pN2P5tOdNrSRUwuAYsNh3wcxJzaxANlx2KFUYet3JwQn1T88fjO1s7upc0vcr4gdqnu5aQrgE8dS9Eq-bfQn--6Mtns9_dmAByrKwIiggXTxqtTuVU1JTPObs7tmhJytE40IeU46rlYtcqjv1YGt14yzdHTp3noCkAQxcAT9fpY6_XVDiOc7A0wxqemwaBMZpPADvmqxgQiWuuJ38UoeEwCbYActfeVCI7IEjiHFkp75csFwirjR0z8jOEXI7NtvuGSC-Vlk63e6zhF&lib=MWyaZlUpm3upAE3Wu6BsslOYlIZy54kvZ",
+          {
+            cache: "no-store",
+          },
+        );
+        const data = await res.json();
+        setRunSlots(data);
+      } catch (err) {
+        console.error("Slot fetch error:", err);
+      }
+    };
 
+    fetchSlots();
+    const interval = setInterval(fetchSlots, 30000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768;
     const hoverCapable = window.matchMedia(
       "(hover: hover) and (pointer: fine)",
     ).matches;
-
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -99,7 +118,6 @@ export default function CompetitionsPage() {
     let glowFrame = 0;
     let latestPointer = null;
 
-    // 🔥 MOUSE GLOW (ONLY DESKTOP)
     const handleMouseGlow = (e) => {
       latestPointer = e;
       if (glowFrame) return;
@@ -126,7 +144,6 @@ export default function CompetitionsPage() {
     const cards = document.querySelectorAll(".hackathon-card");
     const buttons = document.querySelectorAll(".card-buttons .btn-primary");
 
-    // 🔥 HOVER EFFECTS ONLY DESKTOP
     if (!isMobile && hoverCapable && !prefersReducedMotion) {
       cards.forEach((card) => {
         card.addEventListener("mousemove", (e) => {
@@ -165,7 +182,6 @@ export default function CompetitionsPage() {
       });
     }
 
-    // 🔥 CANVAS (DESKTOP FULL, MOBILE LIGHT)
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -183,7 +199,6 @@ export default function CompetitionsPage() {
 
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    // ⚡ LESS PARTICLES ON MOBILE
     const particleCount = isMobile ? 25 : 80;
 
     const particles = Array.from({ length: particleCount }, () => ({
@@ -210,7 +225,6 @@ export default function CompetitionsPage() {
         ctx.fillStyle = "#00f2ff";
         ctx.fill();
 
-        // ❌ skip connection lines on mobile (heavy)
         if (!isMobile) {
           for (let j = i + 1; j < particles.length; j++) {
             const dx = p.x - particles[j].x;
@@ -246,6 +260,7 @@ export default function CompetitionsPage() {
       <div className="aurora-bg"></div>
       <div className="neon-field"></div>
       <div className="grid-sweep"></div>
+
       <div className="particles">
         <span style={{ left: "10%", animationDuration: "12s" }}></span>
         <span style={{ left: "25%", animationDuration: "15s" }}></span>
@@ -282,6 +297,7 @@ export default function CompetitionsPage() {
                 }}
               >
                 <div className="card-overlay"></div>
+
                 <div className="card-content">
                   <h1 className="card-title">{event.title}</h1>
                   <p className="card-subtitle">{event.subtitle}</p>
@@ -290,44 +306,37 @@ export default function CompetitionsPage() {
                     <span>
                       {key === "stall" ? "AVAILABILITY" : "PRIZE POOL UPTO"}
                     </span>
+
                     <h3>{visual.prize}</h3>
 
-                 <div className="card-fee">
-  <span>REGISTRATION</span>
+                    <div className="card-fee">
+                      <span>REGISTRATION</span>
 
-  <div className="fee-content">
-    {key === "run" ? (
-      runOfferExpired ? (
-        <>
-          <div className="fee-top">
-            <span className="new-price">₹300</span>
-          </div>
-          <div className="fee-ended">Offer Ended</div>
-        </>
-      ) : (
-        <>
-          <div className="fee-top">
-            <span className="old-price">₹300</span>
-            <span className="new-price">₹250</span>
-          </div>
-          <div className="fee-offer">⚡ Ends Today</div>
-        </>
-      )
-    ) : typeof visual.fee === "string" && visual.fee.includes("<") ? (
-  <div dangerouslySetInnerHTML={{ __html: visual.fee }} />
-) : (
-  <div>{visual.fee}</div>
-)}
+                      <div className="fee-content">
+                        {typeof visual.fee === "string" &&
+                        visual.fee.includes("<") ? (
+                          <div
+                            dangerouslySetInnerHTML={{ __html: visual.fee }}
+                          />
+                        ) : (
+                          <div>{visual.fee}</div>
+                        )}
+                      </div>
 
-  </div>
+                      <EventCountdown config={visual.offerCountdown} />
 
-  <EventCountdown
-    config={visual.offerCountdown}
-    onExpireChange={key === "run" ? setRunOfferExpired : undefined}
-  />
-</div>
-
-
+                      {key === "run" && runSlots && (
+                        <div
+                          className={`slot-count ${
+                            runSlots.full ? "danger" : ""
+                          }`}
+                        >
+                          {runSlots.full
+                            ? "🚫 Slots Full"
+                            : `🔥 Only ${runSlots.remaining} slots left`}
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <p className="card-description">{visual.description}</p>
@@ -336,6 +345,7 @@ export default function CompetitionsPage() {
                     <Link href={`/rules/${key}`} className="btn-outline">
                       Rules
                     </Link>
+
                     {key === "reels" ? (
                       <a
                         href="https://wa.me/918732055623"
@@ -345,6 +355,10 @@ export default function CompetitionsPage() {
                       >
                         Upload
                       </a>
+                    ) : key === "run" && runSlots?.full ? (
+                      <Link href="/slots-full" className="btn-primary btn-full">
+                        Slots Full
+                      </Link>
                     ) : (
                       <a
                         href={event.formLink ? event.formLink : "/updating"}

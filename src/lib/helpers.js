@@ -73,17 +73,16 @@
   classKey: "run",
   category: "SPORTS",
   prize: "Rs 40,000",
+
   fee: `
     <div class="fee-top">
-      <span class="old-price">₹300</span>
-      <span class="new-price">₹250</span>
+      <span class="new-price">₹300</span>
     </div>
-    <div class="fee-offer">⚡ Ends Today</div>
+    <div class="fee-ended">Offer Ended</div>
   `,
-  
-  /* 👇 ADD THIS */
+
   offerCountdown: {
-    enabled: true,
+    enabled: false,
     endTime: "2026-04-01T23:59:59+05:30",
     activeLabel: "⏳",
     expiredLabel: "Offer Ended",
