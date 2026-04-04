@@ -699,3 +699,35 @@
     font-size: 0.62rem;
   }
 }
+.card-fee .stall-fee {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-fee .stall-fee-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.card-fee .stall-fee-label {
+  color: #ffb45c;
+  font-size: 1rem;
+}
+
+.card-fee .stall-fee-price {
+  color: #ffb45c;
+  font-size: 1rem;
+  text-shadow: 0 0 8px rgba(255, 180, 92, 0.55);
+}
+
+@media (max-width: 768px) {
+  .card-fee .stall-fee-line {
+    font-size: 0.72rem;
+    gap: 8px;
+  }
+}

@@ -92,15 +92,26 @@
   description: "Push your limits.",
 },
 
-  stall: {
-    classKey: "stall",
-    category: "OTHER",
-    prize: "LIMITED SLOTS ABAILABLE",
-    fee: "To Be Announced",
-    image: "/images/stall.png",
-    description:
-      "Showcase, sell, and engage with visitors by booking your stall at INNOU 1.0.",
-  },
+stall: {
+  classKey: "stall",
+  category: "OTHER",
+  prize: "LIMITED SLOTS",
+  fee: `
+    <div class="fee-content stall-fee">
+      <div class="stall-fee-line">
+        <span class="stall-fee-label">Food Stall</span>
+        <span class="stall-fee-price">₹2000</span>
+      </div>
+      <div class="stall-fee-line">
+        <span class="stall-fee-label">Other Stall</span>
+        <span class="stall-fee-price">₹1500</span>
+      </div>
+    </div>
+  `,
+  image: "/images/stall.png",
+  description:
+    "Book your stall at INNOU 1.0 to showcase, sell, and connect with visitors throughout the event day.",
+},
 };
 
 const FALLBACK_CARD_BG =

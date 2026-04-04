@@ -616,62 +616,80 @@ hackathon: {
       },
     ],
   },
-  stall: {
-    title: "STALL",
-    subtitle: "SHOWCASE • SELL • ENGAGE",
-    color: "#ff9f43",
-    formLink:
-      "https://docs.google.com/forms/d/e/1FAIpQLSf_pWoOido_ARya4oDVQ285ghDJQFPXN9Ik2-Be4wQhcPr3Lw/viewform?usp=preview",
-    // pdfLink: "/pdfs/stall-rules.pdf",
+stall: {
+  title: "STALL",
+  subtitle: "SHOWCASE • SELL • ENGAGE",
+  color: "#ff9f43",
+  formLink:
+    "https://docs.google.com/forms/d/e/1FAIpQLSf_pWoOido_ARya4oDVQ285ghDJQFPXN9Ik2-Be4wQhcPr3Lw/viewform?usp=preview",
+  rules: [
+    {
+      title: "Event Details",
+      items: [
+        "Event Date: 25th April",
+        "Venue: MSFDS",
+        "Stall Timing: 9:00 AM to 8:00 PM",
+        "Limited slots available on a first come, first served basis",
+      ],
+    },
+    {
+      title: "Stall Pricing",
+      items: [
+        "Food Stall Fee: ₹2000",
+        "Other Stall Fee: ₹1500",
+      ],
+    },
+    {
+      title: "Stall Size",
+      items: [
+        "Food Stall Area: 10×10 ft",
+        "Other Stall Area: 5×10 ft",
+      ],
+    },
+    {
+      title: "Registration Requirements",
+      items: [
+        "All vendors must complete official registration with the event organizer",
+        "Vendors must provide valid identification, contact details, and a clear description of the goods or services offered",
+        "Registration will be confirmed only after payment verification",
+        "Proof of payment or receipts must be maintained at all times",
+        "Registration amount paid is non-refundable",
+      ],
+    },
+    {
+      title: "Operating Rules",
+      items: [
+        "Vendors must operate strictly within the space allocated to them",
+        "Encroachment on walkways or neighbouring stalls is strictly prohibited",
+        "Subletting, transferring, or renting the stall to another party without prior permission is not allowed",
+        "Only approved goods or services may be displayed or sold at the stall",
+      ],
+    },
+    {
+      title: "Cleanliness & Conduct",
+      items: [
+        "Cleanliness must be maintained in and around the stall area",
+        "Proper waste disposal is mandatory and vendors should use designated bins",
+        "Vendors must behave respectfully with visitors, organizers, and other participants",
+        "Any misconduct may lead to stall cancellation without refund",
+      ],
+    },
+    {
+      title: "Organizer Authority",
+      items: [
+        "Organizers reserve the right to inspect stalls at any time",
+        "Any stall found violating the rules may be warned, removed, or disqualified without refund",
+        "The decision of the organizing committee shall be final and binding in all matters",
+      ],
+    },
+    {
+      title: "Contact Information",
+      items: [
+        "For stall enquiries contact: 8837380084",
+        "For stall enquiries contact: 9362002203",
+      ],
+    },
+  ],
+},
 
-    rules: [
-      {
-        title: "Event Details",
-        items: [
-          "Stall booking is open for vendors, food sellers, small businesses, and service promoters.",
-          "Event date: 25th April.",
-          "Venue: MSFDS.",
-          "Stall timing: 9 AM to 8 PM.",
-          "Limited slots available on a first come, first served basis.",
-        ],
-      },
-      {
-        title: "Registration",
-        items: [
-          "All vendors must complete official registration with the event organizer.",
-          "Vendors must provide valid identification, contact details, and a clear description of the goods or services offered.",
-          "Registration will be confirmed only after payment verification.",
-          "Proof of payment or receipt must be maintained at all times.",
-          "Registration amount paid is non-refundable.",
-        ],
-      },
-      {
-        title: "Stall Rules",
-        items: [
-          "Vendors must operate strictly within the space allocated to them.",
-          "Encroachment on walkways or neighbouring stalls is strictly prohibited.",
-          "Subletting, transferring, or renting the stall to another party without prior permission is not allowed.",
-          "Only approved goods or services may be displayed or sold at the stall.",
-          "Any activity causing disturbance to nearby stalls or visitors is not allowed.",
-        ],
-      },
-      {
-        title: "Cleanliness and Conduct",
-        items: [
-          "Cleanliness must be maintained in and around the stall area at all times.",
-          "Proper waste disposal is mandatory and vendors should use designated bins.",
-          "Vendors must behave respectfully with visitors, organizers, and other participants.",
-          "Use of offensive language, misconduct, or any unfair activity may lead to stall cancellation.",
-        ],
-      },
-      {
-        title: "Organizer Authority",
-        items: [
-          "The organizers reserve the right to inspect stalls at any time.",
-          "Any stall found violating the rules may be warned, removed, or disqualified without refund.",
-          "The decision of the organizing committee shall be final and binding in all matters.",
-        ],
-      },
-    ],
-  },
 };
