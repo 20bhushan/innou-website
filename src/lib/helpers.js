@@ -69,28 +69,26 @@
 
     description: "Create engaging content.",
   },
- run: {
+run: {
   classKey: "run",
   category: "SPORTS",
   prize: "Rs 40,000",
-
   fee: `
     <div class="fee-top">
       <span class="new-price">₹300</span>
     </div>
     <div class="fee-ended">Offer Ended</div>
   `,
-
   offerCountdown: {
-    enabled: false,
-    endTime: "2026-04-01T23:59:59+05:30",
-    activeLabel: "⏳",
-    expiredLabel: "Offer Ended",
+    enabled: true,
+    endTime: "2026-04-05T23:59:59+05:30",
+    activeLabel: "⏳ Registartion closes in",
+    expiredLabel: "Registration Closed",
   },
-
   image: "/images/run.jpg",
   description: "Push your limits.",
 },
+
 
 stall: {
   classKey: "stall",

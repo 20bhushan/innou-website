@@ -71,7 +71,6 @@ function EventCountdown({ config }) {
 
 export default function CompetitionsPage() {
   const canvasRef = useRef(null);
-  const [runSlots, setRunSlots] = useState(null);
 
   const groupedEvents = useMemo(() => {
     return Object.entries(rulesData).reduce((acc, [key, event]) => {
@@ -82,28 +81,6 @@ export default function CompetitionsPage() {
       acc[category].push({ key, event, visual });
       return acc;
     }, {});
-  }, []);
-
-  useEffect(() => {
-    const fetchSlots = async () => {
-      try {
-        const res = await fetch(
-          "https://script.googleusercontent.com/macros/echo?user_content_key=AWDtjMXAOgrYCuwlHjMIopsHH8Ox0pN2P5tOdNrSRUwuAYsNh3wcxJzaxANlx2KFUYet3JwQn1T88fjO1s7upc0vcr4gdqnu5aQrgE8dS9Eq-bfQn--6Mtns9_dmAByrKwIiggXTxqtTuVU1JTPObs7tmhJytE40IeU46rlYtcqjv1YGt14yzdHTp3noCkAQxcAT9fpY6_XVDiOc7A0wxqemwaBMZpPADvmqxgQiWuuJ38UoeEwCbYActfeVCI7IEjiHFkp75csFwirjR0z8jOEXI7NtvuGSC-Vlk63e6zhF&lib=MWyaZlUpm3upAE3Wu6BsslOYlIZy54kvZ",
-          {
-            cache: "no-store",
-          },
-        );
-        const data = await res.json();
-        setRunSlots(data);
-      } catch (err) {
-        console.error("Slot fetch error:", err);
-      }
-    };
-
-    fetchSlots();
-    const interval = setInterval(fetchSlots, 30000);
-
-    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -150,10 +127,8 @@ export default function CompetitionsPage() {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left;
           const y = e.clientY - rect.top;
-
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
-
           const rotateX = Math.max(Math.min((y - centerY) / 45, 6), -6);
           const rotateY = Math.max(Math.min((centerX - x) / 45, 6), -6);
 
@@ -186,21 +161,17 @@ export default function CompetitionsPage() {
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
-
     let w = window.innerWidth;
     let h = window.innerHeight;
-
     const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.25);
 
     canvas.width = w * dpr;
     canvas.height = h * dpr;
     canvas.style.width = "100%";
     canvas.style.height = "100%";
-
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     const particleCount = isMobile ? 25 : 80;
-
     const particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
@@ -306,7 +277,6 @@ export default function CompetitionsPage() {
                     <span>
                       {key === "stall" ? "AVAILABILITY" : "PRIZE POOL UPTO"}
                     </span>
-
                     <h3>{visual.prize}</h3>
 
                     <div className="card-fee">
@@ -325,6 +295,8 @@ export default function CompetitionsPage() {
 
                       <EventCountdown config={visual.offerCountdown} />
 
+                      {/*
+                      Slots temporarily disabled
                       {key === "run" && runSlots && (
                         <div
                           className={`slot-count ${
@@ -336,6 +308,7 @@ export default function CompetitionsPage() {
                             : `🔥 Only ${runSlots.remaining} slots left`}
                         </div>
                       )}
+                      */}
                     </div>
                   </div>
 
@@ -355,10 +328,6 @@ export default function CompetitionsPage() {
                       >
                         Upload
                       </a>
-                    ) : key === "run" && runSlots?.full ? (
-                      <Link href="/slots-full" className="btn-primary btn-full">
-                        Slots Full
-                      </Link>
                     ) : (
                       <a
                         href={event.formLink ? event.formLink : "/updating"}
