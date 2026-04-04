@@ -15,7 +15,7 @@ export const eventConfig = {
       day: "Day 1",
       date: "19 April",
       events: [{type:"activity",text:"Marathon"}],
-      venue: "TBA"
+      venue: "TIDDIM GROUND"
     },
     {
       day: "Day 2",
