@@ -256,92 +256,90 @@ export default function CompetitionsPage() {
           </div>
 
           <div className="page-wrapper">
-            {groupedEvents[category].map(({ key, event, visual }) => (
-              <article
-                key={key}
-                className={`hackathon-card event-${visual.classKey}`}
-                style={{
-                  backgroundImage: getEventCardBackground(key),
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }}
-              >
-                <div className="card-overlay"></div>
+            {groupedEvents[category].map(({ key, event, visual }) => {
+              const now = new Date();
 
-                <div className="card-content">
-                  <h1 className="card-title">{event.title}</h1>
-                  <p className="card-subtitle">{event.subtitle}</p>
+              const isRegistrationClosed =
+                !!event.formLink &&
+                visual.offerCountdown?.enabled &&
+                now > new Date(visual.offerCountdown.endTime);
 
-                  <div className="card-prize">
-                    <span>
-                      {key === "stall" ? "AVAILABILITY" : "PRIZE POOL UPTO"}
-                    </span>
-                    <h3>{visual.prize}</h3>
+              return (
+                <article
+                  key={key}
+                  className={`hackathon-card event-${visual.classKey}`}
+                  style={{
+                    backgroundImage: getEventCardBackground(key),
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                >
+                  <div className="card-overlay"></div>
 
-                    <div className="card-fee">
-                      <span>REGISTRATION</span>
+                  <div className="card-content">
+                    <h1 className="card-title">{event.title}</h1>
+                    <p className="card-subtitle">{event.subtitle}</p>
 
-                      <div className="fee-content">
-                        {typeof visual.fee === "string" &&
-                        visual.fee.includes("<") ? (
-                          <div
-                            dangerouslySetInnerHTML={{ __html: visual.fee }}
-                          />
-                        ) : (
-                          <div>{visual.fee}</div>
-                        )}
-                      </div>
+                    <div className="card-prize">
+                      <span>
+                        {key === "stall" ? "AVAILABILITY" : "PRIZE POOL UPTO"}
+                      </span>
+                      <h3>{visual.prize}</h3>
 
-                      <EventCountdown config={visual.offerCountdown} />
+                      <div className="card-fee">
+                        <span>REGISTRATION</span>
 
-                      {/*
-                      Slots temporarily disabled
-                      {key === "run" && runSlots && (
-                        <div
-                          className={`slot-count ${
-                            runSlots.full ? "danger" : ""
-                          }`}
-                        >
-                          {runSlots.full
-                            ? "🚫 Slots Full"
-                            : `🔥 Only ${runSlots.remaining} slots left`}
+                        <div className="fee-content">
+                          {typeof visual.fee === "string" &&
+                          visual.fee.includes("<") ? (
+                            <div
+                              dangerouslySetInnerHTML={{ __html: visual.fee }}
+                            />
+                          ) : (
+                            <div>{visual.fee}</div>
+                          )}
                         </div>
+
+                        <EventCountdown config={visual.offerCountdown} />
+                      </div>
+                    </div>
+
+                    <p className="card-description">{visual.description}</p>
+
+                    <div className="card-buttons">
+                      <Link href={`/rules/${key}`} className="btn-outline">
+                        Rules
+                      </Link>
+
+                      {key === "reels" ? (
+                        <a
+                          href="https://wa.me/918732055623"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-primary"
+                        >
+                          Upload
+                        </a>
+                      ) : isRegistrationClosed ? (
+                        <button className="btn-primary btn-disabled" disabled>
+                          ⛔ Registration Closed
+                        </button>
+                      ) : (
+                        <a
+                          href={event.formLink ? event.formLink : "/updating"}
+                          target={event.formLink ? "_blank" : "_self"}
+                          rel="noopener noreferrer"
+                          className="btn-primary"
+                        >
+                          {event.formLink ? "Register" : "Coming Soon"}
+                        </a>
                       )}
-                      */}
                     </div>
                   </div>
-
-                  <p className="card-description">{visual.description}</p>
-
-                  <div className="card-buttons">
-                    <Link href={`/rules/${key}`} className="btn-outline">
-                      Rules
-                    </Link>
-
-                    {key === "reels" ? (
-                      <a
-                        href="https://wa.me/918732055623"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-primary"
-                      >
-                        Upload
-                      </a>
-                    ) : (
-                      <a
-                        href={event.formLink ? event.formLink : "/updating"}
-                        target={event.formLink ? "_blank" : "_self"}
-                        rel="noopener noreferrer"
-                        className="btn-primary"
-                      >
-                        {event.formLink ? "Register" : "Coming Soon"}
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         </section>
       ))}
