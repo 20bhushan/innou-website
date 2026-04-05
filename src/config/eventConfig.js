@@ -43,7 +43,7 @@ export const eventConfig = {
     {
       day: "Day 6",
       date: "25 April",
-      events: [{type:"mic",text:"Inauguration"},{type:"laptop",text:"Hackathon Final"},{type:"lightbulb",text: "Business Idea Final"},{type:"sparkles",text:"K-Pop Dance Competition"},{type:"trophy",text: "Prize Distribution"}
+      events: [{type:"mic",text:"Inauguration"},{type:"sparkles",text:"K-Pop Dance Competition"},{type:"trophy",text: "Prize Distribution"}
       ,{type:"sparkles",text: "Cosplay"}],
       venue: "MSFDS"
     }
