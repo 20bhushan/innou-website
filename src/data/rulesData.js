@@ -33,13 +33,25 @@ hackathon: {
       ],
     },
     {
-      title: "Allowed Technology",
-      items: [
-        "Web: HTML, CSS, JavaScript (frameworks allowed)",
-        "Python: Standard libraries and limited external libraries",
-        "Basic APIs, Firebase, or local storage can be used",
-      ],
-    },
+  title: "Allowed Technology – Web Development",
+  items: [
+    "Use HTML, CSS, and JavaScript to build your solution",
+    "Frameworks such as React, Tailwind CSS, and Bootstrap are allowed",
+    "Basic integrations like APIs, Firebase, or local storage may be used",
+    "Focus on creating a working, useful, and user-friendly application",
+  ],
+},
+{
+  title: "Allowed Technology – Python Development",
+  items: [
+    "Use Python to build your solution",
+    "Standard libraries are allowed",
+    "One external library may be used if required (e.g., numpy, pandas)",
+    "Heavy frameworks such as Django or Flask are not allowed",
+    "Focus on clear logic and a working program",
+  ],
+},
+
     {
       title: "Development Rules",
       items: [
@@ -141,7 +153,7 @@ hackathon: {
       {
         title: "Eligibility",
         items: [
-          "Students of Class 11 and Class 12",
+          "Students of Class 11 , Class 12 and college student",
           "Participants should have Computer Science or related subjects",
           "Basic programming knowledge recommended",
         ],
