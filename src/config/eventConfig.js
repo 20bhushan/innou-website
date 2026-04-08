@@ -49,12 +49,4 @@ export const eventConfig = {
     }
     
   ],
-
-
-  sponsors: [
-    { name: "" },
-    { name: "" },
-    { name: "" },
-    { name: "" },
-  ],
 };

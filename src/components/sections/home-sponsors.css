@@ -1,0 +1,158 @@
+/* ================= HOME SPONSORS ================= */
+
+#sponsors {
+  padding-block: 8rem;
+  position: relative;
+}
+
+/* HEAD */
+#sponsors .sponsors-head {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+#sponsors .sponsors-subtitle {
+  margin-top: 0.6rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+/* GRID */
+#sponsors .sponsors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.6rem;
+  width: min(1200px, 100%);
+  margin: 0 auto;
+}
+
+/* CARD */
+#sponsors .sponsor-card {
+  position: relative;
+  min-height: 210px;
+  padding: 1.2rem;
+  border-radius: 24px;
+  background: rgba(10, 15, 30, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+/* CYBER GLOW LAYER */
+#sponsors .sponsor-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top, rgba(0, 242, 255, 0.15), transparent 45%),
+    linear-gradient(135deg, rgba(188, 112, 255, 0.08), transparent 60%);
+  pointer-events: none;
+}
+
+/* HOVER */
+#sponsors .sponsor-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--neon-cyan);
+  box-shadow:
+    0 0 20px rgba(0, 242, 255, 0.25),
+    0 0 40px rgba(188, 112, 255, 0.2);
+}
+
+/* LOGO WRAP */
+#sponsors .sponsor-logo-wrap {
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.9rem;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* LOGO */
+#sponsors .sponsor-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: none;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* LOGO HOVER */
+#sponsors .sponsor-card:hover .sponsor-logo {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.5));
+}
+
+/* TEXT */
+#sponsors .sponsor-info {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+#sponsors .sponsor-info h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 700;
+}
+
+#sponsors .sponsor-info p {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--neon-cyan);
+  opacity: 0.85;
+  letter-spacing: 0.4px;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+  #sponsors {
+    padding-block: 5rem;
+  }
+
+  #sponsors .sponsors-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  #sponsors .sponsor-card {
+    min-height: 180px;
+    padding: 0.9rem;
+    border-radius: 18px;
+  }
+
+  #sponsors .sponsor-logo-wrap {
+    height: 85px;
+    padding: 0.7rem;
+  }
+
+  #sponsors .sponsor-info h3 {
+    font-size: 0.85rem;
+  }
+
+  #sponsors .sponsor-info p {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 500px) {
+  #sponsors .sponsors-grid {
+    grid-template-columns: 1fr;
+  }
+}

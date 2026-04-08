@@ -1,28 +1,41 @@
 "use client";
-import "./sponsors.css";
-import { eventConfig } from "@/config/eventConfig";
+import "./home-sponsors.css";
+import Image from "next/image";
+import { sponsorsData } from "@/data/sponsorsData";
 
-export default function Sponsors() {
-  const sponsors = eventConfig.sponsors || [];
-
+export default function HomeSponsors() {
   return (
     <section id="sponsors" className="tracks reveal section-shell">
-      <h2 className="section-title">Sponsors</h2>
+      <div className="sponsors-head">
+        <h2 className="section-title">Sponsors</h2>
+        <p className="sponsors-subtitle">Proud partners supporting INNOU 1.0</p>
+      </div>
 
-      <div className="sponsors-marquee">
-        <div className="sponsors-track">
-          {sponsors.map((s, i) => (
-            <div key={i} className="track-card sponsor">
-              {s.name}
+      <div className="sponsors-grid">
+        {sponsorsData.map((s, i) => (
+          <a
+            key={i}
+            href={s.link || "#"}
+            target={s.link ? "_blank" : "_self"}
+            rel={s.link ? "noopener noreferrer" : undefined}
+            className="sponsor-card"
+          >
+            <div className="sponsor-logo-wrap">
+              <Image
+                src={s.logo}
+                alt={s.name}
+                width={240}
+                height={120}
+                className="sponsor-logo"
+              />
             </div>
-          ))}
 
-          {sponsors.map((s, i) => (
-            <div key={"dup" + i} className="track-card sponsor">
-              {s.name}
+            <div className="sponsor-info">
+              <h3>{s.name}</h3>
+              <p>{s.role}</p>
             </div>
-          ))}
-        </div>
+          </a>
+        ))}
       </div>
     </section>
   );

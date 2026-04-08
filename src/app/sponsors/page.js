@@ -1,85 +1,145 @@
 ﻿"use client";
 import "./sponsors-page.css";
+import Image from "next/image";
+import Footer from "@/components/sections/Footer";
+import { sponsorsData } from "@/data/sponsorsData";
 
-const sponsors = [
-{
-title: "Title Sponsor",
-size: "large",
-items: [
-{ name: "Coming Soon", logo: "/sponsors/placeholder.png" }
-]
-},
-
-{
-title: "Platinum Sponsors",
-size: "medium",
-items: []
-},
-
-{
-title: "Diamond Sponsors",
-size: "medium",
-items: []
-},
-
-{
-title: "Gold Sponsors",
-size: "small",
-items: []
-},
-
-{
-title: "Silver Sponsors",
-size: "small",
-items: []
-}
+const sponsorSections = [
+  {
+    title: "Gaming Partner",
+    roles: ["Gaming Partner"],
+  },
+  {
+    title: "Sponsors",
+    roles: ["Sponsor"],
+  },
+  {
+    title: "Media Partner",
+    roles: ["Media Partner"],
+  },
+  {
+    title: "Community & Support Partners",
+    roles: ["Community Partner", "Innovation Partner", "Support Partner"],
+  },
 ];
 
-export default function SponsorsPage(){
+function SponsorCard({ sponsor, featured = false }) {
+  return (
+    <a
+      href={sponsor.link || "#"}
+      target={sponsor.link ? "_blank" : "_self"}
+      rel={sponsor.link ? "noopener noreferrer" : undefined}
+      className={`sponsor-card ${featured ? "featured" : ""}`}
+    >
+      <div className="sponsor-card-glow" />
+      <div className="sponsor-logo-wrap">
+        <Image
+          src={sponsor.logo}
+          alt={sponsor.name}
+          width={420}
+          height={220}
+          className="sponsor-logo"
+        />
+      </div>
 
-return (
+      <div className="sponsor-info">
+        <h3 className="sponsor-name">{sponsor.name}</h3>
+        <span className="sponsor-role">{sponsor.role}</span>
+      </div>
+    </a>
+  );
+}
 
-<section id="sponsors-page">
+function SponsorSection({ title, roles }) {
+  const items = sponsorsData.filter((item) => roles.includes(item.role));
+  if (!items.length) return null;
 
-<h1 className="sponsor-hero">
-Our Sponsors
-</h1>
+  return (
+    <section className="partners-section">
+      <div className="section-heading-wrap">
+        <h2 className="section-heading">{title}</h2>
+      </div>
 
-{sponsors.map((group,index)=>(
-<section key={index} className="sponsor-section">
+      <div className="sponsor-grid">
+        {items.map((sponsor, index) => (
+          <SponsorCard key={`${sponsor.name}-${index}`} sponsor={sponsor} />
+        ))}
+      </div>
+    </section>
+  );
+}
 
-<h2 className="sponsor-title">
-{group.title}
-</h2>
+export default function SponsorsPage() {
+  const titleSponsor = sponsorsData.find((item) => item.role === "Title Sponsor");
 
-<div className={`sponsor-grid ${group.size}`}>
+  return (
+    <>
+      <main id="sponsors-page">
+        <div className="sponsors-bg">
+          <div className="bg-grid" />
+          <div className="bg-aurora aurora-1" />
+          <div className="bg-aurora aurora-2" />
+          <div className="bg-spotlight" />
+        </div>
 
-{group.items.length === 0 ? (
+        <section className="sponsors-hero">
+          <span className="hero-badge">INNOU 1.0 PARTNERS</span>
+          <h1 className="hero-title">Sponsors & Partners</h1>
+          <p className="hero-text">
+            The brands, communities, and collaborators powering the INNOU 1.0
+            experience.
+          </p>
+        </section>
 
-<div className="coming-soon">
-Sponsor Slot Available
-</div>
+        {titleSponsor && (
+          <section className="featured-section">
+            <div className="section-heading-wrap">
+              <h2 className="section-heading featured-heading">Title Sponsor</h2>
+            </div>
 
-) : (
+            <a
+              href={titleSponsor.link || "#"}
+              target={titleSponsor.link ? "_blank" : "_self"}
+              rel={titleSponsor.link ? "noopener noreferrer" : undefined}
+              className="featured-sponsor"
+            >
+              <div className="featured-overlay" />
 
-group.items.map((s,i)=>(
-<div key={i} className="sponsor-card">
+              <div className="featured-content">
+                <div className="featured-text">
+                  <span className="featured-label">Powered By</span>
+                  <h3>{titleSponsor.name}</h3>
+                  <p>
+                    Proudly supporting innovation, creativity, and the future of
+                    student-led technology at INNOU 1.0.
+                  </p>
+                  <span className="featured-role">{titleSponsor.role}</span>
+                </div>
 
-<img src={s.logo} alt={s.name} />
+                <div className="featured-logo-wrap">
+                  <Image
+                    src={titleSponsor.logo}
+                    alt={titleSponsor.name}
+                    width={520}
+                    height={260}
+                    className="featured-logo"
+                  />
+                </div>
+              </div>
+            </a>
+          </section>
+        )}
 
-<p>{s.name}</p>
+        {sponsorSections.map((section) => (
+          <SponsorSection
+            key={section.title}
+            title={section.title}
+            roles={section.roles}
+          />
+        ))}
+      </main>
 
-</div>
-))
-
-)}
-
-</div>
-
-</section>
-))}
-
-</section>
-
-);
+      <Footer />
+    </>
+  );
 }
