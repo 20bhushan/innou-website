@@ -1,205 +1,324 @@
 /* ================= SECTION ================= */
 
-#schedule{
-padding-block:8rem;
-display:flex;
-flex-direction:column;
-align-items:center;
-padding-inline:2rem;
+#schedule {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-block: 8rem;
+  overflow: hidden;
+  position: relative;
 }
 
+#schedule .schedule-inner {
+  width: 100%;
+}
+
+/* ================= HEAD ================= */
+
+#schedule .schedule-head {
+  text-align: center;
+  margin-bottom: 2.2rem;
+  padding-inline: clamp(16px, 4vw, 48px);
+}
+
+#schedule .schedule-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 242, 255, 0.16);
+  background: rgba(0, 242, 255, 0.06);
+  color: #8cecff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  box-shadow: 0 0 24px rgba(0, 242, 255, 0.08);
+}
+
+#schedule .section-title {
+  margin: 18px 0 0;
+  text-align: center;
+}
+
+#schedule .schedule-subtitle {
+  width: min(720px, 100%);
+  margin: 14px auto 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1rem;
+  line-height: 1.7;
+}
 
 /* ================= LIST RESET ================= */
 
-#schedule ul{
-list-style:none;
-padding:0;
-margin:0;
+#schedule ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-
 
 /* ================= SCROLL AREA ================= */
 
-#schedule .schedule-scroll{
-width:100%;
-max-width:1200px;
-overflow-x:hidden;
-overflow-y:visible;
-position:relative;
-
-/* prevents side card cut */
-padding-inline:120px;
+#schedule .schedule-scroll {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-inline: clamp(16px, 4vw, 48px);
+  padding-block: 18px 26px;
 }
 
+/* ================= TRACK ================= */
 
-/* ================= CARD TRACK ================= */
-
-#schedule .schedule-track{
-display:flex;
-gap:2rem;
-padding:2rem 0;
-width:max-content;
-align-items:stretch;
-
-/* GPU acceleration */
-will-change:transform;
-transform:translateZ(0);
+#schedule .schedule-track {
+  display: flex;
+  gap: 1.4rem;
+  width: max-content;
+  align-items: stretch;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
-
 
 /* ================= CARD ================= */
 
-#schedule .track-card{
+#schedule .track-card {
+  position: relative;
+  min-width: 340px;
+  max-width: 340px;
+  min-height: 360px;
+  padding: 1.5rem;
+  border-radius: 28px;
+  overflow: hidden;
 
-background:rgba(15,20,40,0.55);
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 
-/* glass effect */
-backdrop-filter:blur(12px);
+  background: linear-gradient(180deg, rgba(16, 24, 50, 0.8), rgba(8, 12, 28, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
-border-radius:20px;
-border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 
-padding:1.6rem;
-
-min-width:320px;
-max-width:420px;
-height:320px;
-
-display:flex;
-flex-direction:column;
-
-text-align:center;
-
-/* performance */
-contain:layout paint;
-
-transition:
-transform .35s ease,
-border-color .35s ease,
-box-shadow .35s ease;
+  contain: layout paint;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
-
-/* ================= HOVER ================= */
-
-#schedule .track-card:hover{
-
-transform:translateY(-10px) scale(1.02);
-
-border-color:var(--neon-cyan);
-
-box-shadow:
-0 12px 30px rgba(0,242,255,.25),
-0 0 20px rgba(188,112,255,.15);
-
+#schedule .track-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 242, 255, 0.28),
+    rgba(188, 112, 255, 0.12),
+    rgba(255, 255, 255, 0.04)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
-
-/* ================= TITLE ================= */
-
-#schedule .track-card h3{
-font-size:1.3rem;
-margin-bottom:.5rem;
+#schedule .card-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at top, rgba(0, 242, 255, 0.14), transparent 36%),
+    linear-gradient(135deg, rgba(188, 112, 255, 0.1), transparent 62%);
 }
 
+#schedule .card-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.6) 0.5px, transparent 0.5px);
+  background-size: 14px 14px;
+}
+
+#schedule .track-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--neon-cyan);
+  box-shadow:
+    0 14px 34px rgba(0, 242, 255, 0.2),
+    0 0 24px rgba(188, 112, 255, 0.14);
+}
+
+/* ================= DAY BADGE ================= */
+
+#schedule .day-badge {
+  position: relative;
+  z-index: 3;
+  align-self: flex-start;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 242, 255, 0.14),
+    rgba(188, 112, 255, 0.14)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  margin-bottom: 1rem;
+}
 
 /* ================= DATE ================= */
 
-#schedule .date{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:6px;
-
-color:var(--neon-cyan);
-margin-bottom:8px;
+#schedule .date {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 1.25rem;
+  color: var(--neon-cyan);
+  font-size: 0.96rem;
+  font-weight: 600;
 }
-
-
-/* ================= EVENTS AREA ================= */
-
-#schedule .track-card ul{
-
-flex:1;
-
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-
-}
-
 
 /* ================= EVENTS ================= */
 
-#schedule li{
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-gap:10px;
-
-font-size:.95rem;
-
-opacity:.9;
-
-margin-top:.6rem;
-
+#schedule .track-card ul {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centers events between date and venue */
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding-block: 0.5rem;
 }
 
+#schedule .track-card li {
+  margin: 0;
+  width: 100%;
+}
+
+#schedule .event-chip {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 0.97rem;
+  line-height: 1.4;
+  text-align: left;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+#schedule .track-card:hover .event-chip {
+  border-color: rgba(0, 242, 255, 0.14);
+}
+
+#schedule .event-chip span {
+  display: inline-block;
+}
 
 /* ================= VENUE ================= */
 
-#schedule .venue{
-
-margin-top:auto;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-gap:6px;
-
-font-size:.9rem;
-
-color:#94a3b8;
-
+#schedule .venue {
+  position: relative;
+  z-index: 3;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+  font-size: 0.88rem;
+  font-weight: 600;
 }
-
 
 /* ================= ICON GLOW ================= */
 
-#schedule li svg,
-#schedule .venue svg{
-
-filter:
-drop-shadow(0 0 6px rgba(0,242,255,.9))
-drop-shadow(0 0 12px rgba(0,242,255,.5));
-
+#schedule .date svg,
+#schedule .event-chip svg,
+#schedule .venue svg {
+  flex-shrink: 0;
+  filter:
+    drop-shadow(0 0 6px rgba(0, 242, 255, 0.8))
+    drop-shadow(0 0 12px rgba(0, 242, 255, 0.35));
 }
-
 
 /* ================= MOBILE ================= */
 
-@media(max-width:768px){
+@media (max-width: 768px) {
+  #schedule {
+    padding-block: 5rem;
+  }
 
-#schedule{
-padding-block:5rem;
-}
+  #schedule .schedule-head {
+    margin-bottom: 1.6rem;
+    padding-inline: 14px;
+  }
 
-#schedule .schedule-scroll{
-padding-inline:60px;
-}
+  #schedule .schedule-subtitle {
+    font-size: 0.92rem;
+  }
 
-#schedule .schedule-track{
-gap:1rem;
-}
+  #schedule .schedule-scroll {
+    padding-inline: 14px;
+    padding-block: 14px 20px;
+  }
 
-#schedule .track-card{
-min-width:260px;
-min-height:240px;
-padding:1.2rem;
-}
+  #schedule .schedule-track {
+    gap: 1rem;
+  }
 
+  #schedule .track-card {
+    min-width: 270px;
+    max-width: 270px;
+    min-height: 320px;
+    padding: 1.15rem;
+    border-radius: 22px;
+  }
+
+  #schedule .day-badge {
+    font-size: 1rem;
+    padding: 9px 14px;
+  }
+
+  #schedule .date {
+    font-size: 0.88rem;
+    margin-bottom: 1rem;
+  }
+
+  #schedule .event-chip {
+    min-height: 44px;
+    padding: 0.8rem 0.9rem;
+    font-size: 0.88rem;
+    border-radius: 14px;
+  }
+
+  #schedule .venue {
+    font-size: 0.8rem;
+    padding: 9px 12px;
+  }
 }

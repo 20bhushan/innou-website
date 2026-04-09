@@ -4,94 +4,59 @@
   padding-block: 8rem;
 }
 
+/* ================= GRID MODE ================= */
+
 #competitions .track-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 2rem;
 }
 
-#competitions .track-card {
-  display: grid;
-  grid-template-rows: auto auto 1fr auto;
-  align-items: center;
-  justify-content: center;
-  min-height: 240px;
+/* ================= SCROLL MODE ================= */
 
-  background: rgba(15, 20, 40, 0.55);
-  padding: 1.6rem;
-  border-radius: 20px;
+#competitions .competitions-scroll-shell {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-inline: clamp(16px, 4vw, 48px);
+  padding-block: 18px 26px;
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-x: auto;
+  overflow-y: visible;
 
-  backdrop-filter: blur(18px);
-  text-align: center;
-
-  transition: transform .35s ease,box-shadow .35s ease,border .35s ease;
-  will-change: transform;
-  contain: layout paint;
-}
-
-#competitions .track-card:hover {
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 15px 35px rgba(0, 242, 255, 0.25),0 0 30px rgba(188,112,255,0.2);
-  border-color: var(--neon-cyan);
-}
-
-#competitions .track-card h3 {
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
-}
-
-#competitions .track-card p {
-  font-size: 0.95rem;
-  opacity: 0.85;
-}
-
-.rules-btn {
-  margin-top: 12px;
-  display: inline-block;
-  padding: 8px 16px;
-
-  border-radius: 20px;
-
-  background: linear-gradient(
-    90deg,
-    var(--neon-cyan),
-    var(--neon-purple)
-  );
-
-  color:#020617;
-  font-weight: 700;
-  text-decoration: none;
-  transition:all 0.3s ease;
-}
-
-.rules-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 35px rgba(0, 242, 255, 0.5),0 0 30px rgba(188,112,255,0.3);
-}
-
-/* ================= SCROLL VERSION ================= */
-
-.competitions-marquee {
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
   position: relative;
-  width: 100%;
-  overflow: visible;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.competitions-track {
+#competitions .competitions-scroll-shell::-webkit-scrollbar {
+  display: none;
+}
+
+#competitions .competitions-track {
   display: flex;
-  gap: 3rem;
+  gap: 1.4rem;
   width: max-content;
-  animation: circularScroll 25s linear infinite;
+  min-width: 100%;
+  align-items: stretch;
+
+  animation: autoScroll 80s linear infinite;
   will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
-.competitions-track:hover {
+#competitions .competitions-track:hover {
   animation-play-state: paused;
 }
 
-@keyframes circularScroll {
+#competitions .competitions-scroll-shell:active .competitions-track {
+  animation-play-state: paused;
+}
+
+@keyframes autoScroll {
   from {
     transform: translateX(0);
   }
@@ -100,39 +65,206 @@
   }
 }
 
-.competitions-track .track-card {
-  min-width: 280px;
+/* ================= CARD ================= */
+
+#competitions .track-card {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+
+  min-height: 260px;
+  padding: 1.6rem;
+  border-radius: 24px;
+  overflow: hidden;
+
+  background: rgba(15, 20, 40, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  text-align: left;
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+
+  will-change: transform;
+  contain: layout paint;
+  scroll-snap-align: start;
+  flex: 0 0 clamp(260px, 26vw, 340px);
+}
+
+/* ================= BACKGROUND ================= */
+
+#competitions .track-card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.05);
+  transition: transform 0.55s ease;
+  z-index: 0;
+}
+
+/* ================= OVERLAY ================= */
+
+#competitions .track-card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      to top,
+      rgba(2, 6, 23, 0.96) 0%,
+      rgba(2, 6, 23, 0.72) 45%,
+      rgba(2, 6, 23, 0.28) 100%
+    );
+}
+
+#competitions .track-card-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at top, rgba(0, 242, 255, 0.14), transparent 34%),
+    linear-gradient(135deg, rgba(188, 112, 255, 0.1), transparent 60%);
+}
+
+/* ================= CONTENT ================= */
+
+#competitions .track-card-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+
+#competitions .track-card h3 {
+  margin: 0 0 0.45rem;
+  font-size: 1.35rem;
+  line-height: 1.2;
+  color: #ffffff;
+}
+
+#competitions .track-card p {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 28ch;
+}
+
+/* ================= BUTTON ================= */
+
+#competitions .rules-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+  color: #020617;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+#competitions .rules-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 30px rgba(0, 242, 255, 0.35),
+    0 0 24px rgba(188, 112, 255, 0.22);
+}
+
+/* ================= HOVER ================= */
+
+#competitions .track-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: rgba(0, 242, 255, 0.4);
+  box-shadow:
+    0 15px 35px rgba(0, 242, 255, 0.2),
+    0 0 30px rgba(188, 112, 255, 0.14);
+}
+
+#competitions .track-card:hover .track-card-bg {
+  transform: scale(1.12);
+}
+
+/* ================= PER-EVENT ACCENTS ================= */
+
+#competitions .event-hackathon .track-card-glow {
+  background:
+    radial-gradient(circle at top, rgba(0, 242, 255, 0.18), transparent 34%),
+    linear-gradient(135deg, rgba(0, 242, 255, 0.12), transparent 60%);
+}
+
+#competitions .event-business .track-card-glow,
+#competitions .event-businessplan .track-card-glow {
+  background:
+    radial-gradient(circle at top, rgba(255, 138, 122, 0.18), transparent 34%),
+    linear-gradient(135deg, rgba(255, 93, 162, 0.12), transparent 60%);
+}
+
+#competitions .event-debugging .track-card-glow,
+#competitions .event-codedebugging .track-card-glow {
+  background:
+    radial-gradient(circle at top, rgba(0, 242, 255, 0.16), transparent 34%),
+    linear-gradient(135deg, rgba(56, 189, 248, 0.14), transparent 60%);
+}
+
+#competitions .event-typing .track-card-glow,
+#competitions .event-typingmaster .track-card-glow {
+  background:
+    radial-gradient(circle at top, rgba(125, 211, 252, 0.18), transparent 34%),
+    linear-gradient(135deg, rgba(0, 242, 255, 0.12), transparent 60%);
+}
+
+#competitions .event-mlbb .track-card-glow,
+#competitions .event-bgmi .track-card-glow {
+  background:
+    radial-gradient(circle at top, rgba(188, 112, 255, 0.18), transparent 34%),
+    linear-gradient(135deg, rgba(255, 93, 162, 0.12), transparent 60%);
 }
 
 /* ================= MOBILE ================= */
 
 @media (max-width: 768px) {
-
   .competitions {
     padding-block: 5rem;
   }
 
-  .competitions-track {
-    gap: 1.2rem;
-    animation-duration: 40s;
+  #competitions .competitions-scroll-shell {
+    padding-inline: 14px;
+    padding-block: 14px 20px;
   }
 
-  .competitions-track .track-card {
-    min-width: 220px;
-    max-width: 220px;
+  #competitions .competitions-track {
+    gap: 1rem;
+    animation-duration: 90s;
   }
 
   #competitions .track-card {
-    min-height: 210px;
-    padding: 1.6rem;
+    min-height: 220px;
+    padding: 1.2rem;
+    border-radius: 20px;
+    flex: 0 0 240px;
   }
 
   #competitions .track-card h3 {
-    font-size: 1.4rem;
+    font-size: 1.08rem;
   }
 
   #competitions .track-card p {
-    font-size: 0.9rem;
+    font-size: 0.84rem;
+    margin-bottom: 0.9rem;
   }
 
+  #competitions .rules-btn {
+    padding: 9px 16px;
+    font-size: 0.9rem;
+  }
 }
