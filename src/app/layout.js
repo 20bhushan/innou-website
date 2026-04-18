@@ -3,6 +3,7 @@ import "../css/events.css";
 import "../css/rules.css";
 import BackgroundController from "@/components/three/BackgroundController";
 import Navbar from "@/components/sections/Navbar.js";
+import NoticeBar from "@/components/common/NoticeBar";
 export const metadata = {
   title: "INNOU 1.0 | 2026",
   icons: {
@@ -19,7 +20,7 @@ export default function RootLayout({ children }) {
         <BackgroundController />
         {/* Navbar Always Visible */}
         <Navbar />
-
+            <NoticeBar />
         {children}
       </body>
     </html>

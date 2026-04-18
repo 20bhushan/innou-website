@@ -416,3 +416,120 @@ body.scrolled .logo-svg {
     width: 160px;
   }
 }
+.global-notice-bar {
+  position: sticky;
+  top: 78px; /* adjust to your navbar height */
+  z-index: 999;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 12px 16px 0;
+  pointer-events: none;
+}
+
+.global-notice-inner {
+  width: min(1100px, 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  padding: 14px 18px;
+  border-radius: 18px;
+
+  background:
+    linear-gradient(135deg, rgba(127, 29, 29, 0.96), rgba(220, 38, 38, 0.92));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  box-shadow:
+    0 10px 30px rgba(220, 38, 38, 0.25),
+    0 0 18px rgba(220, 38, 38, 0.18);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  pointer-events: auto;
+  animation: noticeFloatIn 0.45s ease;
+}
+
+.global-notice-content {
+  flex: 1 1 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.global-notice-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffe4e6;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.global-notice-text {
+  margin: 0;
+  color: #fff;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.global-notice-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+  padding: 0.85rem 1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: 0.25s ease;
+}
+
+.global-notice-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+@keyframes noticeFloatIn {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .global-notice-bar {
+    top: 68px;
+    padding: 10px 12px 0;
+  }
+
+  .global-notice-inner {
+    padding: 12px 14px;
+    border-radius: 16px;
+  }
+
+  .global-notice-text {
+    font-size: 0.8rem;
+  }
+
+  .global-notice-btn {
+    width: 100%;
+    min-width: 0;
+  }
+}
