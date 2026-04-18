@@ -13,36 +13,36 @@ export const eventConfig = {
   schedule: [
     {
       day: "Day 1",
-      date: "19 April",
+      date: "Postponed",
       events: [{type:"activity",text:"Marathon"}],
       venue: "TIDDIM GROUND"
     },
     {
       day: "Day 2",
-      date: "20 April",
+      date: "Postponed",
       events: [{type:"laptop",text:"Hackathon"}],
       venue: "MTI Hub"
     },
     {
       day: "Day 3",
-      date: "21 April",
+      date: "Postponed",
       events: [{type:"keyboard",text:"Typing Master"},{type:"bug",text:"Code Debugging"}],
       venue: "JCRE Global College"
     },
     {
       day: "Day 4",
-      date: "22 April",
+      date: "Postponed",
       events: [{type:"lightbulb",text:"Business Idea Screening"}],
       venue: "MTI Hub"
     },{
       day: "Day 5",
-      date: "23 April",
+      date: "Postponed",
       events: [{type:"gamepad",text:"Esports"}],
       venue: "MTI Hub"
     },
     {
       day: "Day 6",
-      date: "25 April",
+      date: "Postponed",
       events: [{type:"mic",text:"Inauguration"},{type:"sparkles",text:"K-Pop Dance Competition"},{type:"trophy",text: "Prize Distribution"}
       ,{type:"sparkles",text: "Cosplay"}],
       venue: "MSFDS"
