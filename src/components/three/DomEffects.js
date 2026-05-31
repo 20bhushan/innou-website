@@ -17,9 +17,15 @@ export default function initDomEffects() {
     if (!loader) return;
 
     const timeoutId = window.setTimeout(() => {
-      loader.style.opacity = "0";
-      loader.style.pointerEvents = "none";
-    }, 2000);
+  loader.style.opacity = "0";
+  loader.style.pointerEvents = "none";
+
+
+  setTimeout(() => {
+    loader.style.display = "none";
+  }, 500);
+}, 1000);
+
 
     cleanups.push(() => window.clearTimeout(timeoutId));
   };

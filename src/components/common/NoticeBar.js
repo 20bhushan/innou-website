@@ -1,16 +1,21 @@
 "use client";
 
 import Link from "next/link";
-
+import { usePathname } from "next/navigation";
 export default function NoticeBar() {
+   const pathname = usePathname();
+
+  if (pathname === "/notice") {
+    return null;
+  }
   return (
     <div className="global-notice-bar">
       <div className="global-notice-inner">
         <div className="global-notice-content">
           <span className="global-notice-badge">Official Notice</span>
           <p className="global-notice-text">
-            Due to the ongoing situation in the state, all scheduled events of
-            INNOU 1.0 have been postponed. New dates will be announced soon.
+            INNOU 1.0 has been rescheduled. The revised event dates and updated schedule have now been officially announced. Participants are requested to refer to the official notice for complete details.
+
           </p>
         </div>
 
