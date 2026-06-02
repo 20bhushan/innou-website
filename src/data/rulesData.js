@@ -1,129 +1,129 @@
 export const rulesData = {
-hackathon: {
-  title: "SMART CAMPUS HACKATHON",
-  subtitle: "Official Rules & Guidelines",
-  color: "#00f2ff",
-  formLink: "https://forms.gle/1o11JmzfULzzWYjB8",
-  pdfLink: "/pdfs/hackathon-offline-form.pdf",
-  rules: [
-    {
-      title: "Event Overview",
-      items: [
-        "Mode: Offline (MTI Hub)",
-        "Total Duration: 12 Hours (5 Hours Development + Evaluation)",
-        "Team Size: 2–4 Members",
-        "Inter-college teams are allowed",
-        "Each team will be assigned a workspace",
-      ],
-    },
-    {
-      title: "Theme",
-      items: [
-        "Theme: Smart Campus Support System",
-        "Solutions should address real campus problems",
-        "Practical and working ideas are prioritized",
-      ],
-    },
-    {
-      title: "Fairness Policy",
-      items: [
-        "Problem statements will be revealed during the event",
-        "All teams will receive the same information simultaneously",
-        "Pre-built projects, templates, or reused code are strictly prohibited",
-      ],
-    },
-    {
-  title: "Allowed Technology – Web Development",
-  items: [
-    "Use HTML, CSS, and JavaScript to build your solution",
-    "Frameworks such as React, Tailwind CSS, and Bootstrap are allowed",
-    "Basic integrations like APIs, Firebase, or local storage may be used",
-    "Focus on creating a working, useful, and user-friendly application",
-  ],
-},
-{
-  title: "Allowed Technology – Python Development",
-  items: [
-    "Use Python to build your solution",
-    "Standard libraries are allowed",
-    "One external library may be used if required (e.g., numpy, pandas)",
-    "Heavy frameworks such as Django or Flask are not allowed",
-    "Focus on clear logic and a working program",
-  ],
-},
+// hackathon: {
+//   title: "SMART CAMPUS HACKATHON",
+//   subtitle: "Official Rules & Guidelines",
+//   color: "#00f2ff",
+//   formLink: "https://forms.gle/1o11JmzfULzzWYjB8",
+//   pdfLink: "/pdfs/hackathon-offline-form.pdf",
+//   rules: [
+//     {
+//       title: "Event Overview",
+//       items: [
+//         "Mode: Offline (MTI Hub)",
+//         "Total Duration: 12 Hours (5 Hours Development + Evaluation)",
+//         "Team Size: 2–4 Members",
+//         "Inter-college teams are allowed",
+//         "Each team will be assigned a workspace",
+//       ],
+//     },
+//     {
+//       title: "Theme",
+//       items: [
+//         "Theme: Smart Campus Support System",
+//         "Solutions should address real campus problems",
+//         "Practical and working ideas are prioritized",
+//       ],
+//     },
+//     {
+//       title: "Fairness Policy",
+//       items: [
+//         "Problem statements will be revealed during the event",
+//         "All teams will receive the same information simultaneously",
+//         "Pre-built projects, templates, or reused code are strictly prohibited",
+//       ],
+//     },
+//     {
+//   title: "Allowed Technology – Web Development",
+//   items: [
+//     "Use HTML, CSS, and JavaScript to build your solution",
+//     "Frameworks such as React, Tailwind CSS, and Bootstrap are allowed",
+//     "Basic integrations like APIs, Firebase, or local storage may be used",
+//     "Focus on creating a working, useful, and user-friendly application",
+//   ],
+// },
+// {
+//   title: "Allowed Technology – Python Development",
+//   items: [
+//     "Use Python to build your solution",
+//     "Standard libraries are allowed",
+//     "One external library may be used if required (e.g., numpy, pandas)",
+//     "Heavy frameworks such as Django or Flask are not allowed",
+//     "Focus on clear logic and a working program",
+//   ],
+// },
 
-    {
-      title: "Development Rules",
-      items: [
-        "All development must be done during the hackathon",
-        "Open-source libraries are allowed but must be understood",
-        "Internet access is allowed for research purposes only",
-        "Teams must be able to explain their code clearly",
-      ],
-    },
-    {
-      title: "Submission & Presentation",
-      items: [
-        "Teams must submit source code (GitHub/ZIP), presentation, and working demo",
-        "Each team will get 7 minutes for presentation and 5 minutes for Q&A",
-        "Projects must be in working condition during evaluation",
-      ],
-    },
-    {
-      title: "Judging Criteria",
-      items: [
-        "Working Solution – 20%",
-        "Usefulness & Impact – 20%",
-        "Creativity & Innovation – 20%",
-        "Technical Implementation – 20%",
-        "Presentation & Explanation – 20%",
-      ],
-    },
-    {
-      title: "Team & Participation",
-      items: [
-        "Each team must have 2–4 members",
-        "All members must actively participate",
-        "Team changes are not allowed after the event starts",
-      ],
-    },
-    {
-      title: "Fair Play & Conduct",
-      items: [
-        "Cheating, plagiarism, or unfair advantage will lead to disqualification",
-        "Participants must maintain discipline and professional behavior",
-        "Misconduct may result in immediate removal from the event",
-      ],
-    },
-    {
-      title: "Time & Submission Policy",
-      items: [
-        "All submissions must be completed before the deadline",
-        "Late submissions will not be accepted",
-        "No changes will be allowed after final submission",
-      ],
-    },
-    {
-      title: "General Rules",
-      items: [
-        "All projects must be original and created by participants",
-        "Participants must bring their own laptops and required tools",
-        "Organizers are not responsible for personal belongings",
-        "Participants must follow institutional and safety guidelines",
-      ],
-    },
-    {
-      title: "Results & Terms",
-      items: [
-        "Judges’ decisions are final and binding",
-        "No objections will be considered once results are announced",
-        "Organizers reserve the right to modify rules or schedule at any time",
-      ],
-    },
-  ],
-}
+//     {
+//       title: "Development Rules",
+//       items: [
+//         "All development must be done during the hackathon",
+//         "Open-source libraries are allowed but must be understood",
+//         "Internet access is allowed for research purposes only",
+//         "Teams must be able to explain their code clearly",
+//       ],
+//     },
+//     {
+//       title: "Submission & Presentation",
+//       items: [
+//         "Teams must submit source code (GitHub/ZIP), presentation, and working demo",
+//         "Each team will get 7 minutes for presentation and 5 minutes for Q&A",
+//         "Projects must be in working condition during evaluation",
+//       ],
+//     },
+//     {
+//       title: "Judging Criteria",
+//       items: [
+//         "Working Solution – 20%",
+//         "Usefulness & Impact – 20%",
+//         "Creativity & Innovation – 20%",
+//         "Technical Implementation – 20%",
+//         "Presentation & Explanation – 20%",
+//       ],
+//     },
+//     {
+//       title: "Team & Participation",
+//       items: [
+//         "Each team must have 2–4 members",
+//         "All members must actively participate",
+//         "Team changes are not allowed after the event starts",
+//       ],
+//     },
+//     {
+//       title: "Fair Play & Conduct",
+//       items: [
+//         "Cheating, plagiarism, or unfair advantage will lead to disqualification",
+//         "Participants must maintain discipline and professional behavior",
+//         "Misconduct may result in immediate removal from the event",
+//       ],
+//     },
+//     {
+//       title: "Time & Submission Policy",
+//       items: [
+//         "All submissions must be completed before the deadline",
+//         "Late submissions will not be accepted",
+//         "No changes will be allowed after final submission",
+//       ],
+//     },
+//     {
+//       title: "General Rules",
+//       items: [
+//         "All projects must be original and created by participants",
+//         "Participants must bring their own laptops and required tools",
+//         "Organizers are not responsible for personal belongings",
+//         "Participants must follow institutional and safety guidelines",
+//       ],
+//     },
+//     {
+//       title: "Results & Terms",
+//       items: [
+//         "Judges’ decisions are final and binding",
+//         "No objections will be considered once results are announced",
+//         "Organizers reserve the right to modify rules or schedule at any time",
+//       ],
+//     },
+//   ],
+// }
 
-,
+// ,
   debugging: {
     title: "CODE DEBUGGING",
     subtitle: "Crack the Code - Debug - Fix - Conquer",
@@ -267,110 +267,110 @@ hackathon: {
       },
     ],
   },
-  business: {
-    title: "BUSINESS PLAN",
-    subtitle: "Startup Pitch Competition",
-    color: "#38bdf8",
-    formLink: "https://forms.gle/y5rxqgvFfaNTMnqy8",
-    // pdfLink: "/pdfs/-offline-form.pdf",
+  // business: {
+  //   title: "BUSINESS PLAN",
+  //   subtitle: "Startup Pitch Competition",
+  //   color: "#38bdf8",
+  //   formLink: "https://forms.gle/y5rxqgvFfaNTMnqy8",
+  //   // pdfLink: "/pdfs/-offline-form.pdf",
 
-    rules: [
-      {
-        title: "Idea Requirements",
-        items: ["The business idea must be original and genuine"],
-      },
-      {
-        title: "Presentation Medium",
-        items: ["Presentation may be delivered in English or Manipuri"],
-      },
-      {
-        title: "Dress Code",
-        items: ["Participants are required to follow a formal dress code"],
-      },
-      {
-        title: "Participant Guidelines",
-        items: [
-          "Participants must bring a valid ID proof",
-          "Participation is allowed individually or in teams of up to 2 members",
-          "Participants should bring their own required devices",
-        ],
-      },
-      {
-        title: "Presentation Format",
-        items: [
-          "Each participant or team will have 10 minutes for presentation followed by a Q&A session",
-        ],
-      },
-      {
-        title: "Final Decision",
-        items: [
-          "The decision of the judging panel and organizers will be final and binding",
-        ],
-      },
-    ],
-  },
-  mlbb: {
-    title: "MLBB ARENA",
-    subtitle: "Team Strategy Battle",
-    color: "#ffcc00",
-    formLink: "https://forms.gle/FPx1R2KMwwktWx8b7",
-    // pdfLink: "/pdfs/-offline-form.pdf",
+  //   rules: [
+  //     {
+  //       title: "Idea Requirements",
+  //       items: ["The business idea must be original and genuine"],
+  //     },
+  //     {
+  //       title: "Presentation Medium",
+  //       items: ["Presentation may be delivered in English or Manipuri"],
+  //     },
+  //     {
+  //       title: "Dress Code",
+  //       items: ["Participants are required to follow a formal dress code"],
+  //     },
+  //     {
+  //       title: "Participant Guidelines",
+  //       items: [
+  //         "Participants must bring a valid ID proof",
+  //         "Participation is allowed individually or in teams of up to 2 members",
+  //         "Participants should bring their own required devices",
+  //       ],
+  //     },
+  //     {
+  //       title: "Presentation Format",
+  //       items: [
+  //         "Each participant or team will have 10 minutes for presentation followed by a Q&A session",
+  //       ],
+  //     },
+  //     {
+  //       title: "Final Decision",
+  //       items: [
+  //         "The decision of the judging panel and organizers will be final and binding",
+  //       ],
+  //     },
+  //   ],
+  // },
+  // mlbb: {
+  //   title: "MLBB ARENA",
+  //   subtitle: "Team Strategy Battle",
+  //   color: "#ffcc00",
+  //   formLink: "https://forms.gle/FPx1R2KMwwktWx8b7",
+  //   // pdfLink: "/pdfs/-offline-form.pdf",
 
-    rules: [
-      {
-        title: "Player Punctuality & Lobby Entry",
-        items: [
-          "All players must join the lobby at least 10 minutes before match time",
-          "Teams late by 10 minutes will be disqualified",
-        ],
-      },
-      {
-        title: "Player & Network Responsibility",
-        items: [
-          "Players are responsible for their own device, power supply, and internet",
-          "Matches will not be restarted due to device issues",
-        ],
-      },
-      {
-        title: "Administrative Authority",
-        items: [
-          "All decisions by admins are final",
-          "Organizers can modify rules if necessary",
-        ],
-      },
-      {
-        title: "Team Composition & Pause Rules",
-        items: [
-          "Each team must have 5 main players",
-          "Substitute player is optional",
-          "Limited pauses allowed only for technical issues",
-          "Communication during pauses may be restricted",
-        ],
-      },
-      {
-        title: "Sportsmanship",
-        items: [
-          "No foul language or harassment",
-          "No toxic behavior towards players or officials",
-          "Violation may lead to disqualification",
-        ],
-      },
-      {
-        title: "Cheating",
-        items: [
-          "Use of hacks, exploits, or third-party tools is strictly prohibited",
-          "Immediate disqualification if caught",
-        ],
-      },
-      {
-        title: "Dispute Resolution",
-        items: [
-          "All disputes must be reported to tournament officials",
-          "Officials will review and give final decision",
-        ],
-      },
-    ],
-  },
+  //   rules: [
+  //     {
+  //       title: "Player Punctuality & Lobby Entry",
+  //       items: [
+  //         "All players must join the lobby at least 10 minutes before match time",
+  //         "Teams late by 10 minutes will be disqualified",
+  //       ],
+  //     },
+  //     {
+  //       title: "Player & Network Responsibility",
+  //       items: [
+  //         "Players are responsible for their own device, power supply, and internet",
+  //         "Matches will not be restarted due to device issues",
+  //       ],
+  //     },
+  //     {
+  //       title: "Administrative Authority",
+  //       items: [
+  //         "All decisions by admins are final",
+  //         "Organizers can modify rules if necessary",
+  //       ],
+  //     },
+  //     {
+  //       title: "Team Composition & Pause Rules",
+  //       items: [
+  //         "Each team must have 5 main players",
+  //         "Substitute player is optional",
+  //         "Limited pauses allowed only for technical issues",
+  //         "Communication during pauses may be restricted",
+  //       ],
+  //     },
+  //     {
+  //       title: "Sportsmanship",
+  //       items: [
+  //         "No foul language or harassment",
+  //         "No toxic behavior towards players or officials",
+  //         "Violation may lead to disqualification",
+  //       ],
+  //     },
+  //     {
+  //       title: "Cheating",
+  //       items: [
+  //         "Use of hacks, exploits, or third-party tools is strictly prohibited",
+  //         "Immediate disqualification if caught",
+  //       ],
+  //     },
+  //     {
+  //       title: "Dispute Resolution",
+  //       items: [
+  //         "All disputes must be reported to tournament officials",
+  //         "Officials will review and give final decision",
+  //       ],
+  //     },
+  //   ],
+  // },
   cosplay: {
     title: "COSPLAY SHOWCASE",
     subtitle: "Dress. Perform. Become the Character.",

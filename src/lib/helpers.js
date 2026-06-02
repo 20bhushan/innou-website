@@ -1,21 +1,21 @@
 ﻿export const EVENT_VISUALS = {
-  hackathon: {
-    classKey: "hackathon",
-    category: "MAIN EVENTS",
-    prize: "Rs 30,000",
-    fee: "₹300 / team",
-    image: "/images/hackathon.png",
-    description:
-      "Innovate for a smarter campus. Build impactful solutions using web and Python development.",
-  },
-  business: {
-    classKey: "business",
-    category: "MAIN EVENTS",
-    prize: "Rs 30,000",
-    fee: "₹300 / team",
-    image: "/images/bussinessplan.png",
-    description: "Pitch your startup idea.",
-  },
+  // hackathon: {
+  //   classKey: "hackathon",
+  //   category: "MAIN EVENTS",
+  //   prize: "Rs 30,000",
+  //   fee: "₹300 / team",
+  //   image: "/images/hackathon.png",
+  //   description:
+  //     "Innovate for a smarter campus. Build impactful solutions using web and Python development.",
+  // },
+  // business: {
+  //   classKey: "business",
+  //   category: "MAIN EVENTS",
+  //   prize: "Rs 30,000",
+  //   fee: "₹300 / team",
+  //   image: "/images/bussinessplan.png",
+  //   description: "Pitch your startup idea.",
+  // },
   debugging: {
     classKey: "debug",
     category: "TECHNICAL EVENTS",
@@ -34,14 +34,14 @@
     description:
       "Compete to prove your speed and accuracy and claim the typing title.",
   },
-  mlbb: {
-    classKey: "mlbb",
-    category: "E-SPORTS",
-    prize: "Rs 30,000",
-    fee: "₹500 / team",
-    image: "/images/mlbb.jpg",
-    description: "Teamwork defines victory.",
-  },
+  // mlbb: {
+  //   classKey: "mlbb",
+  //   category: "E-SPORTS",
+  //   prize: "Rs 30,000",
+  //   fee: "₹500 / team",
+  //   image: "/images/mlbb.jpg",
+  //   description: "Teamwork defines victory.",
+  // },
   cosplay: {
     classKey: "cosplay",
     category: "CREATIVE ARENA",
