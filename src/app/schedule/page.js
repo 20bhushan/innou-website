@@ -36,8 +36,8 @@ const iconMap = {
           <div key={index} className="schedule-item">
 
             <div className="schedule-day">
-              <h2>{day.day}</h2>
-              <span>{day.date}</span>
+              <h2>{day.date}</h2>
+              <span>{day.time}</span>
             </div>
             <div className="schedule-events">
               {day.events.map((event, i) => {
