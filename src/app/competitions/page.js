@@ -7,9 +7,9 @@ import { rulesData } from "@/data/rulesData";
 import { getEventCardBackground, getEventVisual } from "@/lib/helpers";
 
 const CATEGORY_ORDER = [
-  "MAIN EVENTS",
+  // "MAIN EVENTS",
   "TECHNICAL EVENTS",
-  "E-SPORTS",
+  // "E-SPORTS",
   "CREATIVE ARENA",
   "SPORTS",
   "OTHER",
