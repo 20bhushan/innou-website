@@ -567,7 +567,6 @@ export const rulesData = {
       {
         title: "Registration",
         items: [
-          "Registration opens by late Monday or Tuesday",
           "Early bird fee: ₹250 (23–24 March to 1st April approx.)",
           "Regular fee: ₹300 (till 10th April)",
           
