@@ -266,7 +266,7 @@ export const rulesData = {
         items: ["Typing Speed - 50%", "Accuracy - 40%", "Consistency - 10%"],
       },
     ],
-  },
+  },  
   // business: {
   //   title: "BUSINESS PLAN",
   //   subtitle: "Startup Pitch Competition",
@@ -570,15 +570,13 @@ export const rulesData = {
           "Registration opens by late Monday or Tuesday",
           "Early bird fee: ₹250 (23–24 March to 1st April approx.)",
           "Regular fee: ₹300 (till 10th April)",
-          "On-spot registration available (limited slots)",
-          "Limited extra bibs available for on-spot registration",
+          
         ],
       },
       {
         title: "Race Day Info",
         items: [
           "Participants must arrive early at the venue",
-          "On-spot registration opens 30–40 minutes before race",
           "Flag-off time: 5:30 AM sharp",
           "Participants must follow instructions from officials and volunteers",
         ],
