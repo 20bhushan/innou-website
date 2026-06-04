@@ -619,7 +619,6 @@ export const rulesData = {
         title: "Extras",
         items: [
           "Custom medals will be awarded to finishers",
-          "Additional medals reserved for on-spot participants",
           "Event details and updates will be announced before 19th April 2026",
         ],
       },
