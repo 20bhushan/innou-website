@@ -5,7 +5,7 @@ export const eventConfig = {
 
   subtitle: "The intersection of Technology & Business",
 
-  countdownDate: "2026-06-06T00:00:00",
+  countdownDate: "2026-06-07T00:00:00",
 
   contactEmail: "innou@fest.com",
   contactPhone: "+91 98765 43210",

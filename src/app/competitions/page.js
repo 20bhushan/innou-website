@@ -71,7 +71,35 @@ function EventCountdown({ config }) {
 
 export default function CompetitionsPage() {
   const canvasRef = useRef(null);
+const [runSlots, setRunSlots] = useState(null);
+const [slots, setSlots] = useState({});
+useEffect(() => {
+  const fetchSlots = async () => {
+    try {
+      const cosplayRes = await fetch(
+        "https://script.google.com/macros/s/AKfycbyvD9wlzW4gVetn44ZUceUoZuD3fW_i9WLZJZUGTNnaEhMH2QxBwoeepm8s4q5xTYAUmg/exec",
+        {
+          cache: "no-store",
+        }
+      );
 
+      const cosplayData = await cosplayRes.json();
+
+      setSlots((prev) => ({
+  ...prev,
+  cosplay: cosplayData,
+}));
+    } catch (err) {
+      console.error("Cosplay slot fetch error:", err);
+    }
+  };
+
+  fetchSlots();
+
+  const interval = setInterval(fetchSlots, 30000);
+
+  return () => clearInterval(interval);
+}, []);
   const groupedEvents = useMemo(() => {
     return Object.entries(rulesData).reduce((acc, [key, event]) => {
       const visual = getEventVisual(key);
@@ -258,11 +286,13 @@ export default function CompetitionsPage() {
           <div className="page-wrapper">
             {groupedEvents[category].map(({ key, event, visual }) => {
               const now = new Date();
-
-              const isRegistrationClosed =
-                !!event.formLink &&
-                visual.offerCountdown?.enabled &&
-                now > new Date(visual.offerCountdown.endTime);
+const isRegistrationClosed =
+  (
+    !!event.formLink &&
+    visual.offerCountdown?.enabled &&
+    now > new Date(visual.offerCountdown.endTime)
+  ) ||
+  slots[key]?.available <= 0;
 
               return (
                 <article
@@ -302,6 +332,17 @@ export default function CompetitionsPage() {
                         </div>
 
                         <EventCountdown config={visual.offerCountdown} />
+{slots[key] && (
+  <div
+    className={`slot-count ${
+      slots[key].available <= 0 ? "danger" : ""
+    }`}
+  >
+    {slots[key].available <= 0
+      ? "🚫 Slots Full"
+      : `🎭 Only ${slots[key].available} slots left`}
+  </div>
+)}
                       </div>
                     </div>
 
