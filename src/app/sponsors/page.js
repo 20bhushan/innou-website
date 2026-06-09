@@ -6,12 +6,16 @@ import { sponsorsData } from "@/data/sponsorsData";
 
 const sponsorSections = [
   {
-    title: "Gaming Partner",
-    roles: ["Gaming Partner"],
+    title: "Gold Sponsors",
+    roles: ["Gold Sponsor"],
   },
   {
-    title: "Sponsors",
-    roles: ["Sponsor"],
+    title: "Silver Sponsors",
+    roles: ["Silver Sponsor"],
+  },
+  {
+    title: "Gaming Partner",
+    roles: ["Gaming Partner"],
   },
   {
     title: "Media Partner",
@@ -55,8 +59,15 @@ function SponsorSection({ title, roles }) {
   if (!items.length) return null;
 
   return (
-    <section className="partners-section">
-      <div className="section-heading-wrap">
+<section
+  className={`partners-section ${
+    title === "Gold Sponsors"
+      ? "gold-section"
+      : title === "Silver Sponsors"
+      ? "silver-section"
+      : ""
+  }`}
+>      <div className="section-heading-wrap">
         <h2 className="section-heading">{title}</h2>
       </div>
 
