@@ -43,23 +43,36 @@
   //   description: "Teamwork defines victory.",
   // },
   cosplay: {
-    classKey: "cosplay",
-    category: "CREATIVE ARENA",
-    prize: "Rs 15,000",
-    fee: "₹200 / Participant",
-    image: "/images/cosplays.png",
+  classKey: "cosplay",
+  category: "CREATIVE ARENA",
+  prize: "Rs 15,000",
+  fee: "₹200 / Participant",
+  image: "/images/cosplays.png",
+  description: "Bring characters to life.",
 
-    description: "Bring characters to life.",
+  offerCountdown: {
+    enabled: true,
+    endTime: "2026-06-10T23:59:59+05:30",
+    activeLabel: "⏳ Registration closes in",
+    expiredLabel: "Registration Closed",
   },
-  dance: {
-    classKey: "dance",
-    category: "CREATIVE ARENA",
-    prize: "Rs 22,000",
-    fee: "₹300 / team",
-    image: "/images/k-pop.jpg",
+},
 
-    description: "",
+dance: {
+  classKey: "dance",
+  category: "CREATIVE ARENA",
+  prize: "Rs 22,000",
+  fee: "₹300 / team",
+  image: "/images/k-pop.jpg",
+  description: "",
+
+  offerCountdown: {
+    enabled: true,
+    endTime: "2026-06-10T23:59:59+05:30",
+    activeLabel: "⏳ Registration closes in",
+    expiredLabel: "Registration Closed",
   },
+},
   reels: {
     classKey: "reels",
     category: "CREATIVE ARENA",
