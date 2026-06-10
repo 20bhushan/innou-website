@@ -66,6 +66,12 @@ export const sponsorsData = [
   link: "#",
 },
 {
+  name: "Yarou Sangai Nachom",
+  logo: "/sponsors/yarou_Sangai_Nachom.jpg",
+  role: "Gold Sponsor",
+  link: "#",
+},
+{
   name: "Kosmic Home",
   logo: "/sponsors/kosmic-home.png",
   role: "Silver Sponsor",
