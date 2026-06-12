@@ -5,6 +5,10 @@ import Footer from "@/components/sections/Footer";
 import { sponsorsData } from "@/data/sponsorsData";
 
 const sponsorSections = [
+   {
+    title: "Diamond Sponsors",
+    roles: ["Diamond Sponsor"],
+  },
   {
     title: "Gold Sponsors",
     roles: ["Gold Sponsor"],
@@ -61,21 +65,50 @@ function SponsorSection({ title, roles }) {
   return (
 <section
   className={`partners-section ${
-    title === "Gold Sponsors"
-      ? "gold-section"
-      : title === "Silver Sponsors"
-      ? "silver-section"
-      : ""
-  }`}
+  title === "Diamond Sponsors"
+    ? "diamond-section"
+    : title === "Gold Sponsors"
+    ? "gold-section"
+    : title === "Silver Sponsors"
+    ? "silver-section"
+    : ""
+}`}
 >      <div className="section-heading-wrap">
         <h2 className="section-heading">{title}</h2>
       </div>
 
-      <div className="sponsor-grid">
-        {items.map((sponsor, index) => (
-          <SponsorCard key={`${sponsor.name}-${index}`} sponsor={sponsor} />
-        ))}
-      </div>
+      {title === "Diamond Sponsors" ? (
+  <div className="diamond-container">
+    {items.map((sponsor, index) => (
+      <a
+        key={`${sponsor.name}-${index}`}
+        href={sponsor.link || "#"}
+        target={sponsor.link ? "_blank" : "_self"}
+        rel={sponsor.link ? "noopener noreferrer" : undefined}
+        className="diamond-sponsor-card"
+      >
+        <Image
+          src={sponsor.logo}
+          alt={sponsor.name}
+          width={800}
+          height={400}
+          className="diamond-logo"
+        />
+
+        <div className="diamond-info">
+          <h3>{sponsor.name}</h3>
+          <span>{sponsor.role}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+) : (
+  <div className="sponsor-grid">
+    {items.map((sponsor, index) => (
+      <SponsorCard key={`${sponsor.name}-${index}`} sponsor={sponsor} />
+    ))}
+  </div>
+)}
     </section>
   );
 }

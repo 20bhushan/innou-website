@@ -12,18 +12,6 @@ export const sponsorsData = [
     link: "#",
   },
   {
-    name: "Dental House",
-    logo: "/sponsors/dental.jpeg",
-    role: "Sponsor",
-    link: "#",
-  },
-  {
-    name: "Yarou Sangai Nachom",
-    logo: "/sponsors/sangai.jpeg",
-    role: "Sponsor",
-    link: "#",
-  },
-  {
     name: "Kumhei",
     logo: "/sponsors/kumhei.png",
     role: "Media Partner",
@@ -47,6 +35,12 @@ export const sponsorsData = [
     role: "Support Partner",
     link: "#",
   },
+  {
+  name: "BABINA",
+  logo: "/sponsors/babina.png",
+  role: "Diamond Sponsor",
+  link: "#",
+},
   {
   name: "SBI RBO",
   logo: "/sponsors/sbi-rbo.jpg",
@@ -73,7 +67,19 @@ export const sponsorsData = [
 },
 {
   name: "Kosmic Home",
-  logo: "/sponsors/kosmic-home.png",
+  logo: "/sponsors/Kosmic_home.PNG",
+  role: "Silver Sponsor",
+  link: "#",
+},
+{
+  name: "Dental House",
+  logo: "/sponsors/dental_house.jpg",
+  role: "Silver Sponsor",
+  link: "#",
+},
+{
+  name: "MICKEYRAJ",
+  logo: "/sponsors/mickeyraj.jpg.jpeg",
   role: "Silver Sponsor",
   link: "#",
 },
@@ -98,6 +104,18 @@ export const sponsorsData = [
 {
   name: "Asian Delight",
   logo: "/sponsors/asian-delight.png",
+  role: "Silver Sponsor",
+  link: "#",
+},
+{
+  name: "Xtep",
+  logo: "/sponsors/xtep.jpeg",
+  role: "Silver Sponsor",
+  link: "#",
+},
+{
+  name: "JCRE meds",
+  logo: "/sponsors/jcre_meds.png",
   role: "Silver Sponsor",
   link: "#",
 },

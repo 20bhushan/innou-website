@@ -295,6 +295,198 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
+/* ================= DIAMOND SPONSOR ================= */
+
+.diamond-section {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 40px;
+  padding: 32px;
+  border-radius: 28px;
+
+  background:
+    radial-gradient(circle at top left,
+      rgba(0,242,255,0.12),
+      transparent 35%),
+    radial-gradient(circle at top right,
+      rgba(188,112,255,0.12),
+      transparent 35%),
+    linear-gradient(
+      180deg,
+      rgba(8,12,28,0.98),
+      rgba(4,8,20,0.96)
+    );
+
+  border: 1px solid rgba(0,242,255,0.25);
+
+  box-shadow:
+    0 0 40px rgba(0,242,255,0.12),
+    0 0 80px rgba(188,112,255,0.08);
+
+  backdrop-filter: blur(18px);
+}
+
+.diamond-section::before {
+  content: "";
+  position: absolute;
+  inset: -200%;
+
+  background: linear-gradient(
+    120deg,
+    transparent 45%,
+    rgba(255,255,255,0.08) 50%,
+    transparent 55%
+  );
+
+  animation: diamondSweep 8s linear infinite;
+  pointer-events: none;
+}
+
+.diamond-section .section-heading {
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+
+  text-shadow:
+    0 0 10px rgba(0,242,255,0.6),
+    0 0 25px rgba(188,112,255,0.4);
+}
+
+/* Main Diamond Card */
+
+.diamond-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.diamond-sponsor-card {
+  position: relative;
+
+  width: 100%;
+  max-width: 720px;
+
+  padding: 32px;
+
+  border-radius: 28px;
+
+  overflow: hidden;
+  text-decoration: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,242,255,0.06),
+      rgba(188,112,255,0.06)
+    );
+
+  border: 1px solid rgba(0,242,255,0.25);
+
+  box-shadow:
+    0 0 30px rgba(0,242,255,0.12),
+    0 0 60px rgba(188,112,255,0.08);
+
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease;
+}
+
+.diamond-sponsor-card:hover {
+  transform: translateY(-8px);
+
+  border-color: rgba(0,242,255,0.45);
+
+  box-shadow:
+    0 0 40px rgba(0,242,255,0.22),
+    0 0 80px rgba(188,112,255,0.18);
+}
+
+/* Logo */
+
+.diamond-logo {
+  display: block;
+
+  width: 100%;
+  max-width: 420px;
+
+  margin: 0 auto;
+
+  object-fit: contain;
+
+  transition: transform .35s ease;
+}
+
+.diamond-sponsor-card:hover .diamond-logo {
+  transform: scale(1.05);
+}
+
+/* Text */
+
+.diamond-info {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.diamond-info h3 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.diamond-info span {
+  display: inline-block;
+  margin-top: 8px;
+
+  color: #8cecff;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Shine Effect */
+
+@keyframes diamondSweep {
+  from {
+    transform: translateX(-60%) rotate(25deg);
+  }
+
+  to {
+    transform: translateX(60%) rotate(25deg);
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .diamond-section {
+    padding: 20px;
+  }
+
+  .diamond-sponsor-card {
+    max-width: 100%;
+    padding: 22px;
+    border-radius: 22px;
+  }
+
+  .diamond-logo {
+    max-width: 280px;
+  }
+
+  .diamond-info h3 {
+    font-size: 1.2rem;
+  }
+
+  .diamond-info span {
+    font-size: 0.75rem;
+  }
+}
 .gold-section {
   background: linear-gradient(
     180deg,
